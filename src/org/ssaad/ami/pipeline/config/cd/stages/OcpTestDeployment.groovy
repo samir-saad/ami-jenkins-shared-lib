@@ -10,7 +10,7 @@ class OcpTestDeployment extends OcpDeployment implements Serializable {
         super()
 
         this.name = "Deploy to Test"
-        this.project = "ag-pssg-is-test"
+        this.project = "qa"
         this.imageTag = '${config.app.version}'
 
         this.env = "test"

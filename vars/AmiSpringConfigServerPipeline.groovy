@@ -26,14 +26,20 @@ def call(Closure body) {
 						// Dev template
 						config.cdConfig.ocpDevDeployment.templates.clear()
 						config.cdConfig.ocpDevDeployment.templates.add(TemplateUtils.getSpringConfigServerDC())
+						config.cdConfig.ocpDevDeployment.templates.add(TemplateUtils.getExternalRoute())
+						config.cdConfig.ocpDevDeployment.templates.add(TemplateUtils.getExternalMgmtRoute())
 
 						// Test template
 						config.cdConfig.ocpTestDeployment.templates.clear()
 						config.cdConfig.ocpTestDeployment.templates.add(TemplateUtils.getSpringConfigServerDC())
+						config.cdConfig.ocpTestDeployment.templates.add(TemplateUtils.getExternalRoute())
+						config.cdConfig.ocpTestDeployment.templates.add(TemplateUtils.getExternalMgmtRoute())
 
 						// Prod template
 						config.cdConfig.ocpProdDeployment.templates.clear()
 						config.cdConfig.ocpProdDeployment.templates.add(TemplateUtils.getSpringConfigServerDC())
+						config.cdConfig.ocpProdDeployment.templates.add(TemplateUtils.getExternalRoute())
+						config.cdConfig.ocpProdDeployment.templates.add(TemplateUtils.getExternalMgmtRoute())
 
 						println("Pipeline Configs: \n" + new JsonBuilder(config).toPrettyString())
 					}

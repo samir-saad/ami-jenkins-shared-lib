@@ -11,7 +11,7 @@ class OcpDevDeployment extends OcpDeployment implements Serializable {
         super()
 
         this.name = "Deploy to Dev"
-        this.project = "ag-pssg-is-dev"
+        this.project = "dev"
         this.env = "dev"
 
         // Test params

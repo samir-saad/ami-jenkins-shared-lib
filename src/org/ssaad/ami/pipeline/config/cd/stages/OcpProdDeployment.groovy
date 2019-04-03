@@ -12,7 +12,7 @@ class OcpProdDeployment extends OcpDeployment implements Serializable {
         super()
 
         this.name = "Deploy to Prod"
-        this.project = "ag-pssg-is-prod"
+        this.project = "prod"
         this.imageTag = '${config.app.version}'
 
         this.env = "prod"
