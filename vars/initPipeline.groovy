@@ -12,7 +12,7 @@ def call(/*String config*/) {
 		error("master branches aren't allowed")
 	}
 
-	slackNotification.info message: 'STARTED', appendBuildInfo: true
+	//slackNotification.info message: 'STARTED', appendBuildInfo: true
 	PipelineConfig pipelineConfig
 
 	// Get Json

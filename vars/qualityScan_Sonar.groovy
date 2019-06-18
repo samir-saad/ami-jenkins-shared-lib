@@ -18,9 +18,6 @@ def call(PipelineConfig config) {
 		}
   	}
 	timeout(time: config.ciConfig.codeQualityStage.sonarGatewayTimeout, unit: config.ciConfig.codeQualityStage.sonarGatewayTimeoutUnit) {
-		def qg = waitForQualityGate(config.ciConfig.codeQualityStage.sonarGatewayConfigName)
-		if (qg.status != 'OK') {
-			error "Pipeline aborted due to quality gate failure: ${qg.status}"
-		}
+		waitForQualityGate abortPipeline: true
 	}
 }

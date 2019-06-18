@@ -211,10 +211,10 @@ def call(Closure body) {
 			}
 		}
 
-		post('Publish Results') {
+		/*post('Publish Results') {
 			always {
 				slackBuildResult()
 			}
-		}
+		}*/
 	}
 }
