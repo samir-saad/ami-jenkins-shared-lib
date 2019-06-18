@@ -7,6 +7,8 @@ def call(PipelineConfig config) {
 
 	dir(config.app.id) {
 		sh "mvn ${config.ciConfig.codeTestStage.goals} ${config.ciConfig.codeTestStage.params}"
-		step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+		if (fileExists('**/target/surefire-reports/TEST-*.xml')){
+			step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+		}
 	}
 }
