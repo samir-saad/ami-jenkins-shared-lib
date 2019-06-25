@@ -11,6 +11,6 @@ class CodeSecurityStage extends Stage implements Serializable {
         this.name = "Dependencies Scanning"
         this.engine = "maven"
         this.goals = "dependency-check:check"
-        this.params = "-DskipTests=true"
+        this.params = "-DskipTests=true -DfailOnError=false"
     }
 }
