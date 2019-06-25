@@ -44,6 +44,8 @@ public class TemplateUtils implements Serializable {
         template.filePath = "deploy/ocp/templates/ami-spring-app-template.yaml"
         template.params = getDCCommonParams()
         template.params.put("CONFIGS_BRANCH", '${ocpDeployment.env}')
+        template.params.put("DEPLOYMENT_TYPE", '${ocpDeployment.type}')
+        template.params.put("DEPLOYMENT_TAG", '${ocpDeployment.tag}')
 
         return template
     }
