@@ -40,7 +40,7 @@ def call(PipelineConfig config, OcpDeployment ocpDeployment) {
 			sh "cat ${soapuiProperties}"
 
 			// Run tests
-			String command = "mvn -U com.smartbear.soapui:soapui-maven-plugin:5.4.0:" + ocpDeployment.testing.goals + " -Dsoapui.project=" + soapuiProject + " -Dsoapui.properties=" + soapuiProperties
+			String command = "mvn com.smartbear.soapui:soapui-maven-plugin:5.4.0:" + ocpDeployment.testing.goals + " -Dsoapui.project=" + soapuiProject + " -Dsoapui.properties=" + soapuiProperties
 			sh command
 		}
 	}
