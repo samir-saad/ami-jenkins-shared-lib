@@ -4,6 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 
 class Test {
     void test(steps){
+
+        steps.println steps
+
+        steps.println steps.class
+        
         ObjectMapper objectMapper = new ObjectMapper()
 
         Animal myDog = new Dog("ruffus","english shepherd")
