@@ -35,7 +35,7 @@
 			<artifactId>workflow-job</artifactId>
 		</dependency>
 
-		<!-- <dependency>
+		 <dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy</artifactId>
 			<version>1.8.9</version>
@@ -44,7 +44,7 @@
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-json</artifactId>
 			<version>2.4.3</version>
-		</dependency> -->
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.jenkins-ci.main/jenkins-core -->
 		<dependency>

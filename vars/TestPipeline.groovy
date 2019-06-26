@@ -20,7 +20,7 @@ def call(Closure body) {
 				steps {
 					script {
 						//println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
-						new Test().test()
+						new Test().test(this)
 					}
 				}
 			}
