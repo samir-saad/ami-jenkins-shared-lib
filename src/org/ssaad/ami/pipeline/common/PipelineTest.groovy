@@ -16,12 +16,10 @@ class PipelineTest {
         Pipeline pipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
         ObjectMapper objectMapper = new ObjectMapper()
         try {
-            steps.println objectMapper.writeValueAsString(pipeline)
+            String txt = objectMapper.writeValueAsString(pipeline)
+            steps.println txt
             steps.println new JsonBuilder(pipeline).toPrettyString()
 
-
-            println "XXXXXXXXXXXXXXXX"
-            System.out.println("YYYYYYYYYYYYYYYYYYYY")
         } catch (JsonProcessingException e) {
             e.printStackTrace()
         }
