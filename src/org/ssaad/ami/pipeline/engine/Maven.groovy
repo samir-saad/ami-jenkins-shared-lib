@@ -1,10 +1,5 @@
 package org.ssaad.ami.pipeline.engine
 
-import lombok.Getter
-import lombok.Setter
-
-@Getter
-@Setter
 class Maven extends Engine {
 
     String settingsFile
