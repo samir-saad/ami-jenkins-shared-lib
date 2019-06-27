@@ -8,16 +8,16 @@ class PipelineTest {
 
     static void main(String[] args) {
 
-        Pipeline pipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
-        new PipelineTest().printPipeline(pipeline)
+        new PipelineTest().printPipeline()
     }
 
-    void printPipeline(Pipeline pipeline){
+    void printPipeline(steps) {
 
+        Pipeline pipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
         ObjectMapper objectMapper = new ObjectMapper()
         try {
-            System.out.println(objectMapper.writeValueAsString(pipeline))
-            println new JsonBuilder(pipeline).toPrettyString()
+            steps.println objectMapper.writeValueAsString(pipeline)
+            steps.println new JsonBuilder(pipeline).toPrettyString()
         } catch (JsonProcessingException e) {
             e.printStackTrace()
         }
