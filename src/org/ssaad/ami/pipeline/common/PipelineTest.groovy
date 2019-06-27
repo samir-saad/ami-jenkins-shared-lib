@@ -18,6 +18,10 @@ class PipelineTest {
         try {
             steps.println objectMapper.writeValueAsString(pipeline)
             steps.println new JsonBuilder(pipeline).toPrettyString()
+
+
+            println "XXXXXXXXXXXXXXXX"
+            System.out.println("YYYYYYYYYYYYYYYYYYYY")
         } catch (JsonProcessingException e) {
             e.printStackTrace()
         }
