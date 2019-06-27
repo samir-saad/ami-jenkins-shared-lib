@@ -1,14 +1,13 @@
-import groovy.json.JsonBuilder
 import hudson.model. *
-import org.ssaad.ami.pipeline.test.Test
+import org.ssaad.ami.pipeline.common.FactoryProvider
+import org.ssaad.ami.pipeline.common.Pipeline
+import org.ssaad.ami.pipeline.common.PipelineFactory
+import org.ssaad.ami.pipeline.common.PipelineTest
 
-//import org.ssaad.ami.pipeline.FactoryProvider
-//import org.ssaad.ami.pipeline.Pipeline
-//import org.ssaad.ami.pipeline.PipelineFactory
 
 def call(Closure body) {
 
-	//Pipeline superPipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
+	Pipeline superPipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
 
 	pipeline {
 
@@ -20,7 +19,7 @@ def call(Closure body) {
 				steps {
 					script {
 						//println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
-						new Test().test(this)
+						new PipelineTest().print(superPipeline)
 					}
 				}
 			}
