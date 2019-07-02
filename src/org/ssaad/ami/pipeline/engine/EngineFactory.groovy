@@ -11,9 +11,11 @@ class EngineFactory {
         Engine engine
         switch (enginesEnum) {
             case EnginesEnum.MAVEN:
-                engine = new Maven(task)
+                engine = new MavenFactory().create(task)
                 break
         }
+
+        engine.type = enginesEnum
         return engine
     }
 }

@@ -15,7 +15,9 @@ class Pipeline implements Serializable, Initializable, Executable {
     SortedMap<String, Stage> stages
 
     @Override
-    void init() {
+    void init(Map config) {
+        this.id = config?.id
+        this.name = config?.name
 
     }
 

@@ -8,15 +8,20 @@ class PipelineFactory {
     Pipeline create(PipelineEnum pipelineEnum) {
 
         Pipeline pipeline = new Pipeline()
-        pipeline.id = "maven-pipeline"
         pipeline.stages = new TreeMap()
 
         switch (pipelineEnum) {
             case PipelineEnum.MAVEN_SPRING_OPENSHIFT:
-                pipeline.stages.put("build", new StageFactory().create(EnginesEnum.MAVEN, TasksEnum.BUILD))
+                pipeline.id = "maven-spring-ocp-pipeline"
+                pipeline.name = "maven-spring-ocp-pipeline"
+                initStages(pipeline, EnginesEnum.MAVEN)
                 break
         }
 
         return pipeline
+    }
+
+    private void initStages(Pipeline pipeline, EnginesEnum enginesEnum){
+        pipeline.stages.put("build", new StageFactory().create(enginesEnum, TasksEnum.BUILD))
     }
 }
