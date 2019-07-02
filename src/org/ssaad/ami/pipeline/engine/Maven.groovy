@@ -13,7 +13,9 @@ class Maven extends Engine {
     }
 
     @Override
-    void execute() {
-
+    void execute(steps) {
+        if (steps != null) {
+            steps.sh "mvn ${this.goals} ${this.params}"
+        }
     }
 }

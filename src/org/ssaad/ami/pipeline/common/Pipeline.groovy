@@ -22,7 +22,7 @@ class Pipeline implements Serializable, Initializable, Executable {
     }
 
     @Override
-    void execute() {
+    void execute(steps) {
 
     }
 }

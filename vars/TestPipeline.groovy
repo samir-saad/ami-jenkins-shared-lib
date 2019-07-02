@@ -21,6 +21,8 @@ def call(Closure body) {
 					script {
 						//println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
 						new PipelineTest().printPipeline(this)
+						myPipeline.stages.get("build").execute(this)
+
 					}
 				}
 			}

@@ -5,9 +5,10 @@ import org.ssaad.ami.pipeline.stage.StageFactory
 
 class PipelineFactory {
 
-    Pipeline create(PipelineEnum pipelineEnum) {
+    Pipeline create(PipelineEnum pipelineEnum, steps) {
 
         Pipeline pipeline = new Pipeline()
+        pipeline.steps = steps
         pipeline.stages = new TreeMap()
 
         switch (pipelineEnum) {
