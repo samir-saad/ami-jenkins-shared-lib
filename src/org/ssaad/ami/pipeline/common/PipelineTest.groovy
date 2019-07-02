@@ -1,7 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
 import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.json.JsonBuilder
 
 class PipelineTest {
@@ -13,11 +12,9 @@ class PipelineTest {
 
     void printPipeline(steps) {
 
-        Pipeline pipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
-        ObjectMapper objectMapper = new ObjectMapper()
+        Pipeline pipeline = new PipelineFactory().create(PipelineEnum.MAVEN_SPRING_OPENSHIFT)
+
         try {
-            String txt = objectMapper.writeValueAsString(pipeline)
-            steps.println txt
             steps.println new JsonBuilder(pipeline).toPrettyString()
 
         } catch (JsonProcessingException e) {

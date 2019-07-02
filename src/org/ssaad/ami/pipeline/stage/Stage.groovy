@@ -11,5 +11,10 @@ abstract class Stage implements Serializable, Initializable, Executable {
     boolean enable
     boolean requiresConfirmation
 
+    Stage(){
+        this.enable = true
+        this.requiresConfirmation = false
+    }
+
     abstract boolean isActive()
 }

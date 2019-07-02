@@ -1,13 +1,14 @@
 import hudson.model. *
 import org.ssaad.ami.pipeline.common.FactoryProvider
 import org.ssaad.ami.pipeline.common.Pipeline
+import org.ssaad.ami.pipeline.common.PipelineEnum
 import org.ssaad.ami.pipeline.common.PipelineFactory
 import org.ssaad.ami.pipeline.common.PipelineTest
 
 
 def call(Closure body) {
 
-	Pipeline superPipeline = ((PipelineFactory) FactoryProvider.getFactory("Pipeline")).create("Maven")
+	Pipeline myPipeline = new PipelineFactory().create(PipelineEnum.MAVEN_SPRING_OPENSHIFT)
 
 	pipeline {
 

@@ -1,18 +1,19 @@
 package org.ssaad.ami.pipeline.engine
 
-import org.ssaad.ami.pipeline.common.AbstractFactory
 
-class EngineFactory implements AbstractFactory<Engine> {
+import org.ssaad.ami.pipeline.common.EnginesEnum
+import org.ssaad.ami.pipeline.common.TasksEnum
 
-    @Override
-    Engine create(String type) {
+class EngineFactory {
 
-        Maven maven = new Maven()
-        maven.id = "mavem"
-        maven.name = "Maven"
-        maven.goals = "clean package"
-        maven.params = "-DskipTests=true"
+    Engine create(EnginesEnum enginesEnum, TasksEnum task) {
 
-        return maven
+        Engine engine
+        switch (enginesEnum) {
+            case EnginesEnum.MAVEN:
+                engine = new Maven(task)
+                break
+        }
+        return engine
     }
 }

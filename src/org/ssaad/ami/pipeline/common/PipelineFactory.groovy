@@ -1,21 +1,21 @@
 package org.ssaad.ami.pipeline.common
 
 
-import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
 
-class PipelineFactory implements AbstractFactory<Pipeline> {
+class PipelineFactory {
 
-    @Override
-    Pipeline create(String type) {
-
-        Stage build = ((StageFactory) FactoryProvider.getFactory("Stage")).create("Build")
+    Pipeline create(PipelineEnum pipelineEnum) {
 
         Pipeline pipeline = new Pipeline()
-        pipeline.id = "maven"
+        pipeline.id = "maven-pipeline"
         pipeline.stages = new TreeMap()
 
-        pipeline.stages.put("Build", build)
+        switch (pipelineEnum) {
+            case PipelineEnum.MAVEN_SPRING_OPENSHIFT:
+                pipeline.stages.put("build", new StageFactory().create(EnginesEnum.MAVEN, TasksEnum.BUILD))
+                break
+        }
 
         return pipeline
     }

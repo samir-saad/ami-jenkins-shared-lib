@@ -1,24 +1,19 @@
 package org.ssaad.ami.pipeline.stage
 
-import org.ssaad.ami.pipeline.common.AbstractFactory
-import org.ssaad.ami.pipeline.common.FactoryProvider
-import org.ssaad.ami.pipeline.engine.Engine
-import org.ssaad.ami.pipeline.engine.EngineFactory
+import org.ssaad.ami.pipeline.common.EnginesEnum
+import org.ssaad.ami.pipeline.common.TasksEnum
 
-class StageFactory implements AbstractFactory<Stage> {
+class StageFactory {
 
-    @Override
-    Stage create(String type) {
+    Stage create(EnginesEnum enginesEnum, TasksEnum task) {
 
-        Engine maven = ((EngineFactory) FactoryProvider.getFactory("Engine")).create("Maven")
+        Stage stage
+        switch (enginesEnum) {
+            case EnginesEnum.MAVEN:
+                stage = new EngineStage(enginesEnum, task)
+                break
+        }
 
-        EngineStage buildStage = new EngineStage()
-        buildStage.id = "build"
-        buildStage.name = "Build"
-        buildStage.enable = true
-        buildStage.requiresConfirmation = false
-        buildStage.engine = maven
-
-        return buildStage
+        return stage
     }
 }
