@@ -1,5 +1,5 @@
 import hudson.model. *
-import org.ssaad.ami.pipeline.common.FactoryProvider
+
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineEnum
 import org.ssaad.ami.pipeline.common.PipelineFactory
