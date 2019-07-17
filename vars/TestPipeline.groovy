@@ -12,8 +12,8 @@ def call(Closure body) {
 
 	pipeline {
 
-		//agent { node { label 'maven' } }
-		agent any
+		agent { node { label 'maven' } }
+		//agent any
 
 		stages {
 			stage("Init Pipeline") {
@@ -21,8 +21,14 @@ def call(Closure body) {
 					script {
 						//println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
 						new PipelineTest().printPipeline(this)
-						myPipeline.stages.get("build").execute(this)
-
+					}
+				}
+			}
+			stage("Execute Pipeline") {
+				steps {
+					script {
+						//myPipeline.stages.get("build").execute(this)
+						executeStages(myPipeline)
 					}
 				}
 			}

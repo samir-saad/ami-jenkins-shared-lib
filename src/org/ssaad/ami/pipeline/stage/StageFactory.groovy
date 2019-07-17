@@ -18,6 +18,10 @@ class StageFactory {
                 stage.id = "test"
                 stage.name = "Test"
                 break
+            case TasksEnum.ARCHIVE:
+                stage.id = "archive"
+                stage.name = "Archive"
+                break
         }
 
         stage.engine = new EngineFactory().create(enginesEnum, task)

@@ -23,5 +23,7 @@ class PipelineFactory {
 
     private void initStages(Pipeline pipeline, EnginesEnum enginesEnum){
         pipeline.stages.put("build", new StageFactory().create(enginesEnum, TasksEnum.BUILD))
+        pipeline.stages.put("test", new StageFactory().create(enginesEnum, TasksEnum.TEST))
+        pipeline.stages.put("archive", new StageFactory().create(enginesEnum, TasksEnum.ARCHIVE))
     }
 }

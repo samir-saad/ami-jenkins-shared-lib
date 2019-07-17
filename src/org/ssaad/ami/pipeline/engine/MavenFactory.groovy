@@ -11,6 +11,7 @@ class MavenFactory {
         maven.id = "maven"
         maven.name = "Maven"
         maven.configDir = ""
+        maven.options = ""
 
         switch (task) {
             case TasksEnum.BUILD:
@@ -19,6 +20,10 @@ class MavenFactory {
                 break
             case TasksEnum.TEST:
                 maven.goals = "test"
+                break
+            case TasksEnum.ARCHIVE:
+                maven.goals = "deploy"
+                maven.params = "-DskipTests=true -Dinternal.repo.username=deployment -Dinternal.repo.password=deployment123"
                 break
         }
 
