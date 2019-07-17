@@ -12,7 +12,7 @@ class Pipeline implements Serializable, Initializable, Executable {
     //GitRepository customConfigRepo
 
     // Stages
-    SortedMap<String, Stage> stages
+    List<Stage> stages
 
     @Override
     void init(Map config) {
