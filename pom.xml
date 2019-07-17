@@ -9,11 +9,11 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>AMI Jenkins Shared Library</name>
 
-	<parent>
+	<!--<parent>
 		<groupId>org.ssaad.ami</groupId>
 		<artifactId>parent-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-	</parent>
+	</parent>-->
 
 	<properties>
 		<workflow-job.verion>2.10</workflow-job.verion>
@@ -35,7 +35,7 @@
 			<artifactId>workflow-job</artifactId>
 		</dependency>
 
-		 <!--<dependency>
+		 <dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy</artifactId>
 			<version>1.8.9</version>
@@ -44,19 +44,19 @@
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-json</artifactId>
 			<version>2.4.3</version>
-		</dependency>-->
+		</dependency>
+
+		<dependency>
+			<groupId>com.cloudbees.jenkins.plugins</groupId>
+			<artifactId>cloudbees-credentials</artifactId>
+			<version>3.3</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.lesfurets</groupId>
 			<artifactId>jenkins-pipeline-unit</artifactId>
 			<version>1.1</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
 		</dependency>
 
 		<dependency>
@@ -85,12 +85,6 @@
 			<version>2.9.9</version>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.8</version>
-			<scope>provided</scope>
-		</dependency>-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -98,4 +92,12 @@
 		</dependency>
 
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>spring-plugins-repository</id>
+			<name>Spring Plugins Repository</name>
+			<url>https://repo.spring.io/plugins-release/</url>
+		</repository>
+	</repositories>
 </project>

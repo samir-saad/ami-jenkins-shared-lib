@@ -11,7 +11,6 @@ class MavenFactory {
         maven.id = "maven"
         maven.name = "Maven"
         maven.configDir = ""
-        maven.options = ""
 
         switch (task) {
             case TasksEnum.BUILD:
