@@ -21,6 +21,7 @@ class MavenFactory {
                 maven.goals = "test"
                 break
             case TasksEnum.ARCHIVE:
+                maven.credentialsId = "ami-nexus"
                 maven.goals = "deploy"
                 maven.params = "-DskipTests=true -Dinternal.repo.username=deployment -Dinternal.repo.password=deployment123"
                 break

@@ -22,11 +22,13 @@ class Maven extends Engine {
             if ( credentialsId != null){
                 def credentialsList = CredentialsProvider.lookupCredentials(Credentials.class, Jenkins.instance, null, null)
                 credentials = credentialsList.find {it.id == credentialsId}
+
+                steps.echo credentials
+                steps.echo credentials?.username
             }
 
-            steps.echo credentials
-            steps.echo credentials?.username
-
+            //Resolve vars
+            
             steps.sh "mvn ${this.options} ${this.goals} ${this.params}"
         }
     }
