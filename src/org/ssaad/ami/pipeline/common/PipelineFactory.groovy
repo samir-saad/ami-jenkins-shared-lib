@@ -8,7 +8,7 @@ class PipelineFactory {
     Pipeline create(PipelineEnum pipelineEnum) {
 
         Pipeline pipeline = new Pipeline()
-        pipeline.stages = new TreeMap()
+        pipeline.stages = new ArrayList<>()
 
         switch (pipelineEnum) {
             case PipelineEnum.MAVEN_SPRING_OPENSHIFT:

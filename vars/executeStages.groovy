@@ -5,9 +5,8 @@ import org.ssaad.ami.pipeline.stage.Stage
 def call(Pipeline myPipeline) {
 
     println("Execute pipeline stages")
-    Stage currentStage
-    for (String key : myPipeline.stages.keySet()) {
-        currentStage = myPipeline.stages.get(key)
+
+    for (Stage currentStage : myPipeline.stages) {
         println("Current stage is: ${currentStage.name}")
 
         if (currentStage.active) {
