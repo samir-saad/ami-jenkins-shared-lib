@@ -2,7 +2,7 @@
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.stage.Stage
 
-def call(Pipeline myPipeline) {
+def call(steps, Pipeline myPipeline) {
 
     println("Execute pipeline stages")
 
@@ -12,7 +12,7 @@ def call(Pipeline myPipeline) {
         if (currentStage.active) {
             println("Stage \"${currentStage.name}\" is active, execution will start shortly.")
             stage(currentStage.name) {
-                currentStage.execute(this, myPipeline)
+                currentStage.execute(steps, myPipeline)
             }
         } else {
             println("Stage \"${currentStage.name}\" is inactive, execution is skipped.")

@@ -28,7 +28,7 @@ def call(Closure body) {
 				steps {
 					script {
 						//myPipeline.stages.get("build").execute(this)
-						executeStages(myPipeline)
+						executeStages(this, myPipeline)
 					}
 				}
 			}

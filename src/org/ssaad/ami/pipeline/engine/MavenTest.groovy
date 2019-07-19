@@ -8,6 +8,6 @@ class MavenTest {
     static void main(String[] args) {
 
         Maven maven = new EngineFactory().create(EnginesEnum.MAVEN, TasksEnum.BUILD)
-        maven.execute(null)
+        maven.execute(null, null)
     }
 }

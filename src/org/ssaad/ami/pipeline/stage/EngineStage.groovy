@@ -19,6 +19,6 @@ class EngineStage extends Stage {
 
     @Override
     void execute(steps, Pipeline myPipeline) {
-        engine.execute(steps)
+        engine.execute(steps, myPipeline)
     }
 }
