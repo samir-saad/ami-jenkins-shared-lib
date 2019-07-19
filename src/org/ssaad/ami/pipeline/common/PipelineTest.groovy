@@ -1,6 +1,5 @@
 package org.ssaad.ami.pipeline.common
 
-import com.fasterxml.jackson.core.JsonProcessingException
 import groovy.json.JsonBuilder
 
 class PipelineTest {
@@ -17,7 +16,7 @@ class PipelineTest {
         try {
             steps.println new JsonBuilder(pipeline).toPrettyString()
 
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace()
         }
     }

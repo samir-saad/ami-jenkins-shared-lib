@@ -85,11 +85,11 @@
 			<version>2.9.9</version>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>compile</scope>
-		</dependency>
+		</dependency>-->
 
 	</dependencies>
 

@@ -12,7 +12,7 @@ def call(Pipeline myPipeline) {
         if (currentStage.active) {
             println("Stage \"${currentStage.name}\" is active, execution will start shortly.")
             stage(currentStage.name) {
-                currentStage.execute(this)
+                currentStage.execute(this, myPipeline)
             }
         } else {
             println("Stage \"${currentStage.name}\" is inactive, execution is skipped.")
