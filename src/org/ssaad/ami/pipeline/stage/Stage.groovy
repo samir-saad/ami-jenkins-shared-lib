@@ -1,26 +1,22 @@
 package org.ssaad.ami.pipeline.stage
 
-import org.ssaad.ami.pipeline.common.Activation
-import org.ssaad.ami.pipeline.common.AppType
-import org.ssaad.ami.pipeline.common.Application
-import org.ssaad.ami.pipeline.common.BranchType
-import org.ssaad.ami.pipeline.common.Executable
-import org.ssaad.ami.pipeline.common.Customizable
+import com.cloudbees.plugins.credentials.Credentials
+import org.ssaad.ami.pipeline.common.*
 
 abstract class Stage implements Serializable, Customizable, Executable {
 
     String id
     String name
-    boolean enable
+    String buildId
+    boolean enable = true
     Activation activation
-    boolean requiresConfirmation
+    StageConfirmation confirmation = new StageConfirmation()
+    String credentialsId
+    Credentials credentials
 
-    Stage(){
-        this.enable = true
-        this.requiresConfirmation = false
-    }
+    boolean isActive(){
+        Application app = PipelineRegistry.getPipeline(buildId).app
 
-    boolean isActive(Application app){
         boolean appTypeAllowed = activation.allowedAppType.contains(AppType.ANY) || activation.allowedAppType.contains(app.type)
 
         String branchType = app.branch.substring(0, app.branch.indexOf("/")).toUpperCase()
@@ -28,4 +24,26 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
         return enable && appTypeAllowed && branchAllowed
     }
+
+    @Override
+    void execute() {
+
+        def steps = PipelineRegistry.getPipelineSteps(buildId)
+        if (isActive()) {
+            steps.println("Stage \"${name}\" is active, execution will start shortly.")
+            stage(name) {
+                //confirmation
+                if(confirmation.enable){
+                    timeout(time:confirmation.time, unit:confirmation.timeUnit) {
+                        input message: confirmation.message, ok: confirmation.okOption
+                    }
+                }
+                executeStage()
+            }
+        } else {
+            println("Stage \"${name}\" is inactive, execution is skipped.")
+        }
+    }
+
+    abstract void executeStage()
 }

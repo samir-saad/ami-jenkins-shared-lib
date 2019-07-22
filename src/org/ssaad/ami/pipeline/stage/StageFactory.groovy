@@ -1,19 +1,20 @@
 package org.ssaad.ami.pipeline.stage
 
-import org.ssaad.ami.pipeline.common.EngineType
+
 import org.ssaad.ami.pipeline.common.TaskType
+import org.ssaad.ami.pipeline.engine.Engine
 import org.ssaad.ami.pipeline.engine.EngineFactory
+import org.ssaad.ami.pipeline.engine.EngineInitialization
 
 class StageFactory {
 
-    Stage create(EngineType enginesEnum, TaskType task) {
+    Stage create(TaskType task, EngineInitialization init, String buildId) {
 
         Stage stage
         switch (task) {
             case TaskType.CODE_BUILD:
-                stage = new EngineStage()
-                stage.id = "build"
-                stage.name = "Build"
+                stage = new BuildStage()
+                stage.init(init, buildId)
                 break
             case TaskType.UNIT_TESTS:
                 stage = new UnitTestsStage()
@@ -27,7 +28,9 @@ class StageFactory {
                 break
         }
 
-        stage.engine = new EngineFactory().create(enginesEnum, task)
+        /*if(Engine != null){
+            stage.engine = new EngineFactory().create(enginesEnum, task)
+        }*/
 
         return stage
     }

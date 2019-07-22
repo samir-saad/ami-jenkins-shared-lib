@@ -1,8 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
-import org.ssaad.ami.pipeline.common.Pipeline
-
-class InitiConfigStage extends Stage{
+class InitiConfigStage extends Stage {
 
     @Override
     void customize(Map config) {
@@ -10,7 +8,7 @@ class InitiConfigStage extends Stage{
     }
 
     @Override
-    void execute(steps, Pipeline myPipeline) {
+    void executeStage() {
 
     }
 }

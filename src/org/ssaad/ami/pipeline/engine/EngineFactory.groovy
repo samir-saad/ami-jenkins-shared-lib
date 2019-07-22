@@ -2,20 +2,23 @@ package org.ssaad.ami.pipeline.engine
 
 
 import org.ssaad.ami.pipeline.common.EngineType
+import org.ssaad.ami.pipeline.common.PluginType
 import org.ssaad.ami.pipeline.common.TaskType
 
 class EngineFactory {
 
-    Engine create(EngineType enginesEnum, TaskType task) {
+    Engine create(TaskType task, EngineInitialization init, String buildId) {
 
         Engine engine
-        switch (enginesEnum) {
+        switch (init.engineType) {
             case EngineType.MAVEN:
-                engine = new MavenFactory().create(task)
+                engine = new MavenFactory().create(task, init.pluginType, buildId)
                 break
         }
 
-        engine.type = enginesEnum
+        engine.type = init.engineType
+        engine.plugin = init.pluginType
+
         return engine
     }
 }
