@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
-enum EnginesEnum {
+enum EngineType {
 
     MAVEN, GRADLE
 }

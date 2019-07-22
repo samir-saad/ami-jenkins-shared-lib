@@ -9,7 +9,7 @@ def call(steps, Pipeline myPipeline) {
     for (Stage currentStage : myPipeline.stages) {
         println("Current stage is: ${currentStage.name}")
 
-        if (currentStage.active) {
+        if (currentStage.isActive(myPipeline.app)) {
             println("Stage \"${currentStage.name}\" is active, execution will start shortly.")
             stage(currentStage.name) {
                 currentStage.execute(steps, myPipeline)

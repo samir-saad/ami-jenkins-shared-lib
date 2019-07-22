@@ -13,7 +13,7 @@ class Maven extends Engine {
     String params = ""
 
     @Override
-    void init(Map config) {
+    void customize(Map config) {
 
     }
 

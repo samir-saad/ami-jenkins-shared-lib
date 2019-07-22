@@ -9,6 +9,7 @@ class Application implements Serializable {
     String version
     String branch
     // service or library
-    String type
+    AppType type
     String latestCommit
+    ScmType scmType
 }

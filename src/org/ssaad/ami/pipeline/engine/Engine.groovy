@@ -1,15 +1,15 @@
 package org.ssaad.ami.pipeline.engine
 
 import com.cloudbees.plugins.credentials.Credentials
-import org.ssaad.ami.pipeline.common.EnginesEnum
+import org.ssaad.ami.pipeline.common.EngineType
 import org.ssaad.ami.pipeline.common.Executable
-import org.ssaad.ami.pipeline.common.Initializable
+import org.ssaad.ami.pipeline.common.Customizable
 
-abstract class Engine implements Serializable, Initializable, Executable {
+abstract class Engine implements Serializable, Customizable, Executable {
 
     String id
     String name
-    EnginesEnum type
+    EngineType type
     // maven, gradle, npm, etc.
     String configDir
     String credentialsId

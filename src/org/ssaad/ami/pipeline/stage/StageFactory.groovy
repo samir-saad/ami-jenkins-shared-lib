@@ -1,24 +1,27 @@
 package org.ssaad.ami.pipeline.stage
 
-import org.ssaad.ami.pipeline.common.EnginesEnum
-import org.ssaad.ami.pipeline.common.TasksEnum
+import org.ssaad.ami.pipeline.common.EngineType
+import org.ssaad.ami.pipeline.common.TaskType
 import org.ssaad.ami.pipeline.engine.EngineFactory
 
 class StageFactory {
 
-    Stage create(EnginesEnum enginesEnum, TasksEnum task) {
+    Stage create(EngineType enginesEnum, TaskType task) {
 
-        Stage stage = new EngineStage()
+        Stage stage
         switch (task) {
-            case TasksEnum.BUILD:
+            case TaskType.CODE_BUILD:
+                stage = new EngineStage()
                 stage.id = "build"
                 stage.name = "Build"
                 break
-            case TasksEnum.TEST:
+            case TaskType.UNIT_TESTS:
+                stage = new UnitTestsStage()
                 stage.id = "test"
                 stage.name = "Test"
                 break
-            case TasksEnum.ARCHIVE:
+            case TaskType.BINARIES_ARCHIVE:
+                stage = new EngineStage()
                 stage.id = "archive"
                 stage.name = "Archive"
                 break

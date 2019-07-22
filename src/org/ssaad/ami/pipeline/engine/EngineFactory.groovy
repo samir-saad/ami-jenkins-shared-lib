@@ -1,16 +1,16 @@
 package org.ssaad.ami.pipeline.engine
 
 
-import org.ssaad.ami.pipeline.common.EnginesEnum
-import org.ssaad.ami.pipeline.common.TasksEnum
+import org.ssaad.ami.pipeline.common.EngineType
+import org.ssaad.ami.pipeline.common.TaskType
 
 class EngineFactory {
 
-    Engine create(EnginesEnum enginesEnum, TasksEnum task) {
+    Engine create(EngineType enginesEnum, TaskType task) {
 
         Engine engine
         switch (enginesEnum) {
-            case EnginesEnum.MAVEN:
+            case EngineType.MAVEN:
                 engine = new MavenFactory().create(task)
                 break
         }
