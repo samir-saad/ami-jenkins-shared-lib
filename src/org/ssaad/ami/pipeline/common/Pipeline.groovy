@@ -10,7 +10,7 @@ class Pipeline implements Serializable, Customizable, Executable {
     Application app = new Application()
     ScmRepository primaryConfigRepo = new ScmRepository()
     // to override the default one
-    ScmRepository secondaryConfigRepo = new ScmRepository()
+    ScmRepository secondaryConfigRepo
 
     // Stages
     List<Stage> stages = new ArrayList<>()
@@ -29,6 +29,7 @@ class Pipeline implements Serializable, Customizable, Executable {
     @Override
     void customize(Map config) {
 
+        //Iniy secondary repo
     }
 
     @Override

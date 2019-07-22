@@ -1,15 +1,12 @@
 import hudson.model. *
 
 import org.ssaad.ami.pipeline.common.Pipeline
-import org.ssaad.ami.pipeline.common.PipelineEnum
-import org.ssaad.ami.pipeline.common.PipelineFactory
 import org.ssaad.ami.pipeline.common.PipelineInitialization
-import org.ssaad.ami.pipeline.common.PipelineTest
+import org.ssaad.ami.pipeline.common.ScmType
 
+Pipeline myPipeline
 
 def call(Closure body) {
-
-	Pipeline myPipeline
 
 	pipeline {
 
@@ -25,6 +22,7 @@ def call(Closure body) {
 						PipelineInitialization initialization = new PipelineInitialization()
 						initialization.id = "maven-spring-ocp-pipeline"
 						initialization.name = "maven-spring-ocp-pipeline"
+						initialization.scm ScmType.GIT
 						myPipeline.init(initialization)
 
 						myPipeline.print(this)
