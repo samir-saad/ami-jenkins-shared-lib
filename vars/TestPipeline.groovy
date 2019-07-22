@@ -32,7 +32,7 @@ def call(Closure body) {
 
 						myPipeline.init(initialization)
 
-						myPipeline.print(this)
+						myPipeline.print()
 					}
 				}
 			}
