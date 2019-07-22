@@ -1,8 +1,10 @@
 import hudson.model. *
-
+import org.ssaad.ami.pipeline.common.EngineType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineInitialization
 import org.ssaad.ami.pipeline.common.ScmType
+import org.ssaad.ami.pipeline.common.TaskType
+import org.ssaad.ami.pipeline.engine.EngineInitialization
 
 def call(Closure body) {
 
@@ -25,6 +27,8 @@ def call(Closure body) {
 						initialization.buildId = "${JOB_NAME}-${BRANCH_NAME}-${BUILD_NUMBER}"
 						initialization.scm = ScmType.GIT
 						initialization.steps = this
+
+						initialization.stageInitMap.put(TaskType.CODE_BUILD, new EngineInitialization(EngineType.MAVEN, null))
 
 						myPipeline.init(initialization)
 
