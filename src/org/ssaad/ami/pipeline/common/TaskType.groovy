@@ -5,5 +5,6 @@ enum TaskType {
     INIT_PIPELINE,
     CODE_BUILD,
     UNIT_TESTS,
-    BINARIES_ARCHIVE
+    BINARIES_ARCHIVE,
+    FINALIZE
 }

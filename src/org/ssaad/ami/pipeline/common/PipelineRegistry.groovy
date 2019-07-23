@@ -7,6 +7,10 @@ class PipelineRegistry {
         pipelines.put(pipeline.buildId, pipeline)
     }
 
+    static void unregisterPipeline(String buildId) {
+        pipelines.remove(buildId)
+    }
+
     static Pipeline getPipeline(String buildId) {
         return pipelines.get(buildId)
     }

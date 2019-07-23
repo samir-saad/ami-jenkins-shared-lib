@@ -43,9 +43,12 @@ class Pipeline implements Serializable, Customizable, Executable {
     private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId){
         StageFactory stageFactory = new StageFactory()
         this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
+        // init configs
         this.stages.add(stageFactory.create(TaskType.CODE_BUILD, stageInitMap.get(TaskType.CODE_BUILD), buildId))
         this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
         this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
+
+        this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
     }
 
     @Override
