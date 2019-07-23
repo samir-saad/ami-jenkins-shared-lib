@@ -27,6 +27,7 @@ def call(Closure body) {
 						initialization.buildId = "${JOB_NAME}-${BUILD_NUMBER}"
 						initialization.scm = ScmType.GIT
 						initialization.steps = this
+						initialization.env = env
 
 						initialization.stageInitMap.put(TaskType.CODE_BUILD, new EngineInitialization(EngineType.MAVEN, null))
 						initialization.stageInitMap.put(TaskType.UNIT_TESTS, new EngineInitialization(EngineType.MAVEN, null))

@@ -9,5 +9,6 @@ class PipelineInitialization {
     String buildId
     ScmType scm
     def steps
+    def env
     Map<TaskType, EngineInitialization> stageInitMap = new HashMap<>()
 }

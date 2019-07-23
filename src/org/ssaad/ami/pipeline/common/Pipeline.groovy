@@ -11,6 +11,7 @@ class Pipeline implements Serializable, Customizable, Executable {
     String name = ""
     String buildId
     def steps
+    def env
     String workspaceDir
     Application app = new Application()
     ScmRepository primaryConfigRepo = new ScmRepository()
@@ -25,6 +26,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         this.name = init.name
         this.buildId = init.buildId
         this.steps = init.steps
+        this.env = init.env
         this.app.scmType = init.scm
         this.primaryConfigRepo.scmType = init.scm
         this.primaryConfigRepo.url = "https://github.com/samir-saad/ami-pipeline-configs.git"

@@ -1,12 +1,8 @@
 package org.ssaad.ami.pipeline.stage
 
-import groovy.json.JsonBuilder
+
 import groovy.json.JsonSlurper
-import org.ssaad.ami.pipeline.common.Activation
-import org.ssaad.ami.pipeline.common.AppType
-import org.ssaad.ami.pipeline.common.BranchType
-import org.ssaad.ami.pipeline.common.Pipeline
-import org.ssaad.ami.pipeline.common.PipelineRegistry
+import org.ssaad.ami.pipeline.common.*
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 import org.ssaad.ami.pipeline.utils.PipelineUtils
 
@@ -32,20 +28,22 @@ class InitPipelineStage extends Stage {
 
         Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
         def steps = pipeline.steps
+        def env = pipeline.env
+
+        pipeline.app.branch = env.BRANCH_NAME
 
         // Abort pipeline on master branch
-        if ("master".equals("${BRANCH_NAME}")){
+        if ("master".equals(pipeline.app.branch)){
             steps.currentBuild.result = 'ABORTED'
             steps.error("master branch isn't allowed")
         }
 
         // Workspace base directory
-        pipeline.workspaceDir = "${WORKSPACE}"
+        pipeline.workspaceDir = env.WORKSPACE
 
         // App info
         steps.println("Get app info")
         PipelineUtils.completeAppInfo(pipeline.app, steps)
-        pipeline.app.branch = "${BRANCH_NAME}"
 
         // Customize pipeline stages
         if (steps.fileExists('pipeline-config.json')) {
