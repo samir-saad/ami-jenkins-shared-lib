@@ -32,21 +32,21 @@ abstract class Stage implements Serializable, Customizable, Executable {
     @Override
     void execute() {
         def steps = PipelineRegistry.getPipelineSteps(buildId)
-        println("Current stage is: ${name}")
+        steps.println("Current stage is: ${name}")
 
         if (isActive()) {
             steps.println("Stage \"${name}\" is active, execution will start shortly.")
-            stage(name) {
+            steps.stage(name) {
                 //confirmation
                 if(confirmation.enable){
-                    timeout(time:confirmation.time, unit:confirmation.timeUnit) {
+                    steps.timeout(time:confirmation.time, unit:confirmation.timeUnit) {
                         input message: confirmation.message, ok: confirmation.okOption
                     }
                 }
                 executeStage()
             }
         } else {
-            println("Stage \"${name}\" is inactive, execution is skipped.")
+            steps.println("Stage \"${name}\" is inactive, execution is skipped.")
         }
     }
 
