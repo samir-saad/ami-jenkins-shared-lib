@@ -52,6 +52,9 @@ class InitPipelineStage extends Stage {
             steps.println("No init params")
         }
 
+        steps.println("Customized pipeline:")
+        pipeline.print()
+
         // Fix App dir
         // Make app directory at parent
         steps.sh "mkdir ../${pipeline.app.id}"

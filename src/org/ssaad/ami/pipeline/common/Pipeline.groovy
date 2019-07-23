@@ -84,8 +84,8 @@ class Pipeline implements Serializable, Customizable, Executable {
             }
         }
 
-        steps.println("Customized pipeline:")
-        print()
+//        steps.println("Customized pipeline:")
+//        print()
     }
 
     @Override
