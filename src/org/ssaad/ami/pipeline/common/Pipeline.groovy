@@ -4,6 +4,7 @@ import groovy.json.JsonBuilder
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
+import org.ssaad.ami.pipeline.utils.PipelineUtils
 
 class Pipeline implements Serializable, Customizable, Executable {
 
@@ -42,7 +43,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         print()
     }
 
-    private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId){
+    private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId) {
         StageFactory stageFactory = new StageFactory()
         this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
         // init configs
@@ -56,13 +57,29 @@ class Pipeline implements Serializable, Customizable, Executable {
     @Override
     void customize(Map config) {
 
-        if(config?.primaryConfigRepo != null)
+        // App
+        if (config?.app != null)
+            this.app.customize(config.app)
+
+        if (config?.primaryConfigRepo != null)
             this.primaryConfigRepo.customize(config.primaryConfigRepo)
 
         //Init secondary repo
-        if(config?.secondaryConfigRepo != null){
+        if (config?.secondaryConfigRepo != null) {
             this.secondaryConfigRepo = new ScmRepository()
             this.secondaryConfigRepo.customize(config.secondaryConfigRepo)
+        }
+
+        //Stages
+        if (config?.stages != null) {
+            for (Map stageConfig : config.stages) {
+                TaskType taskType = stageConfig.taskType
+                Stage stage
+                if(taskType != null){
+                    stage = PipelineUtils.findStage(stages, taskType)
+                    stage.customize(stageConfig)
+                }
+            }
         }
 
         steps.println("Customized pipeline:")

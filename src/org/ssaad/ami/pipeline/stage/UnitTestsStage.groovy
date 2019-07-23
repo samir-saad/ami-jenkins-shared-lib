@@ -32,7 +32,8 @@ class UnitTestsStage extends EngineStage {
 
             //Archive test results
             if (steps.fileExists('**/target/surefire-reports/TEST-*.xml')) {
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                steps.println("Archive surefire reports")
+                steps.step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
             }
         }
     }

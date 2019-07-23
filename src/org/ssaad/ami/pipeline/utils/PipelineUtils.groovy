@@ -2,6 +2,8 @@ package org.ssaad.ami.pipeline.utils
 
 import org.ssaad.ami.pipeline.common.Application
 import org.ssaad.ami.pipeline.common.ScmType
+import org.ssaad.ami.pipeline.common.TaskType
+import org.ssaad.ami.pipeline.stage.Stage
 
 class PipelineUtils {
 
@@ -32,7 +34,7 @@ class PipelineUtils {
         return object?.toString()
     }
 
-    static void completeAppInfo(Application app, steps){
+    static void completeAppInfo(Application app, steps) {
         if (steps.fileExists('pom.xml')) {
             app.id = steps.readMavenPom().getArtifactId()
             app.group = steps.readMavenPom().getGroupId()
@@ -41,9 +43,16 @@ class PipelineUtils {
             app.version = steps.readMavenPom().getVersion()
         }
 
-        if (app.scmType.equals(ScmType.GIT)){
+        if (app.scmType.equals(ScmType.GIT)) {
             app.latestCommit = steps.sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         }
+    }
 
+    static Stage findStage(List<Stage> stages, TaskType taskType) {
+        for (Stage stage : stages) {
+            if (stage.taskType.equals(taskType))
+                return stage
+        }
+        return null
     }
 }

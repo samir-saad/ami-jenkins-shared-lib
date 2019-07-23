@@ -14,7 +14,19 @@ class Maven extends Engine {
 
     @Override
     void customize(Map config) {
+        super.customize(config)
 
+        if (config?.settingsFile != null)
+            this.settingsFile = config.settingsFile
+
+        if (config?.options != null)
+            this.options = config.options
+
+        if (config?.goals != null)
+            this.goals = config.goals
+
+        if (config?.params != null)
+            this.params = config.params
     }
 
     @Override

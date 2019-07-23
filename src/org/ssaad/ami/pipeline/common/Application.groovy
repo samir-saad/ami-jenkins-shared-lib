@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
-class Application implements Serializable {
+class Application implements Serializable, Customizable {
 
     String id
     String group
@@ -12,4 +12,27 @@ class Application implements Serializable {
     AppType type = AppType.APPLICATION
     String latestCommit
     ScmType scmType
+
+    void customize(Map config) {
+        if (config.id != null)
+            this.id = config.id
+
+        if (config.group != null)
+            this.group = config.group
+
+        if (config.name != null)
+            this.name = config.name
+
+        if (config.description != null)
+            this.description = config.description
+
+        if (config.version != null)
+            this.version = config.version
+
+        if (config.type != null)
+            this.type = config.type
+
+        if (config.scmType != null)
+            this.scmType = config.scmType
+    }
 }

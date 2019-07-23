@@ -15,7 +15,10 @@ class EngineStage extends Stage {
 
     @Override
     void customize(Map config) {
-        engine.customize(config)
+        super.customize(config)
+
+        if (config?.engine != null)
+            this.engine.customize(config.engine)
     }
 
     @Override

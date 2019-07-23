@@ -16,7 +16,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
     String credentialsId
     Credentials credentials
 
-    boolean isActive(){
+    boolean isActive() {
         Application app = PipelineRegistry.getPipeline(buildId).app
 
         boolean appTypeAllowed = activation.allowedAppType.contains(AppType.ANY) || activation.allowedAppType.contains(app.type)
@@ -30,6 +30,27 @@ abstract class Stage implements Serializable, Customizable, Executable {
     abstract void init(EngineInitialization init, String buildId)
 
     @Override
+    void customize(Map config) {
+        if (config?.id != null)
+            this.id = config.id
+
+        if (config?.name != null)
+            this.name = config.name
+
+        if (config?.enable != null)
+            this.enable = config.enable
+
+        if (config?.credentialsId != null)
+            this.credentialsId = config.credentialsId
+
+        if (config?.activation != null)
+            this.activation.customize(config.activation)
+
+        if (config?.confirmation != null)
+            this.confirmation.customize(config.confirmation)
+    }
+
+    @Override
     void execute() {
         def steps = PipelineRegistry.getPipelineSteps(buildId)
         steps.println("Current stage is: ${name}")
@@ -38,9 +59,9 @@ abstract class Stage implements Serializable, Customizable, Executable {
             steps.println("Stage \"${name}\" is active, execution will start shortly.")
             steps.stage(name) {
                 //confirmation
-                if(confirmation.enable){
-                    timeout(time:confirmation.time, unit:confirmation.timeUnit) {
-                        input message: confirmation.message, ok: confirmation.okOption
+                if (confirmation.enable) {
+                    steps.timeout(time: confirmation.time, unit: confirmation.timeUnit) {
+                        steps.input message: confirmation.message, ok: confirmation.okOption
                     }
                 }
                 executeStage()
