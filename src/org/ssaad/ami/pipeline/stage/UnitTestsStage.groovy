@@ -26,12 +26,12 @@ class UnitTestsStage extends EngineStage {
     void executeStage() {
 
         Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
-
-        dir(pipeline.app.id) {
+        def steps = pipeline.steps
+        steps.dir(pipeline.app.id) {
             engine.execute()
 
-            //Archive test reults
-            if (fileExists('**/target/surefire-reports/TEST-*.xml')) {
+            //Archive test results
+            if (steps.fileExists('**/target/surefire-reports/TEST-*.xml')) {
                 step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
             }
         }

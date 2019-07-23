@@ -24,7 +24,7 @@ def call(Closure body) {
 						PipelineInitialization initialization = new PipelineInitialization()
 						initialization.id = "maven-spring-ocp-pipeline"
 						initialization.name = "maven-spring-ocp-pipeline"
-						initialization.buildId = "${JOB_NAME}-${BUILD_NUMBER}"
+						initialization.buildId = "${BUILD_TAG}"
 						initialization.scm = ScmType.GIT
 						initialization.steps = this
 						initialization.env = env

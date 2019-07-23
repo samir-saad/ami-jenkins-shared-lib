@@ -25,7 +25,8 @@ class ArchiveStage extends EngineStage {
     @Override
     void executeStage() {
         Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
-        dir(pipeline.app.id) {
+        def steps = pipeline.steps
+        steps.dir(pipeline.app.id) {
             engine.execute()
         }
     }
