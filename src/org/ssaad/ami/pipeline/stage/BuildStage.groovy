@@ -1,6 +1,8 @@
 package org.ssaad.ami.pipeline.stage
 
-
+import org.ssaad.ami.pipeline.common.Activation
+import org.ssaad.ami.pipeline.common.AppType
+import org.ssaad.ami.pipeline.common.BranchType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.common.TaskType
@@ -16,6 +18,7 @@ class BuildStage extends EngineStage {
 
     void init(EngineInitialization init, String buildId){
         this.buildId = buildId
+        this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
         this.engine = new EngineFactory().create(TaskType.CODE_BUILD, init, buildId)
     }
 

@@ -2,6 +2,9 @@ package org.ssaad.ami.pipeline.stage
 
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import org.ssaad.ami.pipeline.common.Activation
+import org.ssaad.ami.pipeline.common.AppType
+import org.ssaad.ami.pipeline.common.BranchType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.engine.EngineInitialization
@@ -16,6 +19,7 @@ class InitPipelineStage extends Stage {
 
     void init(EngineInitialization init, String buildId){
         this.buildId = buildId
+        this.activation =Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 
     @Override
