@@ -39,7 +39,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
             steps.stage(name) {
                 //confirmation
                 if(confirmation.enable){
-                    steps.timeout(time:confirmation.time, unit:confirmation.timeUnit) {
+                    timeout(time:confirmation.time, unit:confirmation.timeUnit) {
                         input message: confirmation.message, ok: confirmation.okOption
                     }
                 }

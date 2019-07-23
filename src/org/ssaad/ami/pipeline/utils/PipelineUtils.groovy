@@ -33,15 +33,15 @@ class PipelineUtils {
     }
 
     static void completeAppInfo(Application app, steps){
-        if (fileExists('pom.xml')) {
-            app.id = readMavenPom().getArtifactId()
-            app.group = readMavenPom().getGroupId()
-            app.name = readMavenPom().getName()
-            app.description = readMavenPom().getDescription()
-            app.version = readMavenPom().getVersion()
+        if (steps.fileExists('pom.xml')) {
+            app.id = steps.readMavenPom().getArtifactId()
+            app.group = steps.readMavenPom().getGroupId()
+            app.name = steps.readMavenPom().getName()
+            app.description = steps.readMavenPom().getDescription()
+            app.version = steps.readMavenPom().getVersion()
         }
 
-        if (app.scmType.equals(ScmType.Git)){
+        if (app.scmType.equals(ScmType.GIT)){
             app.latestCommit = steps.sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         }
 
