@@ -12,11 +12,11 @@ def call(Closure body) {
 
 	pipeline {
 
-		//agent { node { label 'maven' } }
-		agent any
+		agent { node { label 'maven' } }
+		//agent any
 
 		stages {
-			stage("Init Pipeline") {
+			stage("Create Pipeline") {
 				steps {
 					script {
 						//println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
@@ -29,21 +29,15 @@ def call(Closure body) {
 						initialization.steps = this
 
 						initialization.stageInitMap.put(TaskType.CODE_BUILD, new EngineInitialization(EngineType.MAVEN, null))
+						initialization.stageInitMap.put(TaskType.UNIT_TESTS, new EngineInitialization(EngineType.MAVEN, null))
+						initialization.stageInitMap.put(TaskType.BINARIES_ARCHIVE, new EngineInitialization(EngineType.MAVEN, null))
 
 						myPipeline.init(initialization)
 
-						myPipeline.print()
+						myPipeline.execute()
 					}
 				}
 			}
-			/*stage("Execute Pipeline") {
-				steps {
-					script {
-						//myPipeline.stages.get("build").execute(this)
-						executeStages(this, myPipeline)
-					}
-				}
-			}*/
 		}
 	}
 }

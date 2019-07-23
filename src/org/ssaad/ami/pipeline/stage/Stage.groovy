@@ -31,8 +31,9 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
     @Override
     void execute() {
-
         def steps = PipelineRegistry.getPipelineSteps(buildId)
+        println("Current stage is: ${name}")
+
         if (isActive()) {
             steps.println("Stage \"${name}\" is active, execution will start shortly.")
             stage(name) {

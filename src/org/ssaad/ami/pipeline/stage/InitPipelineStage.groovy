@@ -62,7 +62,5 @@ class InitPipelineStage extends Stage {
         steps.sh "shopt -s dotglob nullglob; mv * ../${pipeline.app.id}"
         // Bring app directory back to .
         steps.sh "mv ../${pipeline.app.id} ."
-
-        steps.println("Custom Pipeline: \n" + new JsonBuilder(pipeline).toPrettyString())
     }
 }

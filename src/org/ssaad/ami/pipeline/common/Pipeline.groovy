@@ -35,6 +35,9 @@ class Pipeline implements Serializable, Customizable, Executable {
         PipelineRegistry.registerPipeline(this)
 
         initStages(init.stageInitMap, init.buildId)
+
+        steps.println("Initial pipeline:")
+        print()
     }
 
     private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId){
@@ -56,33 +59,23 @@ class Pipeline implements Serializable, Customizable, Executable {
             this.secondaryConfigRepo = new ScmRepository()
             this.secondaryConfigRepo.customize(config.secondaryConfigRepo)
         }
+
+        steps.println("Customized pipeline:")
+        print()
     }
 
     @Override
     void execute() {
 
         def steps = PipelineRegistry.getPipelineSteps(buildId)
-
         steps.println("Execute pipeline stages")
-
-        /*for (Stage currentStage : myPipeline.stages) {
-            println("Current stage is: ${currentStage.name}")
-
-            if (currentStage.isActive(myPipeline.app)) {
-                println("Stage \"${currentStage.name}\" is active, execution will start shortly.")
-                stage(currentStage.name) {
-                    currentStage.execute(steps, myPipeline)
-                }
-            } else {
-                println("Stage \"${currentStage.name}\" is inactive, execution is skipped.")
-            }
-        }*/
+        for (Stage stage : stages) {
+            stage.execute()
+        }
     }
 
     void print() {
-
         try {
-            def steps = PipelineRegistry.getPipelineSteps(buildId)
             steps.println(new JsonBuilder(this).toPrettyString())
 
         } catch (Exception e) {
