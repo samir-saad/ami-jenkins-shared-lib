@@ -34,9 +34,9 @@ class InitPipelineStage extends Stage {
         def steps = pipeline.steps
 
         // Abort pipeline on master branch
-        if ("master".equals(BRANCH_NAME)){
-            currentBuild.result = 'ABORTED'
-            error("master branch isn't allowed")
+        if ("master".equals("${BRANCH_NAME}")){
+            steps.currentBuild.result = 'ABORTED'
+            steps.error("master branch isn't allowed")
         }
 
         // Workspace base directory
@@ -48,12 +48,12 @@ class InitPipelineStage extends Stage {
         pipeline.app.branch = "${BRANCH_NAME}"
 
         // Customize pipeline stages
-        if (fileExists('pipeline-config.json')) {
-            String config = readFile file: 'pipeline-config.json'
+        if (steps.fileExists('pipeline-config.json')) {
+            String config = steps.readFile file: 'pipeline-config.json'
             steps.println("Custom Pipeline Params: \n" + config)
             // using Map to convert to Person object type
             pipeline.customize(new JsonSlurper().parseText(config))
-        } else if (fileExists('pipeline-config.yaml')) {
+        } else if (steps.fileExists('pipeline-config.yaml')) {
             // Do yaml init
         } else {
             steps.println("No init params")
