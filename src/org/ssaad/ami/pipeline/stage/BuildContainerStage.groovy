@@ -15,7 +15,8 @@ class BuildContainerStage extends EngineStage {
         this.buildId = buildId
 
         // TODO remove feature
-        this.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.FEATURE, BranchType.DEVELOP, BranchType.RELEASE])
+        this.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.ANY])
+        //this.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.FEATURE, BranchType.DEVELOP, BranchType.RELEASE])
 
         this.engine = new EngineFactory().create(TaskType.CONTAINER_BUILD, init, buildId)
     }
