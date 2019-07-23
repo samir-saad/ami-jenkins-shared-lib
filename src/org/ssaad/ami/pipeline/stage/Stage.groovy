@@ -2,12 +2,14 @@ package org.ssaad.ami.pipeline.stage
 
 import com.cloudbees.plugins.credentials.Credentials
 import org.ssaad.ami.pipeline.common.*
+import org.ssaad.ami.pipeline.engine.EngineInitialization
 
 abstract class Stage implements Serializable, Customizable, Executable {
 
     String id
     String name
     String buildId
+    TaskType taskType
     boolean enable = true
     Activation activation
     StageConfirmation confirmation = new StageConfirmation()
@@ -24,6 +26,8 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
         return enable && appTypeAllowed && branchAllowed
     }
+
+    abstract void init(EngineInitialization init, String buildId)
 
     @Override
     void execute() {

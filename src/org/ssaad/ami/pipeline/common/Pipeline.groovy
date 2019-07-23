@@ -1,7 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
 import groovy.json.JsonBuilder
-import org.ssaad.ami.pipeline.engine.Engine
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
@@ -12,6 +11,7 @@ class Pipeline implements Serializable, Customizable, Executable {
     String name = ""
     String buildId
     def steps
+    String workspaceDir
     Application app = new Application()
     ScmRepository primaryConfigRepo = new ScmRepository()
     // to override the default one
@@ -39,17 +39,23 @@ class Pipeline implements Serializable, Customizable, Executable {
 
     private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId){
         StageFactory stageFactory = new StageFactory()
+        this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
         this.stages.add(stageFactory.create(TaskType.CODE_BUILD, stageInitMap.get(TaskType.CODE_BUILD), buildId))
-//        this.stages.add(stageFactory.create(enginesEnum, TaskType.UNIT_TESTS))
-//        this.stages.add(stageFactory.create(enginesEnum, TaskType.BINARIES_ARCHIVE))
+        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
+        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
     }
 
     @Override
     void customize(Map config) {
 
-        if(config.primaryConfigRepo != null)
+        if(config?.primaryConfigRepo != null)
             this.primaryConfigRepo.customize(config.primaryConfigRepo)
-        //Iniy secondary repo
+
+        //Init secondary repo
+        if(config?.secondaryConfigRepo != null){
+            this.secondaryConfigRepo = new ScmRepository()
+            this.secondaryConfigRepo.customize(config.secondaryConfigRepo)
+        }
     }
 
     @Override

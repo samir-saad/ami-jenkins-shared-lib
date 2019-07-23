@@ -1,7 +1,6 @@
 package org.ssaad.ami.pipeline.engine
 
 
-import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 import org.ssaad.ami.pipeline.utils.PipelineUtils

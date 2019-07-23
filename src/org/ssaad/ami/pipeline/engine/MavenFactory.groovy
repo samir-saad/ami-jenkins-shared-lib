@@ -25,8 +25,8 @@ class MavenFactory {
             case TaskType.BINARIES_ARCHIVE:
                 maven.credentialsId = "ami-nexus"
                 maven.goals = "deploy"
-                //add vars
-                maven.params = "-DskipTests=true -Dinternal.repo.username=deployment -Dinternal.repo.password=deployment123"
+                maven.params = "-DskipTests=true -Dinternal.repo.username=\${engine.credentials.username} " +
+                        "-Dinternal.repo.password=\${engine.credentials.password.value}"
                 break
         }
 

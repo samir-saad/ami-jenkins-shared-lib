@@ -1,5 +1,8 @@
 package org.ssaad.ami.pipeline.utils
 
+import org.ssaad.ami.pipeline.common.Application
+import org.ssaad.ami.pipeline.common.ScmType
+
 class PipelineUtils {
 
     static void resolveVars(Map bindings, String varsString) {
@@ -27,5 +30,20 @@ class PipelineUtils {
         }
 
         return object?.toString()
+    }
+
+    static void completeAppInfo(Application app, steps){
+        if (fileExists('pom.xml')) {
+            app.id = readMavenPom().getArtifactId()
+            app.group = readMavenPom().getGroupId()
+            app.name = readMavenPom().getName()
+            app.description = readMavenPom().getDescription()
+            app.version = readMavenPom().getVersion()
+        }
+
+        if (app.scmType.equals(ScmType.Git)){
+            app.latestCommit = steps.sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+        }
+
     }
 }

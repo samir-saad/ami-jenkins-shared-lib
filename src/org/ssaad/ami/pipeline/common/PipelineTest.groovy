@@ -21,6 +21,8 @@ class PipelineTest {
             initialization.buildId = "13"
             initialization.scm = ScmType.GIT
             initialization.stageInitMap.put(TaskType.CODE_BUILD, new EngineInitialization(EngineType.MAVEN, null))
+            initialization.stageInitMap.put(TaskType.UNIT_TESTS, new EngineInitialization(EngineType.MAVEN, null))
+            initialization.stageInitMap.put(TaskType.BINARIES_ARCHIVE, new EngineInitialization(EngineType.MAVEN, null))
             pipeline.init(initialization)
 
             steps.println new JsonBuilder(pipeline).toPrettyString()
