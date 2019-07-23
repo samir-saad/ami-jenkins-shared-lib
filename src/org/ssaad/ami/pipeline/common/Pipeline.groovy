@@ -2,6 +2,7 @@ package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
 import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
@@ -58,6 +59,17 @@ class Pipeline implements Serializable, Customizable, Executable {
         this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
     }
 
+    void customizePipeline(String jsonConfig){
+        steps.println("Customize pipeline method started:")
+
+        Map config = new JsonSlurper().parseText(jsonConfig)
+
+        customize(config)
+
+        steps.println("Customized pipeline:")
+        print()
+    }
+
     @NonCPS
     @Override
     void customize(Map config) {
@@ -87,8 +99,8 @@ class Pipeline implements Serializable, Customizable, Executable {
             }
         }
 
-        steps.println("Customized pipeline:")
-        print()
+//        steps.println("Customized pipeline:")
+//        print()
     }
 
     @Override
