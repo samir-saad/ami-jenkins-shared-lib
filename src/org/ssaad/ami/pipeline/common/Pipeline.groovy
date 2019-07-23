@@ -52,6 +52,9 @@ class Pipeline implements Serializable, Customizable, Executable {
         this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
         this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
 
+        if(stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
+            this.stages.add(stageFactory.create(TaskType.CONTAINER_BUILD, stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
+
         this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
     }
 
@@ -84,8 +87,8 @@ class Pipeline implements Serializable, Customizable, Executable {
             }
         }
 
-//        steps.println("Customized pipeline:")
-//        print()
+        steps.println("Customized pipeline:")
+        print()
     }
 
     @Override

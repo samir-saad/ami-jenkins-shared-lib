@@ -14,6 +14,8 @@ class EngineFactory {
             case EngineType.MAVEN:
                 engine = new MavenFactory().create(task, init.pluginType, buildId)
                 break
+            case EngineType.OPENSHIFT_S2I:
+                engine = new OpenshiftS2I(buildId)
         }
 
         engine.type = init.engineType

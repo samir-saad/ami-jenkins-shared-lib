@@ -21,6 +21,9 @@ class StageFactory {
             case TaskType.BINARIES_ARCHIVE:
                 stage = new ArchiveStage()
                 break
+            case TaskType.CONTAINER_BUILD:
+                stage = new BuildContainerStage()
+                break
             case TaskType.FINALIZE:
                 stage = new FinalizeStage()
                 break

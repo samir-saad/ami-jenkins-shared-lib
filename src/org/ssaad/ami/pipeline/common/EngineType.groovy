@@ -2,5 +2,7 @@ package org.ssaad.ami.pipeline.common
 
 enum EngineType {
 
-    MAVEN, GRADLE
+    MAVEN,
+    GRADLE,
+    OPENSHIFT_S2I
 }
