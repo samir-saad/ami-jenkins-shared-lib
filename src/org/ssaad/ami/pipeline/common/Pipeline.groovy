@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
+import com.cloudbees.groovy.cps.NonCPS
 import groovy.json.JsonBuilder
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 import org.ssaad.ami.pipeline.stage.Stage
@@ -54,6 +55,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
     }
 
+    @NonCPS
     @Override
     void customize(Map config) {
 

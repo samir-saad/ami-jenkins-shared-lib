@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
+import com.cloudbees.groovy.cps.NonCPS
 import com.cloudbees.plugins.credentials.Credentials
 import org.ssaad.ami.pipeline.common.*
 import org.ssaad.ami.pipeline.engine.EngineInitialization
@@ -29,6 +30,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
     abstract void init(EngineInitialization init, String buildId)
 
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config?.id != null)

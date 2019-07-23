@@ -1,5 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
+import com.cloudbees.groovy.cps.NonCPS
+
 class Activation implements Serializable, Customizable {
 
     List<AppType> allowedAppType
@@ -12,6 +14,7 @@ class Activation implements Serializable, Customizable {
         return activation
     }
 
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config?.allowedAppType != null)

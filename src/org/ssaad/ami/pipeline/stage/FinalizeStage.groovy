@@ -16,9 +16,6 @@ class FinalizeStage extends Stage {
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 
-    void customize(Map config) {
-    }
-
     @Override
     void executeStage() {
         PipelineRegistry.unregisterPipeline(buildId)

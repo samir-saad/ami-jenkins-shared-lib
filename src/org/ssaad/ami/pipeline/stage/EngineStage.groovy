@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
-
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.engine.Engine
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 
@@ -13,6 +13,7 @@ class EngineStage extends Stage {
 
     }
 
+    @NonCPS
     @Override
     void customize(Map config) {
         super.customize(config)

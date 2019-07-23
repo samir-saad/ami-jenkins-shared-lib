@@ -1,5 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
+import com.cloudbees.groovy.cps.NonCPS
+
 class ScmRepository implements Serializable, Customizable {
 
     ScmType scmType
@@ -8,6 +10,7 @@ class ScmRepository implements Serializable, Customizable {
     String credentialsId = ""
     String localDir = ""
 
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config.scmType != null)

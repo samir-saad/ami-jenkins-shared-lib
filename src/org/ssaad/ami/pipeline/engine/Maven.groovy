@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.engine
 
-
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 import org.ssaad.ami.pipeline.utils.PipelineUtils
@@ -12,6 +12,7 @@ class Maven extends Engine {
     String goals = ""
     String params = ""
 
+    @NonCPS
     @Override
     void customize(Map config) {
         super.customize(config)

@@ -19,11 +19,6 @@ class InitPipelineStage extends Stage {
     }
 
     @Override
-    void customize(Map config) {
-
-    }
-
-    @Override
     void executeStage() {
 
         Pipeline pipeline = PipelineRegistry.getPipeline(buildId)

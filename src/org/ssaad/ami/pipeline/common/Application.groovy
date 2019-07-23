@@ -1,5 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
+import com.cloudbees.groovy.cps.NonCPS
+
 class Application implements Serializable, Customizable {
 
     String id
@@ -13,6 +15,8 @@ class Application implements Serializable, Customizable {
     String latestCommit
     ScmType scmType
 
+    @NonCPS
+    @Override
     void customize(Map config) {
         if (config.id != null)
             this.id = config.id

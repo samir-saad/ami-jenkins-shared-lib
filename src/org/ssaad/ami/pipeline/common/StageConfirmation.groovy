@@ -1,5 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
+import com.cloudbees.groovy.cps.NonCPS
+
 class StageConfirmation implements Serializable, Customizable {
 
     boolean enable = false
@@ -8,6 +10,7 @@ class StageConfirmation implements Serializable, Customizable {
     String message = "Proceed?"
     String okOption = "Ok"
 
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config?.enable != null)

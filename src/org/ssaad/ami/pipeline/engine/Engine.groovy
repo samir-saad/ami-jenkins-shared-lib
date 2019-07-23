@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.engine
 
+import com.cloudbees.groovy.cps.NonCPS
 import com.cloudbees.plugins.credentials.Credentials
 import org.ssaad.ami.pipeline.common.EngineType
 import org.ssaad.ami.pipeline.common.Executable
@@ -18,6 +19,7 @@ abstract class Engine implements Serializable, Customizable, Executable {
     String credentialsId
     Credentials credentials
 
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config?.id != null)
