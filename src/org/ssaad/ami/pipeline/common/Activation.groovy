@@ -17,10 +17,16 @@ class Activation implements Serializable, Customizable {
     @NonCPS
     @Override
     void customize(Map config) {
-        if (config?.allowedAppType != null)
-            this.allowedAppType = config.allowedAppType
+        if (config?.allowedAppType != null){
+            this.allowedAppType.clear()
+            for (String element : config.allowedAppType)
+                this.allowedAppType.add(element as AppType)
+        }
 
-        if (config?.allowedBranches != null)
-            this.allowedBranches = config.allowedBranches
+        if (config?.allowedBranches != null){
+            this.allowedBranches.clear()
+            for (String element : config.allowedBranches)
+                this.allowedBranches.add(element as BranchType)
+        }
     }
 }

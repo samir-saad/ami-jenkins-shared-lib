@@ -22,8 +22,10 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
         boolean appTypeAllowed = activation.allowedAppType.contains(AppType.ANY) || activation.allowedAppType.contains(app.type)
 
-        boolean branchAllowed = activation.allowedBranches.contains(BranchType.ANY) ||
-                activation.allowedBranches.contains(app.branch.substring(0, app.branch.indexOf("/")).toUpperCase())
+        String branch = app.branch.toUpperCase()
+        if (branch != null && branch.indexOf("/") != -1)
+            branch = branch.substring(0, branch.indexOf("/"))
+        boolean branchAllowed = activation.allowedBranches.contains(BranchType.ANY) || activation.allowedBranches.contains(branch)
 
         return enable && appTypeAllowed && branchAllowed
     }
