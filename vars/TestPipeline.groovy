@@ -71,7 +71,7 @@ def call(Closure body) {
 						myPipeline.print()
 
 						println("Registry pipeline:")
-						PipelineRegistry.getPipelineSteps("${BUILD_TAG}").print()
+						PipelineRegistry.getPipeline("${BUILD_TAG}").print()
 
 						//myPipeline.execute()
 					}
