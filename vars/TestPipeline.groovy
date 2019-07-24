@@ -51,16 +51,16 @@ def call(Closure body) {
 										"                \"enable\": true\n" +
 										"            },\n" +
 										"            \"taskType\": \"CODE_BUILD\",\n" +
-										"            \"activation\": {\n" +
-										"                \"allowedBranches\": [\n" +
-										"                    \"ANY\",\n" +
-										"                    \"FEATURE\"\n" +
-										"                ],\n" +
-										"                \"allowedAppType\": [\n" +
-										"                    \"ANY\",\n" +
-										"                    \"LIBRARY\"\n" +
-										"                ]\n" +
-										"            }\n" +
+//										"            \"activation\": {\n" +
+//										"                \"allowedBranches\": [\n" +
+//										"                    \"ANY\",\n" +
+//										"                    \"FEATURE\"\n" +
+//										"                ],\n" +
+//										"                \"allowedAppType\": [\n" +
+//										"                    \"ANY\",\n" +
+//										"                    \"LIBRARY\"\n" +
+//										"                ]\n" +
+//										"            }\n" +
 										"        }\n" +
 										"    ]\n" +
 										"}"
