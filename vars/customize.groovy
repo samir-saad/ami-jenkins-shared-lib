@@ -33,4 +33,6 @@ def call(Pipeline myPipeline) {
     // using Map to convert to Person object type
     myPipeline.customize(new JsonSlurper().parseText(config))
     myPipeline.print()
+
+    return myPipeline
 }

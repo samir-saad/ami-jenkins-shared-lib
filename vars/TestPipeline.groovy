@@ -67,10 +67,10 @@ def call(Closure body) {
 						// using Map to convert to Person object type
 //						myPipeline.customize(new JsonSlurper().parseText(config))
 
-						customize(myPipeline)
+						myPipeline = customize(myPipeline)
 
-//						println("Customized pipeline:")
-//						myPipeline.print()
+						println("Customized pipeline:")
+						myPipeline.print()
 //
 //						println("Registry pipeline:")
 //						PipelineRegistry.getPipeline("${BUILD_TAG}").print()
