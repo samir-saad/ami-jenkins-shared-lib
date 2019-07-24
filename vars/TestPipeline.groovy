@@ -65,9 +65,9 @@ def call(Closure body) {
 										"    ]\n" +
 										"}"
 						// using Map to convert to Person object type
-//						myPipeline.customize(new JsonSlurper().parseText(config))
+						myPipeline.customize(new JsonSlurper().parseText(config))
 
-						myPipeline = customize(myPipeline)
+//						myPipeline = customize(myPipeline)
 
 						println("Customized pipeline:")
 						myPipeline.print()
