@@ -68,7 +68,7 @@ class Pipeline implements Serializable, Customizable, Executable {
 //        print()
 //    }
 
-    @NonCPS
+    //@NonCPS
     @Override
     void customize(Map config) {
 

@@ -14,7 +14,7 @@ class Activation implements Serializable, Customizable {
         return activation
     }
 
-    @NonCPS
+    //@NonCPS
     @Override
     void customize(Map config) {
         if (config?.allowedAppType != null)

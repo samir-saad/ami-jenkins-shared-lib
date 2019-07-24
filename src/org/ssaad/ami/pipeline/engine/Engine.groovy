@@ -19,7 +19,7 @@ abstract class Engine implements Serializable, Customizable, Executable {
     String credentialsId
     Credentials credentials
 
-    @NonCPS
+    //@NonCPS
     @Override
     void customize(Map config) {
         if (config?.id != null)

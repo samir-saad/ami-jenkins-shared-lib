@@ -12,7 +12,7 @@ class Maven extends Engine {
     String goals = ""
     String params = ""
 
-    @NonCPS
+    //@NonCPS
     @Override
     void customize(Map config) {
         super.customize(config)
