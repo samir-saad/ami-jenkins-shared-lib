@@ -16,6 +16,7 @@ class MavenFactory {
 
         switch (task) {
             case TaskType.CODE_BUILD:
+                maven.credentialsId = "ami-nexus"
                 maven.goals = "clean install"
                 maven.params = "-DskipTests=true"
                 break
