@@ -40,7 +40,7 @@ class Maven extends Engine {
 
         String command = "mvn ${this.options} ${this.goals} ${this.params}"
 
-        command = PipelineUtils.resolveVars(["engine", this], command)
+        command = PipelineUtils.resolveVars([engine: this], command)
 
         steps.sh(command)
 
