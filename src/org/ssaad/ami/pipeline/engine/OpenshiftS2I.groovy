@@ -21,7 +21,7 @@ class OpenshiftS2I extends Engine {
         this.buildId = buildId
     }
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
     }

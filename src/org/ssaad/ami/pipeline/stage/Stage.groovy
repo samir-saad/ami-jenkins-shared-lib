@@ -30,7 +30,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
     abstract void init(EngineInitialization init, String buildId)
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config?.id != null)

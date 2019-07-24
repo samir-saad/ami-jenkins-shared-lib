@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.utils
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Application
 import org.ssaad.ami.pipeline.common.ScmType
 import org.ssaad.ami.pipeline.common.TaskType
@@ -48,6 +49,7 @@ class PipelineUtils {
         }
     }
 
+    @NonCPS
     static Stage findStage(List<Stage> stages, TaskType taskType) {
         for (Stage stage : stages) {
             if (stage.taskType.equals(taskType))

@@ -13,7 +13,7 @@ class EngineStage extends Stage {
 
     }
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
         super.customize(config)

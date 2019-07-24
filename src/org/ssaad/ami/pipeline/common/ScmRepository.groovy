@@ -10,7 +10,7 @@ class ScmRepository implements Serializable, Customizable {
     String credentialsId = ""
     String localDir = ""
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config.scmType != null)

@@ -68,7 +68,7 @@ class Pipeline implements Serializable, Customizable, Executable {
 //        print()
 //    }
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
 
@@ -97,11 +97,7 @@ class Pipeline implements Serializable, Customizable, Executable {
             }
         }
 
-        config = null
-
         PipelineRegistry.registerPipeline(this)
-//        steps.println("Customized pipeline:")
-//        print()
     }
 
     @Override

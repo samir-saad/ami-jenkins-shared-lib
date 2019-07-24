@@ -51,16 +51,16 @@ def call(Closure body) {
 										"                \"enable\": true\n" +
 										"            },\n" +
 										"            \"taskType\": \"CODE_BUILD\",\n" +
-//										"            \"activation\": {\n" +
-//										"                \"allowedBranches\": [\n" +
-//										"                    \"ANY\",\n" +
-//										"                    \"FEATURE\"\n" +
-//										"                ],\n" +
-//										"                \"allowedAppType\": [\n" +
-//										"                    \"ANY\",\n" +
-//										"                    \"LIBRARY\"\n" +
-//										"                ]\n" +
-//										"            }\n" +
+										"            \"activation\": {\n" +
+										"                \"allowedBranches\": [\n" +
+										"                    \"ANY\",\n" +
+										"                    \"FEATURE\"\n" +
+										"                ],\n" +
+										"                \"allowedAppType\": [\n" +
+										"                    \"ANY\",\n" +
+										"                    \"LIBRARY\"\n" +
+										"                ]\n" +
+										"            }\n" +
 										"        }\n" +
 										"    ]\n" +
 										"}"
@@ -69,11 +69,11 @@ def call(Closure body) {
 
 //						myPipeline = customize(myPipeline)
 
-						println("Customized pipeline:")
-						myPipeline.print()
+//						println("Customized pipeline:")
+//						myPipeline.print()
 //
-//						println("Registry pipeline:")
-//						PipelineRegistry.getPipeline("${BUILD_TAG}").print()
+						println("Registry pipeline:")
+						PipelineRegistry.getPipeline("${BUILD_TAG}").print()
 
 						//myPipeline.execute()
 					}

@@ -1,8 +1,11 @@
 package org.ssaad.ami.pipeline.common
 
+import com.cloudbees.groovy.cps.NonCPS
+
 class PipelineRegistry {
     private static Map<String, Pipeline> pipelines = new HashMap<>()
 
+    @NonCPS
     static void registerPipeline(Pipeline pipeline) {
         pipelines.put(pipeline.buildId, pipeline)
     }

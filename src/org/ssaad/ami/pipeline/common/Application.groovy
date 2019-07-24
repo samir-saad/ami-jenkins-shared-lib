@@ -15,7 +15,7 @@ class Application implements Serializable, Customizable {
     String latestCommit
     ScmType scmType
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config.id != null)

@@ -10,7 +10,7 @@ class StageConfirmation implements Serializable, Customizable {
     String message = "Proceed?"
     String okOption = "Ok"
 
-    //@NonCPS
+    @NonCPS
     @Override
     void customize(Map config) {
         if (config?.enable != null)
