@@ -34,9 +34,9 @@ class Application implements Serializable, Customizable {
             this.version = config.version
 
         if (config.type != null)
-            this.type = config.type
+            this.type = config.type as AppType
 
         if (config.scmType != null)
-            this.scmType = config.scmType
+            this.scmType = config.scmType as ScmType
     }
 }

@@ -29,10 +29,10 @@ abstract class Engine implements Serializable, Customizable, Executable {
             this.name = config.name
 
         if (config?.type != null)
-            this.type = config.type
+            this.type = config.type as EngineType
 
         if (config?.plugin != null)
-            this.plugin = config.plugin
+            this.plugin = config.plugin as PluginType
 
         if (config?.configDir != null)
             this.configDir = config.configDir
