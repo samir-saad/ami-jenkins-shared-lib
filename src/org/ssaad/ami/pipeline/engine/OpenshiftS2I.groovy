@@ -54,7 +54,7 @@ class OpenshiftS2I extends Engine {
         steps.openshift.withCluster(clusterId) {
             steps.openshift.withProject(project) {
 
-                steps.openshift.newBuild("--name=${app.id}", "--source-image==${baseImage}", "--binary=true", "--labels=app=${app.id}")
+                steps.openshift.newBuild("--name=${app.id}", "${baseImage}", "--binary=true", "--labels=app=${app.id}")
 
                 steps.openshift.selector("bc", app.id).startBuild("--from-dir=oc-build/deployments", "--wait=true")
             }
