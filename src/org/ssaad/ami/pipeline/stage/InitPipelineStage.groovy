@@ -45,8 +45,7 @@ class InitPipelineStage extends Stage {
             String config = steps.readFile file: 'pipeline-config.json'
             steps.println("Custom Pipeline Params: \n" + config)
             // using Map to convert to Person object type
-            //pipeline.customize(new JsonSlurper().parseText(config))
-            pipeline.customize(config)
+            pipeline.customize(new JsonSlurper().parseText(config))
         } else if (steps.fileExists('pipeline-config.yaml')) {
             // Do yaml init
         } else {
