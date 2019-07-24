@@ -46,7 +46,7 @@ class InitPipelineStage extends Stage {
             steps.println("Custom Pipeline Params: \n" + config)
             // using Map to convert to Person object type
             //pipeline.customize(new JsonSlurper().parseText(config))
-            pipeline.customizePipeline(config)
+            pipeline.customize(config)
         } else if (steps.fileExists('pipeline-config.yaml')) {
             // Do yaml init
         } else {
@@ -54,9 +54,6 @@ class InitPipelineStage extends Stage {
         }
 
         steps.println("Customized pipeline:")
-        pipeline.print()
-
-        pipeline = PipelineRegistry.getPipeline(buildId)
         pipeline.print()
 
         // Fix App dir
