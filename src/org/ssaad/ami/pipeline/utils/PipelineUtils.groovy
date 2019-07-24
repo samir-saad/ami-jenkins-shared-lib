@@ -8,7 +8,7 @@ import org.ssaad.ami.pipeline.stage.Stage
 
 class PipelineUtils {
 
-    static void resolveVars(Map bindings, String varsString) {
+    static String resolveVars(Map bindings, String varsString) {
         String sub
         int start = varsString.indexOf("\${")
         int end = varsString.indexOf("}")
@@ -22,6 +22,8 @@ class PipelineUtils {
             start = varsString.indexOf("\${")
             end = varsString.indexOf("}")
         }
+
+        return varsString
     }
 
     private static resolveVar(Map bindings, String var) {

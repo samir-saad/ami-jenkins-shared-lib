@@ -43,7 +43,7 @@ class Maven extends Engine {
         //Resolve command vars
         Map bindings = new HashMap()
         bindings.put("engine", this)
-        PipelineUtils.resolveVars(bindings, command)
+        command = PipelineUtils.resolveVars(bindings, command)
 
         steps.sh(command)
 

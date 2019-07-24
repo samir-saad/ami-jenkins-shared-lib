@@ -35,7 +35,7 @@ class OpenshiftS2I extends Engine {
         def steps = pipeline.steps
 
         String binary = app.id + appPackage
-        PipelineUtils.resolveVars([app: app], binary)
+        binary = PipelineUtils.resolveVars([app: app], binary)
 
         steps.println("Building container image for " + binary)
 
