@@ -27,6 +27,9 @@ class PipelineTest {
             initialization.stageInitMap.put(TaskType.CONTAINER_BUILD, new EngineInitialization(EngineType.OPENSHIFT_S2I, null))
             pipeline.init(initialization)
 
+            steps.println("Initial pipeline:")
+            pipeline.print()
+
             String config =
                     "{\n" +
                             "    \"stages\": [        \n" +
@@ -51,6 +54,9 @@ class PipelineTest {
                             "}"
             // using Map to convert to Person object type
             pipeline.customize(new JsonSlurper().parseText(config))
+
+            steps.println("Customized pipeline:")
+            pipeline.print()
 
         } catch (Exception e) {
             e.printStackTrace()

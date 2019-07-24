@@ -58,7 +58,7 @@ class InitPipelineStage extends Stage {
 
         pipeline = PipelineRegistry.getPipeline(buildId)
         pipeline.print()
-        
+
         // Fix App dir
         // Make app directory at parent
         steps.sh "mkdir ../${pipeline.app.id}"

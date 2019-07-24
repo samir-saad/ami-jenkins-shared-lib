@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 import hudson.model. *
 import org.ssaad.ami.pipeline.common.EngineType
 import org.ssaad.ami.pipeline.common.Pipeline
@@ -37,7 +38,38 @@ def call(Closure body) {
 
 						myPipeline.init(initialization)
 
-						myPipeline.execute()
+						println("Initial pipeline:")
+						myPipeline.print()
+
+						String config =
+								"{\n" +
+										"    \"stages\": [        \n" +
+										"        {\n" +
+										"            \"confirmation\": {\n" +
+										"                \"time\": 10,\n" +
+										"                \"enable\": true\n" +
+										"            },\n" +
+										"            \"taskType\": \"CODE_BUILD\",\n" +
+										"            \"activation\": {\n" +
+										"                \"allowedBranches\": [\n" +
+										"                    \"ANY\",\n" +
+										"                    \"FEATURE\"\n" +
+										"                ],\n" +
+										"                \"allowedAppType\": [\n" +
+										"                    \"ANY\",\n" +
+										"                    \"LIBRARY\"\n" +
+										"                ]\n" +
+										"            }\n" +
+										"        }\n" +
+										"    ]\n" +
+										"}"
+						// using Map to convert to Person object type
+						myPipeline.customize(new JsonSlurper().parseText(config))
+
+						println("Customized pipeline:")
+						myPipeline.print()
+
+						//myPipeline.execute()
 					}
 				}
 			}

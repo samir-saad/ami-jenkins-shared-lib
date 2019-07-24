@@ -41,34 +41,32 @@ class Pipeline implements Serializable, Customizable, Executable {
 
         initStages(init.stageInitMap, init.buildId)
 
-        steps.println("Initial pipeline:")
-        print()
     }
 
     private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId) {
         StageFactory stageFactory = new StageFactory()
-        this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
+//        this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
         // init configs
         this.stages.add(stageFactory.create(TaskType.CODE_BUILD, stageInitMap.get(TaskType.CODE_BUILD), buildId))
-        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
-        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
+//        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
+//        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
 
-        if(stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
-            this.stages.add(stageFactory.create(TaskType.CONTAINER_BUILD, stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
+//        if(stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
+//            this.stages.add(stageFactory.create(TaskType.CONTAINER_BUILD, stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
 
-        this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
+//        this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
     }
 
-    void customizePipeline(String jsonConfig){
-        steps.println("Customize pipeline method started:")
-
-        Map config = new JsonSlurper().parseText(jsonConfig)
-
-        customize(config)
-
-        steps.println("Customized pipeline:")
-        print()
-    }
+//    void customizePipeline(String jsonConfig){
+//        steps.println("Customize pipeline method started:")
+//
+//        Map config = new JsonSlurper().parseText(jsonConfig)
+//
+//        customize(config)
+//
+//        steps.println("Customized pipeline:")
+//        print()
+//    }
 
     @NonCPS
     @Override
@@ -98,8 +96,6 @@ class Pipeline implements Serializable, Customizable, Executable {
                 }
             }
         }
-
-        PipelineRegistry.registerPipeline(this)
 //        steps.println("Customized pipeline:")
 //        print()
     }
