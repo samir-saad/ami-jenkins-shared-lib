@@ -1,7 +1,6 @@
 package org.ssaad.ami.pipeline.engine
 
 import com.cloudbees.groovy.cps.NonCPS
-import groovy.json.JsonBuilder
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 import org.ssaad.ami.pipeline.utils.PipelineUtils
@@ -41,19 +40,7 @@ class Maven extends Engine {
 
         String command = "mvn ${this.options} ${this.goals} ${this.params}"
 
-        //Resolve command vars
-        Map bindings = new HashMap()
-        bindings.put("engine", this)
-
-
-        try {
-            steps.println(new JsonBuilder(bindings).toPrettyString())
-
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
-
-        command = PipelineUtils.resolveVars(bindings, command)
+        command = PipelineUtils.resolveVars(["engine", this], command)
 
         steps.sh(command)
 
