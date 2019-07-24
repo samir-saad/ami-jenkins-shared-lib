@@ -9,7 +9,7 @@ class Application implements Serializable, Customizable {
     String name
     String description
     String version
-    String branch = ""
+    String branch
     // service or library
     AppType type = AppType.APPLICATION
     String latestCommit
