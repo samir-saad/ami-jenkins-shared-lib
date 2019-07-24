@@ -99,6 +99,7 @@ class Pipeline implements Serializable, Customizable, Executable {
             }
         }
 
+        PipelineRegistry.registerPipeline(this)
 //        steps.println("Customized pipeline:")
 //        print()
     }
