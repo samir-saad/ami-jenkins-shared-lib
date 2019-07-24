@@ -3,6 +3,7 @@ import hudson.model. *
 import org.ssaad.ami.pipeline.common.EngineType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineInitialization
+import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.common.ScmType
 import org.ssaad.ami.pipeline.common.TaskType
 import org.ssaad.ami.pipeline.engine.EngineInitialization
@@ -13,8 +14,8 @@ def call(Closure body) {
 
 	pipeline {
 
-		agent { node { label 'maven' } }
-		//agent any
+		//agent { node { label 'maven' } }
+		agent any
 
 		stages {
 			stage("Create Pipeline") {
@@ -68,6 +69,9 @@ def call(Closure body) {
 
 						println("Customized pipeline:")
 						myPipeline.print()
+
+						println("Registry pipeline:")
+						PipelineRegistry.getPipelineSteps("${BUILD_TAG}").print()
 
 						//myPipeline.execute()
 					}
