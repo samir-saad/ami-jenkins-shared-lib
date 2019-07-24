@@ -44,13 +44,13 @@ def call(Closure body) {
 
 						String config =
 								"{\n" +
-//										"    \"stages\": [        \n" +
-//										"        {\n" +
-//										"            \"confirmation\": {\n" +
-//										"                \"time\": 10,\n" +
-//										"                \"enable\": true\n" +
-//										"            },\n" +
-//										"            \"taskType\": \"CODE_BUILD\",\n" +
+										"    \"stages\": [        \n" +
+										"        {\n" +
+										"            \"confirmation\": {\n" +
+										"                \"time\": 10,\n" +
+										"                \"enable\": true\n" +
+										"            },\n" +
+										"            \"taskType\": \"CODE_BUILD\",\n" +
 //										"            \"activation\": {\n" +
 //										"                \"allowedBranches\": [\n" +
 //										"                    \"ANY\",\n" +
@@ -61,8 +61,8 @@ def call(Closure body) {
 //										"                    \"LIBRARY\"\n" +
 //										"                ]\n" +
 //										"            }\n" +
-//										"        }\n" +
-//										"    ]\n" +
+										"        }\n" +
+										"    ]\n" +
 										"}"
 						// using Map to convert to Person object type
 						myPipeline.customize(new JsonSlurper().parseText(config))
