@@ -97,7 +97,7 @@ class Pipeline implements Serializable, Customizable, Executable {
             }
         }
 
-        PipelineRegistry.registerPipeline(this)
+//        PipelineRegistry.registerPipeline(this)
     }
 
     @Override

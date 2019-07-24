@@ -69,8 +69,8 @@ def call(Closure body) {
 
 //						myPipeline = customize(myPipeline)
 
-//						println("Customized pipeline:")
-//						myPipeline.print()
+						println("Customized pipeline:")
+						myPipeline.print()
 //
 						println("Registry pipeline:")
 						PipelineRegistry.getPipeline("${BUILD_TAG}").print()
