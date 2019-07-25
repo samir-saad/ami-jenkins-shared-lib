@@ -34,13 +34,13 @@ class OpenshiftS2I extends Engine {
         Application app = pipeline.app
         def steps = pipeline.steps
 
-        String binary = app.id + appPackage
-        binary = PipelineUtils.resolveVars([app: app], binary)
-
-        steps.println("Building container image for " + binary)
-
-        steps.sh "rm -rf oc-build && mkdir -p oc-build/deployments"
-        steps.sh "cp ${binary} oc-build/deployments/"
+//        String binary = app.id + appPackage
+//        binary = PipelineUtils.resolveVars([app: app], binary)
+//
+//        steps.println("Building container image for " + binary)
+//
+//        steps.sh "rm -rf oc-build && mkdir -p oc-build/deployments"
+//        steps.sh "cp ${binary} oc-build/deployments/"
 
 
 
@@ -51,15 +51,20 @@ class OpenshiftS2I extends Engine {
         // Start the build
         //steps.sh "oc start-build ${app.id} --from-dir=oc-build/deployments --wait=true -n ${project} "
 
+        String inputStreamImageName = baseImage.substring(baseImage.lastIndexOf("/") + 1)
+        String inputStreamName = inputStreamImageName.substring(0, inputStreamImageName.indexOf(":"))
+        String inputStreamTag = inputStreamImageName.substring(inputStreamImageName.indexOf(":") + 1)
+
         steps.openshift.withCluster(clusterId) {
             steps.openshift.withProject(project) {
 
-                steps.openshift.newBuild("--name=${app.id}", "${baseImage}", "--binary=true", "--labels=app=${app.id}")
+                steps.openshift.createImageStream(inputStreamName)
+                steps.openshift.createImageStreamTag("${inputStreamName}:${inputStreamTag}", "--from-image=${baseImage}")
 
-                steps.openshift.selector("bc", app.id).startBuild("--from-dir=oc-build/deployments", "--wait=true")
+//                steps.openshift.newBuild("--name=${app.id}", "${baseImage}", "--binary=true", "--labels=app=${app.id}")
+//
+//                steps.openshift.selector("bc", app.id).startBuild("--from-dir=oc-build/deployments", "--wait=true")
             }
         }
-
-
     }
 }

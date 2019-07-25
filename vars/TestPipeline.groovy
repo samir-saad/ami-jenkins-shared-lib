@@ -12,8 +12,8 @@ def call(Closure body) {
 
 	pipeline {
 
-		agent { node { label 'maven' } }
-		//agent any
+		//agent { node { label 'maven' } }
+		agent any
 
 		stages {
 			stage("Create Pipeline") {
