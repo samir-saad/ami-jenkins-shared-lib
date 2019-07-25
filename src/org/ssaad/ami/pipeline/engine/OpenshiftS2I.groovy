@@ -54,16 +54,37 @@ class OpenshiftS2I extends Engine {
         String inputStreamImageName = baseImage.substring(baseImage.lastIndexOf("/") + 1)
         String inputStreamName = inputStreamImageName.substring(0, inputStreamImageName.indexOf(":"))
         String inputStreamTag = inputStreamImageName.substring(inputStreamImageName.indexOf(":") + 1)
+        String buildName = "${app.id}-${app.version}".toLowerCase()
 
         steps.openshift.withCluster(clusterId) {
             steps.openshift.withProject(project) {
 
-                steps.openshift.createImageStream(inputStreamName)
-                steps.openshift.createImageStreamTag("${inputStreamName}:${inputStreamTag}", "--from-image=${baseImage}")
+                // OpenShift BuildConfig doesn't support specifying a tag name at build time.
+                // We have to create a new BuildConfig for each container build.
+                // Create a BuildConfig from a seperated Template.
+                steps.prinln('Creating a BuildConfig...')
+
+                def template = steps.readYaml file: "${app.id}/build-template.yaml"
+
+                String params = "-p APP_NAME=${app.id} " +
+                        "-p APP_VERSION=${app.version} " +
+                        "-p BUILD_NAME=${buildName} " +
+                        "-p INPUT_STREAM_NAME=${inputStreamName} " +
+                        "-p INPUT_STREAM_TAG=inputStreamTag " +
+                        "-p INPUT_STREAM_IMAGE=${baseImage}"
+
+
+                def processed = steps.openshift.process(template, params)
+                def created = steps.openshift.apply(processed)
+                def bc = created.narrow('bc')
+                steps.prinln('Starting a container build from the created BuildConfig...')
+                def buildSelector = bc.startBuild("--from-dir=.", "--wait=true")
+
+
 
 //                steps.openshift.newBuild("--name=${app.id}", "${baseImage}", "--binary=true", "--labels=app=${app.id}")
 //
-//                steps.openshift.selector("bc", app.id).startBuild("--from-dir=oc-build/deployments", "--wait=true")
+//                steps.openshift.selector("bc", app.id).startBuild()
             }
         }
     }
