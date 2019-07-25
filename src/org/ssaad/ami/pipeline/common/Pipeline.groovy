@@ -83,7 +83,7 @@ class Pipeline implements Serializable, Customizable, Executable {
                 Stage stage
                 if(taskType != null){
                     stage = PipelineUtils.findStage(stages, taskType)
-                    stage.customize(stageConfig)
+                    stage?.customize(stageConfig)
                 }
             }
         }
