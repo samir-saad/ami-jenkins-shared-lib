@@ -62,7 +62,7 @@ class OpenshiftS2I extends Engine {
                 // OpenShift BuildConfig doesn't support specifying a tag name at build time.
                 // We have to create a new BuildConfig for each container build.
                 // Create a BuildConfig from a seperated Template.
-                steps.prinln('Creating a BuildConfig...')
+                steps.println('Creating a BuildConfig...')
 
                 def template = steps.readYaml file: "${app.id}/build-template.yaml"
 
@@ -77,7 +77,7 @@ class OpenshiftS2I extends Engine {
                 def processed = steps.openshift.process(template, params)
                 def created = steps.openshift.apply(processed)
                 def bc = created.narrow('bc')
-                steps.prinln('Starting a container build from the created BuildConfig...')
+                steps.println('Starting a container build from the created BuildConfig...')
                 def buildSelector = bc.startBuild("--from-dir=.", "--wait=true")
 
 
