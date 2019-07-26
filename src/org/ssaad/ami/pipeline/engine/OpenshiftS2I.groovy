@@ -56,7 +56,7 @@ class OpenshiftS2I extends Engine {
         String inputStreamTag = inputStreamImageName.substring(inputStreamImageName.indexOf(":") + 1)
         String buildName = "${app.id}-${app.version}".toLowerCase()
 
-        steps.openshift.withCluster(clusterId) {
+        steps.openshift.withCluster(/*clusterId*/) {
             steps.openshift.withProject(project) {
 
                 // OpenShift BuildConfig doesn't support specifying a tag name at build time.
