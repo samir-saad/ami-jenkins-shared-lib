@@ -32,9 +32,10 @@ class Pipeline implements Serializable, Customizable, Executable {
         this.env = init.env
         this.app.scmType = init.scm
         this.primaryConfigRepo.scmType = init.scm
+        this.primaryConfigRepo.id = "primary"
         this.primaryConfigRepo.url = "https://github.com/samir-saad/ami-pipeline-configs.git"
         this.primaryConfigRepo.branch = "master"
-        this.primaryConfigRepo.localDir = "primaryConfigRepo"
+        this.primaryConfigRepo.localDir = "primary-config-repo"
         this.primaryConfigRepo.credentialsId = "ami-github"
 
         PipelineRegistry.registerPipeline(this)
@@ -48,8 +49,9 @@ class Pipeline implements Serializable, Customizable, Executable {
     private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId) {
         StageFactory stageFactory = new StageFactory()
         this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
+        this.stages.add(stageFactory.create(TaskType.INIT_CONFIG, null, buildId))
         // init configs
-//        this.stages.add(stageFactory.create(TaskType.CODE_BUILD, stageInitMap.get(TaskType.CODE_BUILD), buildId))
+        this.stages.add(stageFactory.create(TaskType.CODE_BUILD, stageInitMap.get(TaskType.CODE_BUILD), buildId))
 //        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
 //        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
 
@@ -73,6 +75,10 @@ class Pipeline implements Serializable, Customizable, Executable {
         //Init secondary repo
         if (config?.secondaryConfigRepo != null) {
             this.secondaryConfigRepo = new ScmRepository()
+            this.secondaryConfigRepo.id = "secondary"
+            this.secondaryConfigRepo.branch = "master"
+            this.secondaryConfigRepo.localDir = "secondary-config-repo"
+            this.secondaryConfigRepo.credentialsId = "ami-github"
             this.secondaryConfigRepo.customize(config.secondaryConfigRepo)
         }
 

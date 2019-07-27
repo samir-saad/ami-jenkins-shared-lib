@@ -1,13 +1,14 @@
 package org.ssaad.ami.pipeline.engine
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 import org.ssaad.ami.pipeline.utils.PipelineUtils
 
 class Maven extends Engine {
 
-    String settingsFile
+    String settingsFile = "/build/maven/settings.xml"
     String options = ""
     String goals = ""
     String params = ""
@@ -32,13 +33,18 @@ class Maven extends Engine {
 
     @Override
     void execute() {
-        def steps = PipelineRegistry.getPipelineSteps(buildId)
+        Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
+        def steps = pipeline.steps
 
         if (credentialsId != null) {
             credentials = JenkinsUtils.getCredentials(credentialsId)
         }
 
-        String command = "mvn ${this.options} ${this.goals} ${this.params}"
+        // Adjust settings
+        configRepo = PipelineUtils.getConfigRepo(pipeline, settingsFile)
+        String settingsFileAbsolutePath = PipelineUtils.getFileAbsolutePath(pipeline, configRepo, settingsFile)
+
+        String command = "mvn -s ${settingsFileAbsolutePath} ${this.options} ${this.goals} ${this.params}"
 
         command = PipelineUtils.resolveVars([engine: this], command)
 

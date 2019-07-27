@@ -1,9 +1,7 @@
 package org.ssaad.ami.pipeline.utils
 
 import com.cloudbees.groovy.cps.NonCPS
-import org.ssaad.ami.pipeline.common.Application
-import org.ssaad.ami.pipeline.common.ScmType
-import org.ssaad.ami.pipeline.common.TaskType
+import org.ssaad.ami.pipeline.common.*
 import org.ssaad.ami.pipeline.stage.Stage
 
 class PipelineUtils {
@@ -28,13 +26,33 @@ class PipelineUtils {
 
     private static resolveVar(Map bindings, String var) {
         Iterator it = var.tokenize(".").iterator()
+        // Get root object
         def object = bindings.get(it.next())
 
+        // Process children/operations
+        String segment
         while (it.hasNext() && object != null) {
-            object = object.getProperties().get(it.next())
+            segment = it.next()
+            if ("lowerCase".equals(segment)) {
+                object = object.toString().toLowerCase()
+            } else if ("upperCase".equals(segment)) {
+                object = object.toString().toUpperCase()
+            } else if ("trim".equals(segment)) {
+                object = object.toString().trim()
+            } else if ("normalize".equals(segment)) {
+                object = normalize(object.toString())
+            } else {
+                object = object.getProperties().get(segment)
+            }
         }
-
         return object?.toString()
+    }
+
+    private String normalize(String str) {
+        return str
+                .trim()
+                .replace(".", "-")
+                .replace("/", "-")
     }
 
     static void completeAppInfo(Application app, steps) {
@@ -58,5 +76,34 @@ class PipelineUtils {
                 return stage
         }
         return null
+    }
+
+    static ScmRepository getConfigRepo(Pipeline pipeline, String filePath) {
+        ScmRepository configRepo = null
+        // Check file in secondary repo
+        configRepo = getConfigRepo(pipeline, pipeline.secondaryConfigRepo, filePath)
+
+        if (configRepo == null) {
+            configRepo = getConfigRepo(pipeline, pipeline.primaryConfigRepo, filePath)
+        }
+
+        return configRepo
+    }
+
+    static ScmRepository getConfigRepo(Pipeline pipeline, ScmRepository configRepo, String filePath) {
+        if (configRepo != null) {
+            String absolutePath = getFileAbsolutePath(pipeline, configRepo, filePath)
+            if (pipeline.steps.fileExists(absolutePath))
+                return configRepo
+        }
+        return null
+    }
+
+    static String getFileAbsolutePath(Pipeline pipeline, ScmRepository configRepo, String filePath) {
+        return getFileAbsolutePath(pipeline.workspaceDir, configRepo.localDir, filePath)
+    }
+
+    static String getFileAbsolutePath(String workspaceDir, String localDir, String filePath) {
+        return (workspaceDir + "/" + localDir + "/" + filePath).replace("//", "/").trim()
     }
 }

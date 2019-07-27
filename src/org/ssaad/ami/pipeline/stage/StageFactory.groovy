@@ -12,6 +12,9 @@ class StageFactory {
             case TaskType.INIT_PIPELINE:
                 stage = new InitPipelineStage()
                 break
+            case TaskType.INIT_CONFIG:
+                stage = new InitiConfigStage()
+                break
             case TaskType.CODE_BUILD:
                 stage = new BuildStage()
                 break

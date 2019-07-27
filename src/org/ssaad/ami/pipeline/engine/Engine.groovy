@@ -2,10 +2,7 @@ package org.ssaad.ami.pipeline.engine
 
 import com.cloudbees.groovy.cps.NonCPS
 import com.cloudbees.plugins.credentials.Credentials
-import org.ssaad.ami.pipeline.common.EngineType
-import org.ssaad.ami.pipeline.common.Executable
-import org.ssaad.ami.pipeline.common.Customizable
-import org.ssaad.ami.pipeline.common.PluginType
+import org.ssaad.ami.pipeline.common.*
 
 abstract class Engine implements Serializable, Customizable, Executable {
 
@@ -18,6 +15,7 @@ abstract class Engine implements Serializable, Customizable, Executable {
     String configDir
     String credentialsId
     Credentials credentials
+    ScmRepository configRepo
 
     @NonCPS
     @Override
