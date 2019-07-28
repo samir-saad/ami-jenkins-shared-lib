@@ -2,7 +2,6 @@ package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
 import groovy.json.JsonBuilder
-import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.engine.EngineInitialization
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
@@ -55,7 +54,7 @@ class Pipeline implements Serializable, Customizable, Executable {
 //        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
 //        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
 
-        if(stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
+        if (stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
             this.stages.add(stageFactory.create(TaskType.CONTAINER_BUILD, stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
 
         this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
@@ -87,12 +86,16 @@ class Pipeline implements Serializable, Customizable, Executable {
             for (Map stageConfig : config.stages) {
                 TaskType taskType = stageConfig.taskType
                 Stage stage
-                if(taskType != null){
-                    stage = PipelineUtils.findStage(stages, taskType)
+                if (taskType != null) {
+                    stage = findStage(taskType)
                     stage?.customize(stageConfig)
                 }
             }
         }
+    }
+
+    Stage findStage(TaskType taskType) {
+        return PipelineUtils.findStage(stages, taskType)
     }
 
     @Override

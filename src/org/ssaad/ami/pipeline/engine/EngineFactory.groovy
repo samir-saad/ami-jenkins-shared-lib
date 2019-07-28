@@ -18,6 +18,7 @@ class EngineFactory {
                 engine = new OpenshiftS2I(buildId)
         }
 
+        engine.taskType = task
         engine.type = init.engineType
         engine.plugin = init.pluginType
 

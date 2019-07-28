@@ -69,6 +69,11 @@ class PipelineUtils {
         }
     }
 
+    static Stage findStage(String buildId, TaskType taskType) {
+        Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
+        return findStage(pipeline.stages, taskType)
+    }
+
     @NonCPS
     static Stage findStage(List<Stage> stages, TaskType taskType) {
         for (Stage stage : stages) {
@@ -79,7 +84,7 @@ class PipelineUtils {
     }
 
     static ScmRepository getConfigRepo(Pipeline pipeline, String filePath) {
-        ScmRepository configRepo = null
+        ScmRepository configRepo
         // Check file in secondary repo
         configRepo = getConfigRepo(pipeline, pipeline.secondaryConfigRepo, filePath)
 
@@ -92,8 +97,8 @@ class PipelineUtils {
 
     static ScmRepository getConfigRepo(Pipeline pipeline, ScmRepository configRepo, String filePath) {
         if (configRepo != null) {
-            String absolutePath = getFileAbsolutePath(pipeline, configRepo, filePath)
-            if (pipeline.steps.fileExists(absolutePath))
+            String fileRelativePath = getFileRelativePath(pipeline, configRepo, filePath)
+            if (pipeline.steps.fileExists(fileRelativePath))
                 return configRepo
         }
         return null
@@ -104,6 +109,25 @@ class PipelineUtils {
     }
 
     static String getFileAbsolutePath(String workspaceDir, String localDir, String filePath) {
-        return (workspaceDir + "/" + localDir + "/" + filePath).replace("//", "/").trim()
+        return normalizePath(workspaceDir + "/" + localDir + "/" + filePath)
+    }
+
+    static String getFileRelativePath(Pipeline pipeline, ScmRepository configRepo, String filePath) {
+        String workspaceDir = pipeline.workspaceDir
+        String pwd = pipeline.steps.pwd()
+        String relativePath = ""
+
+        String dirs = pwd.replace(workspaceDir, "")
+
+        for (int i = 0; i < dirs.tokenize("/").size(); i++) {
+            relativePath += "../"
+        }
+
+        relativePath += configRepo.localDir + "/" + filePath
+        return normalizePath(relativePath)
+    }
+
+    static String normalizePath(String path){
+        return path.replace("//", "/").trim()
     }
 }

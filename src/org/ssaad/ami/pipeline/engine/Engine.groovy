@@ -9,6 +9,7 @@ abstract class Engine implements Serializable, Customizable, Executable {
     String id
     String name
     String buildId
+    TaskType taskType
     EngineType type
     PluginType plugin
     // maven, gradle, npm, etc.

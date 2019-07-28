@@ -12,8 +12,8 @@ def call(Closure body) {
 
 	pipeline {
 
-		//agent { node { label 'maven' } }
-		agent any
+		agent { node { label 'maven' } }
+		//agent any
 
 		stages {
 			stage("Create Pipeline") {
@@ -36,7 +36,12 @@ def call(Closure body) {
 						initialization.stageInitMap.put(TaskType.CONTAINER_BUILD, new EngineInitialization(EngineType.OPENSHIFT_S2I, null))
 
 						myPipeline.init(initialization)
-
+					}
+				}
+			}
+			stage("Execute Pipeline") {
+				steps {
+					script {
 						myPipeline.execute()
 					}
 				}
