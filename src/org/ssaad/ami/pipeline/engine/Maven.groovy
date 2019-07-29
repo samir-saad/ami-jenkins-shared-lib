@@ -41,6 +41,7 @@ class Maven extends Engine {
         }
 
         // Adjust settings
+        steps.println("Config repo " + PipelineUtils.findConfigRepo(pipeline, settingsFile).toString())
         configRepo = PipelineUtils.findConfigRepo(pipeline, settingsFile)
         steps.println("Config repo " + configRepo.toString())
         steps.println(configRepo?.id)
