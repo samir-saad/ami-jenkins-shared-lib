@@ -84,13 +84,15 @@ class PipelineUtils {
     }
 
     static ScmRepository findConfigRepo(Pipeline pipeline, String filePath) {
+        ScmRepository configRepo
         if (pipeline.secondaryConfigRepo != null && fileExists(pipeline, pipeline.secondaryConfigRepo, filePath)) {
-            return pipeline.secondaryConfigRepo
+            configRepo = pipeline.secondaryConfigRepo
         } else if (pipeline.primaryConfigRepo != null && fileExists(pipeline, pipeline.primaryConfigRepo, filePath)) {
-            return pipeline.primaryConfigRepo
-        } else {
-            return null
+            configRepo = pipeline.primaryConfigRepo
         }
+        pipeline.steps.println("Config Repo: " + configRepo.toString())
+        pipeline.steps.println("Config Repo: " + configRepo?.id)
+        return configRepo
     }
 
     static boolean fileExists(Pipeline pipeline, ScmRepository configRepo, String filePath) {
