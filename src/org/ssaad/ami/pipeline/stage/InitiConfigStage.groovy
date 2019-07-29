@@ -26,6 +26,8 @@ class InitiConfigStage extends Stage {
 
         // Clone primary repo
         JenkinsUtils.cloneScmRepo(pipeline.primaryConfigRepo, pipeline.steps)
+        pipeline.steps.sh("ls -l")
+        pipeline.steps.sh("ls -l ${pipeline.primaryConfigRepo.localDir}")
 
         // Clone secondary repo
         if (pipeline.secondaryConfigRepo != null)
