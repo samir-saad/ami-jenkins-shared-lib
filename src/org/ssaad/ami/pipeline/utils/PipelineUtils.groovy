@@ -97,9 +97,14 @@ class PipelineUtils {
 
     static ScmRepository getConfigRepo(Pipeline pipeline, ScmRepository configRepo, String filePath) {
         if (configRepo != null) {
-            String fileRelativePath = getFileRelativePath(pipeline, configRepo, filePath)
-            if (pipeline.steps.fileExists(fileRelativePath))
-                return configRepo
+            String fileRelativePath = normalizePath(configRepo.localDir + "/" + filePath)
+            pipeline.steps.println("Finding file: " + fileRelativePath)
+            pipeline.steps.dir(pipeline.workspaceDir) {
+                if (pipeline.steps.fileExists(fileRelativePath)) {
+                    pipeline.steps.println("Repo found: " + configRepo.id)
+                    return configRepo
+                }
+            }
         }
         return null
     }
