@@ -96,17 +96,19 @@ class PipelineUtils {
     }
 
     static boolean fileExists(Pipeline pipeline, ScmRepository configRepo, String filePath) {
+        boolean found = false
         if (configRepo != null) {
             String fileRelativePath = normalizePath(configRepo.localDir + "/" + filePath)
             pipeline.steps.println("Finding file: " + fileRelativePath)
             pipeline.steps.dir(pipeline.workspaceDir) {
                 if (pipeline.steps.fileExists(fileRelativePath)) {
                     pipeline.steps.println("Repo found: " + configRepo.id)
-                    return true
+                    found = true
                 }
             }
         }
-        return false
+        pipeline.steps.println("Found: " + found)
+        return found
     }
 
     static String getFileAbsolutePath(Pipeline pipeline, ScmRepository configRepo, String filePath) {
