@@ -41,7 +41,9 @@ class Maven extends Engine {
         }
 
         // Adjust settings
-        configRepo = PipelineUtils.getConfigRepo(pipeline, settingsFile)
+        configRepo = PipelineUtils.findConfigRepo(pipeline, settingsFile)
+        steps.println("Config repo " + configRepo.toString())
+        steps.println(configRepo?.id)
         String settingsFileAbsolutePath = PipelineUtils.getFileAbsolutePath(pipeline, configRepo, settingsFile)
 
         String command = "mvn -s ${settingsFileAbsolutePath} ${this.options} ${this.goals} ${this.params}"

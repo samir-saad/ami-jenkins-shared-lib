@@ -48,7 +48,7 @@ class OpenshiftS2I extends Engine {
         String buildName = "${app.id}-${app.version}".toLowerCase()
 
         String buildTemplate = "/build/s2i/build-template.yaml"
-        configRepo = PipelineUtils.getConfigRepo(pipeline, buildTemplate)
+        configRepo = PipelineUtils.findConfigRepo(pipeline, buildTemplate)
         String templateFileAbsolutePath = PipelineUtils.getFileAbsolutePath(pipeline, configRepo, buildTemplate)
 
         if (clusterId != null) {

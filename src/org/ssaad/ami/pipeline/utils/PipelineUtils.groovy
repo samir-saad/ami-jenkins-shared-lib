@@ -83,30 +83,28 @@ class PipelineUtils {
         return null
     }
 
-    static ScmRepository getConfigRepo(Pipeline pipeline, String filePath) {
-        ScmRepository configRepo
-        // Check file in secondary repo
-        configRepo = getConfigRepo(pipeline, pipeline.secondaryConfigRepo, filePath)
-
-        if (configRepo == null) {
-            configRepo = getConfigRepo(pipeline, pipeline.primaryConfigRepo, filePath)
+    static ScmRepository findConfigRepo(Pipeline pipeline, String filePath) {
+        if (pipeline.secondaryConfigRepo != null && fileExists(pipeline, pipeline.secondaryConfigRepo, filePath)) {
+            return pipeline.secondaryConfigRepo
+        } else if (pipeline.primaryConfigRepo != null && fileExists(pipeline, pipeline.primaryConfigRepo, filePath)) {
+            return pipeline.primaryConfigRepo
+        } else {
+            return null
         }
-
-        return configRepo
     }
 
-    static ScmRepository getConfigRepo(Pipeline pipeline, ScmRepository configRepo, String filePath) {
+    static boolean fileExists(Pipeline pipeline, ScmRepository configRepo, String filePath) {
         if (configRepo != null) {
             String fileRelativePath = normalizePath(configRepo.localDir + "/" + filePath)
             pipeline.steps.println("Finding file: " + fileRelativePath)
             pipeline.steps.dir(pipeline.workspaceDir) {
                 if (pipeline.steps.fileExists(fileRelativePath)) {
                     pipeline.steps.println("Repo found: " + configRepo.id)
-                    return configRepo
+                    return true
                 }
             }
         }
-        return null
+        return false
     }
 
     static String getFileAbsolutePath(Pipeline pipeline, ScmRepository configRepo, String filePath) {
@@ -132,7 +130,7 @@ class PipelineUtils {
         return normalizePath(relativePath)
     }
 
-    static String normalizePath(String path){
+    static String normalizePath(String path) {
         return path.replace("//", "/").trim()
     }
 }
