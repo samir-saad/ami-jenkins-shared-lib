@@ -22,12 +22,27 @@ class PipelineFactory {
                 init.addStageInit(stageInit)
                 init.steps.println("Added stage init ")
 
+                init.steps.println("Create stage init UNIT_TESTS")
+                stageInit = StageInitialization.create(TaskType.UNIT_TESTS, EngineType.MAVEN, null)
+                init.steps.println("Created stage init " + stageInit.toString())
+                init.steps.println("Add stage init ")
+                init.addStageInit(stageInit)
+                init.steps.println("Added stage init ")
 
-                init.addStageInit(StageInitialization.create(TaskType.UNIT_TESTS, EngineType.MAVEN, null))
-                init.addStageInit(StageInitialization.create(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN, null))
+                init.steps.println("Create stage init BINARIES_ARCHIVE")
+                stageInit = StageInitialization.create(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN, null)
+                init.steps.println("Created stage init " + stageInit.toString())
+                init.steps.println("Add stage init ")
+                init.addStageInit(stageInit)
+                init.steps.println("Added stage init ")
 
-                init.addStageInit(StageInitialization.create(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, [PluginType.OPENSHIFT_S2I,
-                        PlatformType.OPENSHIFT, EnvironmentType.DEV, AppRuntimeType.JDK, DeploymentType.RECREATE, TemplateType.S2I_BUILD]))
+                init.steps.println("Create stage init CONTAINER_BUILD")
+                stageInit = StageInitialization.create(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, [PluginType.OPENSHIFT_S2I,
+                                                                                                        PlatformType.OPENSHIFT, EnvironmentType.DEV, AppRuntimeType.JDK, DeploymentType.RECREATE, TemplateType.S2I_BUILD])
+                init.steps.println("Created stage init " + stageInit.toString())
+                init.steps.println("Add stage init ")
+                init.addStageInit(stageInit)
+                init.steps.println("Added stage init ")
 
                 break
         }
