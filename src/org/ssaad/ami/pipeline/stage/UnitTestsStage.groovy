@@ -1,24 +1,17 @@
 package org.ssaad.ami.pipeline.stage
 
 import org.ssaad.ami.pipeline.common.Activation
-import org.ssaad.ami.pipeline.common.types.AppType
-import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
-import org.ssaad.ami.pipeline.common.types.TaskType
-import org.ssaad.ami.pipeline.engine.EngineFactory
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.BranchType
 
 class UnitTestsStage extends EngineStage {
 
-    UnitTestsStage(){
+    UnitTestsStage() {
         this.id = "test"
         this.name = "Test"
-    }
-
-    void init(StageInitialization init, String buildId){
-        this.buildId = buildId
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
-        this.engine = new EngineFactory().create(TaskType.UNIT_TESTS, init, buildId)
     }
 
     @Override

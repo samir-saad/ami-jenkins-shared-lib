@@ -23,6 +23,7 @@ class OpenshiftS2I extends Engine {
 
     }
 
+    @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)
         this.imageStream = new ImageStreamFactory().create(init, buildId)

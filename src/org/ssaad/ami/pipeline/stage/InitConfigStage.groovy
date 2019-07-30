@@ -1,21 +1,17 @@
 package org.ssaad.ami.pipeline.stage
 
 import org.ssaad.ami.pipeline.common.Activation
-import org.ssaad.ami.pipeline.common.types.AppType
-import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 
-class InitiConfigStage extends Stage {
+class InitConfigStage extends Stage {
 
-    InitiConfigStage(){
+    InitConfigStage() {
         this.id = "init-config"
         this.name = "Init Config"
-    }
-
-    void init(StageInitialization init, String buildId){
-        this.buildId = buildId
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 

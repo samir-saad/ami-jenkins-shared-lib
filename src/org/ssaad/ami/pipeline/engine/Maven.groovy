@@ -3,7 +3,6 @@ package org.ssaad.ami.pipeline.engine
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
-import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 import org.ssaad.ami.pipeline.utils.PipelineUtils
 
@@ -13,10 +12,6 @@ class Maven extends Engine {
     String options = ""
     String goals = ""
     String params = ""
-
-    void init(StageInitialization init, String buildId) {
-        super.init(init, buildId)
-    }
 
     @NonCPS
     @Override

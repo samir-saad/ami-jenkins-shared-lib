@@ -1,8 +1,9 @@
 package org.ssaad.ami.pipeline.stage
 
-
 import groovy.json.JsonSlurper
-import org.ssaad.ami.pipeline.common.*
+import org.ssaad.ami.pipeline.common.Activation
+import org.ssaad.ami.pipeline.common.Pipeline
+import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.common.types.AppType
 import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.utils.PipelineUtils
@@ -12,10 +13,6 @@ class InitPipelineStage extends Stage {
     InitPipelineStage(){
         this.id = "init-pipeline"
         this.name = "Init Pipeline"
-    }
-
-    void init(StageInitialization init, String buildId){
-        this.buildId = buildId
         this.activation =Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 

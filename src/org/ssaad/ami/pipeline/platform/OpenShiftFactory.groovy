@@ -1,9 +1,7 @@
 package org.ssaad.ami.pipeline.platform
 
-import org.ssaad.ami.pipeline.common.Platform
+
 import org.ssaad.ami.pipeline.common.types.EnvironmentType
-import org.ssaad.ami.pipeline.common.types.PlatformType
-import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class OpenShiftFactory {

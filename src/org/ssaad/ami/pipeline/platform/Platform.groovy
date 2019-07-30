@@ -1,7 +1,8 @@
-package org.ssaad.ami.pipeline.common
+package org.ssaad.ami.pipeline.platform
 
 import com.cloudbees.groovy.cps.NonCPS
 import com.cloudbees.plugins.credentials.Credentials
+import org.ssaad.ami.pipeline.common.Customizable
 import org.ssaad.ami.pipeline.common.types.AppRuntimeType
 import org.ssaad.ami.pipeline.common.types.EnvironmentType
 import org.ssaad.ami.pipeline.common.types.PlatformType

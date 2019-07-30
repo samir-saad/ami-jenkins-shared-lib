@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.platform
 
-import org.ssaad.ami.pipeline.common.Platform
+
 import org.ssaad.ami.pipeline.common.types.PlatformType
 import org.ssaad.ami.pipeline.stage.*
 

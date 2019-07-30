@@ -3,11 +3,9 @@ package org.ssaad.ami.pipeline.stage
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Deployment
 import org.ssaad.ami.pipeline.common.DeploymentFactory
-import org.ssaad.ami.pipeline.common.Platform
+import org.ssaad.ami.pipeline.platform.Platform
 import org.ssaad.ami.pipeline.common.Template
 import org.ssaad.ami.pipeline.common.TemplateFactory
-import org.ssaad.ami.pipeline.engine.Engine
-import org.ssaad.ami.pipeline.engine.EngineFactory
 import org.ssaad.ami.pipeline.platform.PlatformFactory
 
 class PlatformStage extends EngineStage {
