@@ -3,7 +3,8 @@ package org.ssaad.ami.pipeline.stage
 
 import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.common.*
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.utils.PipelineUtils
 
 class InitPipelineStage extends Stage {
@@ -13,7 +14,7 @@ class InitPipelineStage extends Stage {
         this.name = "Init Pipeline"
     }
 
-    void init(EngineInitialization init, String buildId){
+    void init(StageInitialization init, String buildId){
         this.buildId = buildId
         this.activation =Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
@@ -44,7 +45,7 @@ class InitPipelineStage extends Stage {
         if (steps.fileExists('pipeline-config.json')) {
             String config = steps.readFile file: 'pipeline-config.json'
             steps.println("Custom Pipeline Params: \n" + config)
-            // using Map to convert to Person object type
+            // using Map to convert to Person object appType
             pipeline.customize(new JsonSlurper().parseText(config))
         } else if (steps.fileExists('pipeline-config.yaml')) {
             // Do yaml init

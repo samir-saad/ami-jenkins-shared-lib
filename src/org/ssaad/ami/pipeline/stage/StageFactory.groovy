@@ -1,14 +1,13 @@
 package org.ssaad.ami.pipeline.stage
 
-import org.ssaad.ami.pipeline.common.TaskType
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.common.types.TaskType
 
 class StageFactory {
 
-    Stage create(TaskType task, EngineInitialization init, String buildId) {
+    Stage create(StageInitialization init, String buildId) {
 
         Stage stage
-        switch (task) {
+        switch (init.taskType) {
             case TaskType.INIT_PIPELINE:
                 stage = new InitPipelineStage()
                 break
@@ -32,12 +31,7 @@ class StageFactory {
                 break
         }
 
-        stage.taskType = task
         stage.init(init, buildId)
-
-        /*if(Engine != null){
-            stage.engine = new EngineFactory().create(enginesEnum, task)
-        }*/
 
         return stage
     }

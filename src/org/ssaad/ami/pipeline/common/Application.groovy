@@ -1,6 +1,8 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.ScmType
 
 class Application implements Serializable, Customizable {
 
@@ -11,7 +13,7 @@ class Application implements Serializable, Customizable {
     String version
     String branch
     // service or library
-    AppType type = AppType.APPLICATION
+    AppType appType = AppType.APPLICATION
     String latestCommit
     ScmType scmType
 
@@ -33,8 +35,8 @@ class Application implements Serializable, Customizable {
         if (config.version != null)
             this.version = config.version
 
-        if (config.type != null)
-            this.type = config.type as AppType
+        if (config.appType != null)
+            this.appType = config.appType as AppType
 
         if (config.scmType != null)
             this.scmType = config.scmType as ScmType

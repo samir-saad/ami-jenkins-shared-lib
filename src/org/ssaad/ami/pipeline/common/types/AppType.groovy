@@ -1,4 +1,4 @@
-package org.ssaad.ami.pipeline.common
+package org.ssaad.ami.pipeline.common.types
 
 enum AppType {
 

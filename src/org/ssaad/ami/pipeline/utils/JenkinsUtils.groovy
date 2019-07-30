@@ -4,7 +4,7 @@ import com.cloudbees.plugins.credentials.Credentials
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import jenkins.model.Jenkins
 import org.ssaad.ami.pipeline.common.ScmRepository
-import org.ssaad.ami.pipeline.common.ScmType
+import org.ssaad.ami.pipeline.common.types.ScmType
 
 class JenkinsUtils {
 

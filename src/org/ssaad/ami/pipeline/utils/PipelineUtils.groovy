@@ -2,6 +2,8 @@ package org.ssaad.ami.pipeline.utils
 
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.*
+import org.ssaad.ami.pipeline.common.types.ScmType
+import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.Stage
 
 class PipelineUtils {
@@ -90,8 +92,6 @@ class PipelineUtils {
         } else if (pipeline.primaryConfigRepo != null && fileExists(pipeline, pipeline.primaryConfigRepo, filePath)) {
             configRepo = pipeline.primaryConfigRepo
         }
-        pipeline.steps.println("Config Repo: " + configRepo.toString())
-        pipeline.steps.println("Config Repo: " + configRepo?.id)
         return configRepo
     }
 
@@ -107,7 +107,6 @@ class PipelineUtils {
                 }
             }
         }
-        pipeline.steps.println("Found: " + found)
         return found
     }
 

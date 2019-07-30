@@ -3,7 +3,9 @@ package org.ssaad.ami.pipeline.stage
 import com.cloudbees.groovy.cps.NonCPS
 import com.cloudbees.plugins.credentials.Credentials
 import org.ssaad.ami.pipeline.common.*
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.BranchType
+import org.ssaad.ami.pipeline.common.types.TaskType
 
 abstract class Stage implements Serializable, Customizable, Executable {
 
@@ -16,12 +18,13 @@ abstract class Stage implements Serializable, Customizable, Executable {
     StageConfirmation confirmation = new StageConfirmation()
     String credentialsId
     Credentials credentials
+    StageInitialization initialization
 
     boolean isActive() {
         Application app = PipelineRegistry.getPipeline(buildId).app
         def steps = PipelineRegistry.getPipelineSteps(buildId)
 
-        boolean appTypeAllowed = activation.allowedAppType.contains(AppType.ANY) || activation.allowedAppType.contains(app.type)
+        boolean appTypeAllowed = activation.allowedAppType.contains(AppType.ANY) || activation.allowedAppType.contains(app.appType)
 
         BranchType branchType
         if(app.branch != null){
@@ -37,7 +40,11 @@ abstract class Stage implements Serializable, Customizable, Executable {
         return enable && appTypeAllowed && branchAllowed
     }
 
-    abstract void init(EngineInitialization init, String buildId)
+    void init(StageInitialization init, String buildId) {
+        this.initialization = init
+        this.buildId = buildId
+        this.taskType = init.taskType
+    }
 
     @NonCPS
     @Override

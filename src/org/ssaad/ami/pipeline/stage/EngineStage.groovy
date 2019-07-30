@@ -2,15 +2,16 @@ package org.ssaad.ami.pipeline.stage
 
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.engine.Engine
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.engine.EngineFactory
 
 class EngineStage extends Stage {
 
     Engine engine
 
     @Override
-    void init(EngineInitialization init, String buildId) {
-
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
+        this.engine = new EngineFactory().create(init, buildId)
     }
 
     @NonCPS

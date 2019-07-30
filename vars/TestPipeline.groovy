@@ -1,10 +1,16 @@
 import hudson.model. *
-import org.ssaad.ami.pipeline.common.EngineType
+import org.ssaad.ami.pipeline.common.types.AppRuntimeType
+import org.ssaad.ami.pipeline.common.types.DeploymentType
+import org.ssaad.ami.pipeline.common.types.EngineType
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineInitialization
-import org.ssaad.ami.pipeline.common.ScmType
-import org.ssaad.ami.pipeline.common.TaskType
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.common.types.EnvironmentType
+import org.ssaad.ami.pipeline.common.types.PlatformType
+import org.ssaad.ami.pipeline.common.types.PluginType
+import org.ssaad.ami.pipeline.common.types.ScmType
+import org.ssaad.ami.pipeline.common.types.TaskType
+import org.ssaad.ami.pipeline.common.types.TemplateType
+import org.ssaad.ami.pipeline.stage.StageInitialization
 
 def call(Closure body) {
 
@@ -29,11 +35,12 @@ def call(Closure body) {
 						initialization.steps = this
 						initialization.env = env
 
-						initialization.stageInitMap.put(TaskType.CODE_BUILD, new EngineInitialization(EngineType.MAVEN, null))
-						initialization.stageInitMap.put(TaskType.UNIT_TESTS, new EngineInitialization(EngineType.MAVEN, null))
-						initialization.stageInitMap.put(TaskType.BINARIES_ARCHIVE, new EngineInitialization(EngineType.MAVEN, null))
+						initialization.addStageInit(new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
+						initialization.addStageInit(new StageInitialization(TaskType.UNIT_TESTS, EngineType.MAVEN))
+						initialization.addStageInit(new StageInitialization(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN,))
 
-						initialization.stageInitMap.put(TaskType.CONTAINER_BUILD, new EngineInitialization(EngineType.OPENSHIFT_S2I, null))
+						initialization.addStageInit(new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
+								PlatformType.OPENSHIFT, EnvironmentType.DEV, AppRuntimeType.JDK, DeploymentType.RECREATE, TemplateType.S2I_BUILD))
 
 						myPipeline.init(initialization)
 					}

@@ -1,6 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.ssaad.ami.pipeline.common.types.ScmType
 
 class ScmRepository implements Serializable, Customizable {
 

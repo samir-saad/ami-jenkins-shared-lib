@@ -2,7 +2,8 @@ package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
 import groovy.json.JsonBuilder
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.common.types.TaskType
+import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
 import org.ssaad.ami.pipeline.utils.PipelineUtils
@@ -45,19 +46,19 @@ class Pipeline implements Serializable, Customizable, Executable {
         print()
     }
 
-    private void initStages(Map<TaskType, EngineInitialization> stageInitMap, String buildId) {
+    private void initStages(Map<TaskType, StageInitialization> stageInitMap, String buildId) {
         StageFactory stageFactory = new StageFactory()
-        this.stages.add(stageFactory.create(TaskType.INIT_PIPELINE, null, buildId))
-        this.stages.add(stageFactory.create(TaskType.INIT_CONFIG, null, buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null), buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_CONFIG, null), buildId))
         // init configs
-        this.stages.add(stageFactory.create(TaskType.CODE_BUILD, stageInitMap.get(TaskType.CODE_BUILD), buildId))
+        this.stages.add(stageFactory.create(stageInitMap.get(TaskType.CODE_BUILD), buildId))
 //        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
 //        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
 
         if (stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
-            this.stages.add(stageFactory.create(TaskType.CONTAINER_BUILD, stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
+            this.stages.add(stageFactory.create(stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
 
-        this.stages.add(stageFactory.create(TaskType.FINALIZE, null, buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.FINALIZE, null), buildId))
     }
 
     @NonCPS

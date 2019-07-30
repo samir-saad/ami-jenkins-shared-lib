@@ -1,6 +1,8 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.BranchType
 
 class Activation implements Serializable, Customizable {
 

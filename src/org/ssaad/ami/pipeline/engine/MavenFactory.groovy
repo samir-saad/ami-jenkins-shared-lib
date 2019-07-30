@@ -1,21 +1,20 @@
 package org.ssaad.ami.pipeline.engine
 
-import com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl
-import org.ssaad.ami.pipeline.common.PluginType
-import org.ssaad.ami.pipeline.common.TaskType
+
+import org.ssaad.ami.pipeline.common.types.PluginType
+import org.ssaad.ami.pipeline.common.types.TaskType
+import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class MavenFactory {
 
-    Engine create(TaskType task, PluginType pluginType, String buildId) {
+    Engine create(StageInitialization init) {
 
         Maven maven = new Maven()
         maven.id = "maven"
         maven.name = "Maven"
         maven.configDir = ""
-        maven.plugin = pluginType
-        maven.buildId = buildId
 
-        switch (task) {
+        switch (init.taskType) {
             case TaskType.CODE_BUILD:
                 maven.goals = "clean install"
                 maven.params = "-DskipTests=true"

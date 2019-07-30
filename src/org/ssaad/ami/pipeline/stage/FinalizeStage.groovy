@@ -1,8 +1,8 @@
 package org.ssaad.ami.pipeline.stage
 
 import org.ssaad.ami.pipeline.common.*
-import org.ssaad.ami.pipeline.engine.EngineFactory
-import org.ssaad.ami.pipeline.engine.EngineInitialization
+import org.ssaad.ami.pipeline.common.types.AppType
+import org.ssaad.ami.pipeline.common.types.BranchType
 
 class FinalizeStage extends Stage {
 
@@ -11,7 +11,7 @@ class FinalizeStage extends Stage {
         this.name = "Finalize"
     }
 
-    void init(EngineInitialization init, String buildId){
+    void init(StageInitialization init, String buildId){
         this.buildId = buildId
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }

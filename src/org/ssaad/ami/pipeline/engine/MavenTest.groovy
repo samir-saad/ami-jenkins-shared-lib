@@ -1,7 +1,7 @@
 package org.ssaad.ami.pipeline.engine
 
-import org.ssaad.ami.pipeline.common.EngineType
-import org.ssaad.ami.pipeline.common.TaskType
+import org.ssaad.ami.pipeline.common.types.EngineType
+import org.ssaad.ami.pipeline.common.types.TaskType
 
 class MavenTest {
 

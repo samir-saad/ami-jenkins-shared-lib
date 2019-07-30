@@ -3,6 +3,10 @@ package org.ssaad.ami.pipeline.engine
 import com.cloudbees.groovy.cps.NonCPS
 import com.cloudbees.plugins.credentials.Credentials
 import org.ssaad.ami.pipeline.common.*
+import org.ssaad.ami.pipeline.common.types.EngineType
+import org.ssaad.ami.pipeline.common.types.PluginType
+import org.ssaad.ami.pipeline.common.types.TaskType
+import org.ssaad.ami.pipeline.stage.StageInitialization
 
 abstract class Engine implements Serializable, Customizable, Executable {
 
@@ -10,13 +14,20 @@ abstract class Engine implements Serializable, Customizable, Executable {
     String name
     String buildId
     TaskType taskType
-    EngineType type
-    PluginType plugin
+    EngineType engineType
+    PluginType pluginType
     // maven, gradle, npm, etc.
     String configDir
     String credentialsId
     Credentials credentials
     ScmRepository configRepo
+
+    void init(StageInitialization init, String buildId) {
+        this.buildId = buildId
+        this.taskType = init.taskType
+        this.engineType = init.engineType
+        this.pluginType = init.pluginType
+    }
 
     @NonCPS
     @Override
@@ -27,11 +38,11 @@ abstract class Engine implements Serializable, Customizable, Executable {
         if (config?.name != null)
             this.name = config.name
 
-        if (config?.type != null)
-            this.type = config.type as EngineType
+        if (config?.engineType != null)
+            this.engineType = config.engineType as EngineType
 
         if (config?.plugin != null)
-            this.plugin = config.plugin as PluginType
+            this.pluginType = config.plugin as PluginType
 
         if (config?.configDir != null)
             this.configDir = config.configDir
