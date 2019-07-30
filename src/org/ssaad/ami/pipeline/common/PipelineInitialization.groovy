@@ -5,7 +5,7 @@ import org.ssaad.ami.pipeline.common.types.ScmType
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
-class PipelineInitialization {
+class PipelineInitialization implements Serializable{
 
     String id = ""
     String name = ""

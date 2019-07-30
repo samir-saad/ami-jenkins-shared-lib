@@ -3,7 +3,7 @@ package org.ssaad.ami.pipeline.stage
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.types.*
 
-class StageInitialization {
+class StageInitialization implements Serializable{
 
     TaskType taskType
     EngineType engineType
