@@ -14,7 +14,7 @@ class StageInitialization {
     TemplateType templateType
     PlatformType platformType
 
-    @NonCPS
+//    @NonCPS
     static StageInitialization create(TaskType taskType, EngineType engineType, List<Object> initialTypes) {
         StageInitialization init = new StageInitialization(taskType, engineType)
 
