@@ -48,8 +48,8 @@ class Pipeline implements Serializable, Customizable, Executable {
 
     private void initStages(Map<TaskType, StageInitialization> stageInitMap, String buildId) {
         StageFactory stageFactory = new StageFactory()
-        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null), buildId))
-        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_CONFIG, null), buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null, null, null, null, null, null, null), buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_CONFIG, null, null, null, null, null, null, null), buildId))
         // init configs
         this.stages.add(stageFactory.create(stageInitMap.get(TaskType.CODE_BUILD), buildId))
 //        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
@@ -58,7 +58,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         if (stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
             this.stages.add(stageFactory.create(stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
 
-        this.stages.add(stageFactory.create(new StageInitialization(TaskType.FINALIZE, null), buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.FINALIZE, null, null, null, null, null, null, null), buildId))
     }
 
     @NonCPS

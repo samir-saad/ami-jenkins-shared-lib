@@ -14,8 +14,20 @@ class StageInitialization implements Serializable{
     TemplateType templateType
     PlatformType platformType
 
+    StageInitialization(TaskType taskType, EngineType engineType, PluginType pluginType,
+                        AppRuntimeType appRuntimeType, EnvironmentType environmentType,
+                        DeploymentType deploymentType, TemplateType templateType, PlatformType platformType) {
+        this.taskType = taskType
+        this.engineType = engineType
+        this.pluginType = pluginType
+        this.appRuntimeType = appRuntimeType
+        this.environmentType = environmentType
+        this.deploymentType = deploymentType
+        this.templateType = templateType
+        this.platformType = platformType
+    }
 //    @NonCPS
-    static StageInitialization create(TaskType taskType, EngineType engineType, List<Object> initialTypes) {
+    /*static StageInitialization create(TaskType taskType, EngineType engineType, List<Object> initialTypes) {
         StageInitialization init = new StageInitialization(taskType, engineType)
 
         for (Object initialType : initialTypes) {
@@ -34,7 +46,7 @@ class StageInitialization implements Serializable{
             }
         }
         return init
-    }
+    }*/
 
     /*@NonCPS
     static StageInitialization create(TaskType taskType, EngineType engineType, Object... initialTypes) {
@@ -59,8 +71,8 @@ class StageInitialization implements Serializable{
         return initialization
     }*/
 
-    StageInitialization(TaskType taskType, EngineType engineType) {
+    /*StageInitialization(TaskType taskType, EngineType engineType) {
         this.taskType = taskType
         this.engineType = engineType
-    }
+    }*/
 }
