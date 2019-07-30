@@ -15,6 +15,28 @@ class StageInitialization {
     PlatformType platformType
 
     @NonCPS
+    static StageInitialization create(TaskType taskType, EngineType engineType, List<Object> initialTypes) {
+        StageInitialization init = new StageInitialization(taskType, engineType)
+
+        for (Object initialType : initialTypes) {
+            if (initialType instanceof PluginType) {
+                init.pluginType = initialType
+            } else if (initialType instanceof AppRuntimeType) {
+                init.appRuntimeType = initialType
+            } else if (initialType instanceof EnvironmentType) {
+                init.environmentType = initialType
+            } else if (initialType instanceof DeploymentType) {
+                init.deploymentType = initialType
+            } else if (initialType instanceof TemplateType) {
+                init.templateType = initialType
+            } else if (initialType instanceof PlatformType) {
+                init.platformType = initialType
+            }
+        }
+        return init
+    }
+
+    /*@NonCPS
     static StageInitialization create(TaskType taskType, EngineType engineType, Object... initialTypes) {
         StageInitialization initialization = new StageInitialization(taskType, engineType)
 
@@ -35,7 +57,7 @@ class StageInitialization {
                 }
         }
         return initialization
-    }
+    }*/
 
     StageInitialization(TaskType taskType, EngineType engineType) {
         this.taskType = taskType

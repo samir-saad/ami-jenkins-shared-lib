@@ -13,12 +13,12 @@ class PipelineFactory {
                 pipeline.id = "maven-spring-ocp-pipeline"
                 pipeline.name = "maven-spring-ocp-pipeline"
 
-                init.addStageInit(StageInitialization.create(TaskType.CODE_BUILD, EngineType.MAVEN))
-                init.addStageInit(StageInitialization.create(TaskType.UNIT_TESTS, EngineType.MAVEN))
-                init.addStageInit(StageInitialization.create(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN))
+                init.addStageInit(StageInitialization.create(TaskType.CODE_BUILD, EngineType.MAVEN, null))
+                init.addStageInit(StageInitialization.create(TaskType.UNIT_TESTS, EngineType.MAVEN, null))
+                init.addStageInit(StageInitialization.create(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN, null))
 
-                init.addStageInit(StageInitialization.create(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
-                        PlatformType.OPENSHIFT, EnvironmentType.DEV, AppRuntimeType.JDK, DeploymentType.RECREATE, TemplateType.S2I_BUILD))
+                init.addStageInit(StageInitialization.create(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, [PluginType.OPENSHIFT_S2I,
+                        PlatformType.OPENSHIFT, EnvironmentType.DEV, AppRuntimeType.JDK, DeploymentType.RECREATE, TemplateType.S2I_BUILD]))
 
                 break
         }
