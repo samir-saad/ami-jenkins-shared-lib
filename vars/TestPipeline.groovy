@@ -26,6 +26,7 @@ def call(Closure body) {
 				steps {
 					script {
 						//println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
+						echo("Creating pipeline ...")
 						myPipeline = new Pipeline()
 						PipelineInitialization initialization = new PipelineInitialization()
 						initialization.id = "maven-spring-ocp-pipeline"
@@ -49,6 +50,7 @@ def call(Closure body) {
 			stage("Execute Pipeline") {
 				steps {
 					script {
+						echo("Executing pipeline ...")
 						myPipeline.execute()
 					}
 				}
