@@ -30,6 +30,14 @@ class PipelineTest {
             init.buildId = "13"
             init.scm = ScmType.GIT
 
+            init.addStageInit(new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN, null, null, null, null, null, null))
+            init.addStageInit(new StageInitialization(TaskType.UNIT_TESTS, EngineType.MAVEN, null, null, null, null, null, null))
+            init.addStageInit(new StageInitialization(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN, null, null, null, null, null, null))
+
+            init.addStageInit(new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
+                    AppRuntimeType.JDK, EnvironmentType.DEV,
+                    DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
+            
             Pipeline pipeline = new PipelineFactory().create(init)
 
             steps.println("Initial pipeline:")
