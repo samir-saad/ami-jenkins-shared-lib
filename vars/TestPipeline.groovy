@@ -30,6 +30,8 @@ def call(Closure body) {
                         init.env = env
 
                         myPipeline = new PipelineFactory().create(init)
+
+                        myPipeline.init(init)
                     }
                 }
             }

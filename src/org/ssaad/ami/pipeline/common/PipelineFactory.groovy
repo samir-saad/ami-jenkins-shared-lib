@@ -47,7 +47,7 @@ class PipelineFactory {
                 break
         }
 
-        pipeline.init(init)
+       // pipeline.init(init)
 
         return pipeline
     }
