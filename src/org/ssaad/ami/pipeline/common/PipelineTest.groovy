@@ -6,6 +6,7 @@ import org.ssaad.ami.pipeline.common.types.AppRuntimeType
 import org.ssaad.ami.pipeline.common.types.DeploymentType
 import org.ssaad.ami.pipeline.common.types.EngineType
 import org.ssaad.ami.pipeline.common.types.EnvironmentType
+import org.ssaad.ami.pipeline.common.types.PipelineType
 import org.ssaad.ami.pipeline.common.types.PlatformType
 import org.ssaad.ami.pipeline.common.types.PluginType
 import org.ssaad.ami.pipeline.common.types.ScmType
@@ -23,20 +24,13 @@ class PipelineTest {
     void printPipeline(steps) {
 
         try {
-            Pipeline pipeline = new Pipeline()
-            PipelineInitialization initialization = new PipelineInitialization()
-            initialization.id = "maven-spring-ocp-pipeline"
-            initialization.name = "maven-spring-ocp-pipeline"
-            initialization.buildId = "13"
-            initialization.scm = ScmType.GIT
-            initialization.addStageInit(new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
-            initialization.addStageInit(new StageInitialization(TaskType.UNIT_TESTS, EngineType.MAVEN))
-            initialization.addStageInit(new StageInitialization(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN,))
 
-            initialization.addStageInit(new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
-                    PlatformType.OPENSHIFT, EnvironmentType.DEV, AppRuntimeType.JDK, DeploymentType.RECREATE, TemplateType.S2I_BUILD))
+            PipelineInitialization init = new PipelineInitialization()
+            init.pipelineType = PipelineType.SPRING_MAVEN_OPENSHIFT
+            init.buildId = "13"
+            init.scm = ScmType.GIT
 
-            pipeline.init(initialization)
+            Pipeline pipeline = new PipelineFactory().create(init)
 
             steps.println("Initial pipeline:")
             pipeline.print()

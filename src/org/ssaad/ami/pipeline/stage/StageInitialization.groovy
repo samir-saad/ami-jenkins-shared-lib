@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.types.*
 
 class StageInitialization {
@@ -13,26 +14,31 @@ class StageInitialization {
     TemplateType templateType
     PlatformType platformType
 
-
-    StageInitialization(TaskType taskType, EngineType engineType, Object... initialTypes) {
-        this.taskType = taskType
-        this.engineType = engineType
+    @NonCPS
+    static StageInitialization create(TaskType taskType, EngineType engineType, Object... initialTypes) {
+        StageInitialization initialization = new StageInitialization(taskType, engineType)
 
         initialTypes.each {
             initialType ->
                 if (initialType instanceof PluginType) {
-                    this.pluginType = initialType
+                    initialization.pluginType = initialType
                 } else if (initialType instanceof AppRuntimeType) {
-                    this.appRuntimeType = initialType
+                    initialization.appRuntimeType = initialType
                 } else if (initialType instanceof EnvironmentType) {
-                    this.environmentType = initialType
+                    initialization.environmentType = initialType
                 } else if (initialType instanceof DeploymentType) {
-                    this.deploymentType = initialType
+                    initialization.deploymentType = initialType
                 } else if (initialType instanceof TemplateType) {
-                    this.templateType = initialType
+                    initialization.templateType = initialType
                 } else if (initialType instanceof PlatformType) {
-                    this.platformType = initialType
+                    initialization.platformType = initialType
                 }
         }
+        return initialization
+    }
+
+    StageInitialization(TaskType taskType, EngineType engineType) {
+        this.taskType = taskType
+        this.engineType = engineType
     }
 }
