@@ -12,6 +12,11 @@ class InitConfigStage extends Stage {
     InitConfigStage() {
         this.id = "init-config"
         this.name = "Init Config"
+    }
+
+    @Override
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 

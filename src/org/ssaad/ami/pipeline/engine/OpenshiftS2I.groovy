@@ -20,7 +20,6 @@ class OpenshiftS2I extends Engine {
         this.id = "s2i"
         this.name = "S2I"
         this.configDir = ""
-
     }
 
     @Override

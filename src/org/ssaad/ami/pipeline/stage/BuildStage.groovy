@@ -11,6 +11,11 @@ class BuildStage extends EngineStage {
     BuildStage() {
         this.id = "build"
         this.name = "Build"
+    }
+
+    @Override
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 

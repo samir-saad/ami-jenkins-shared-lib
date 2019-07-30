@@ -11,11 +11,12 @@ class FinalizeStage extends Stage {
     FinalizeStage() {
         this.id = "finalize"
         this.name = "Finalize"
-        this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 
+    @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)
+        this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 
     @Override

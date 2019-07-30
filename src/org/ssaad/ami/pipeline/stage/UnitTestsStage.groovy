@@ -11,6 +11,11 @@ class UnitTestsStage extends EngineStage {
     UnitTestsStage() {
         this.id = "test"
         this.name = "Test"
+    }
+
+    @Override
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 

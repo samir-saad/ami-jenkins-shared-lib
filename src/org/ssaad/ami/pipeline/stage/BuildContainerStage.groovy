@@ -9,6 +9,11 @@ class BuildContainerStage extends PlatformStage {
     BuildContainerStage() {
         this.id = "build-container"
         this.name = "Build Container"
+    }
+
+    @Override
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
         this.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
     }
 

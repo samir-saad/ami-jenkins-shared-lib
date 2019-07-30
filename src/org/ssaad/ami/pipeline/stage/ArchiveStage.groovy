@@ -11,6 +11,11 @@ class ArchiveStage extends EngineStage {
     ArchiveStage() {
         this.id = "archive"
         this.name = "Archive"
+    }
+
+    @Override
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
         this.activation = Activation.getInstance([AppType.ANY], [BranchType.DEVELOP, BranchType.RELEASE])
     }
 

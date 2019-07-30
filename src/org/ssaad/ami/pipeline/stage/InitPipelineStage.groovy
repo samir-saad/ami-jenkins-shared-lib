@@ -13,7 +13,12 @@ class InitPipelineStage extends Stage {
     InitPipelineStage(){
         this.id = "init-pipeline"
         this.name = "Init Pipeline"
-        this.activation =Activation.getInstance([AppType.ANY], [BranchType.ANY])
+    }
+
+    @Override
+    void init(StageInitialization init, String buildId) {
+        super.init(init, buildId)
+        this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
     }
 
     @Override
