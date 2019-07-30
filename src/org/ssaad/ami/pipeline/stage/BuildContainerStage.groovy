@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Activation
 import org.ssaad.ami.pipeline.common.types.AppType
 import org.ssaad.ami.pipeline.common.types.BranchType
@@ -11,6 +12,7 @@ class BuildContainerStage extends PlatformStage {
         this.name = "Build Container"
     }
 
+    @NonCPS
     @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)

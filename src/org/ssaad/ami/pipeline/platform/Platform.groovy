@@ -18,6 +18,7 @@ abstract class Platform implements Serializable, Customizable {
     String credentialsId
     Credentials credentials
 
+    @NonCPS
     void init(StageInitialization init, String buildId) {
         this.platformType = init.platformType
         this.environmentType = init.environmentType

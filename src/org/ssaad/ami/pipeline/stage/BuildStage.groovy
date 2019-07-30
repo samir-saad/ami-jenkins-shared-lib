@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Activation
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
@@ -13,6 +14,7 @@ class BuildStage extends EngineStage {
         this.name = "Build"
     }
 
+    @NonCPS
     @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)

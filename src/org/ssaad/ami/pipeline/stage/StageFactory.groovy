@@ -1,9 +1,11 @@
 package org.ssaad.ami.pipeline.stage
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.types.TaskType
 
 class StageFactory {
 
+    @NonCPS
     Stage create(StageInitialization init, String buildId) {
 
         Stage stage

@@ -17,6 +17,7 @@ class Template implements Serializable, Customizable {
     Map<String, String> extraLabels = new HashMap<>()
     String parsedLabels = ""
 
+    @NonCPS
     void init(StageInitialization init, String buildId) {
     }
 

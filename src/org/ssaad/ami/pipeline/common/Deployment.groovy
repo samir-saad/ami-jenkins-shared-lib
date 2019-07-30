@@ -12,6 +12,7 @@ class Deployment implements Serializable, Customizable {
     int replicas = 1
     AutoScaling autoScaling
 
+    @NonCPS
     void init(StageInitialization init, String buildId) {
         this.deploymentType = init.deploymentType
         this.environmentType = init.environmentType

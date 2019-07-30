@@ -22,6 +22,7 @@ class OpenshiftS2I extends Engine {
         this.configDir = ""
     }
 
+    @NonCPS
     @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)

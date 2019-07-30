@@ -8,6 +8,7 @@ class EngineStage extends Stage {
 
     Engine engine
 
+    @NonCPS
     @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)

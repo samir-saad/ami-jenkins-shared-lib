@@ -24,6 +24,7 @@ class Pipeline implements Serializable, Customizable, Executable {
     // Stages
     List<Stage> stages = new ArrayList<>()
 
+    @NonCPS
     void init(PipelineInitialization init) {
         this.id = init.id
         this.name = init.name
@@ -42,10 +43,11 @@ class Pipeline implements Serializable, Customizable, Executable {
 
         initStages(init.stageInitMap, init.buildId)
 
-        steps.println("Initial pipeline:")
-        print()
+//        steps.println("Initial pipeline:")
+//        print()
     }
 
+    @NonCPS
     private void initStages(Map<TaskType, StageInitialization> stageInitMap, String buildId) {
         StageFactory stageFactory = new StageFactory()
         this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null, null, null, null, null, null, null), buildId))

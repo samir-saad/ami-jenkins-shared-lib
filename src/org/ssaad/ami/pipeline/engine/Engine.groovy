@@ -22,6 +22,7 @@ abstract class Engine implements Serializable, Customizable, Executable {
     Credentials credentials
     ScmRepository configRepo
 
+    @NonCPS
     void init(StageInitialization init, String buildId) {
         this.buildId = buildId
         this.taskType = init.taskType

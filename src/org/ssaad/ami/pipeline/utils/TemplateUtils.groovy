@@ -1,9 +1,11 @@
 package org.ssaad.ami.pipeline.utils
 
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Template
 
 class TemplateUtils implements Serializable {
 
+    @NonCPS
     static Map<String, String> getCommonParams() {
         Map<String, String> params = new HashMap<>()
         params.put("APP_NAME", '${app.id}')
@@ -13,6 +15,7 @@ class TemplateUtils implements Serializable {
         return params
     }
 
+    @NonCPS
     static Map<String, String> getDCCommonParams() {
         Map<String, String> params = getCommonParams()
         params.put("APP_PROFILE", '${deployment.env.lowerCase}')
@@ -23,6 +26,7 @@ class TemplateUtils implements Serializable {
         return params
     }
 
+    @NonCPS
     static Template getS2iBuildTemplate() {
         Template template = new Template()
         template.id = "s2i-build-template"

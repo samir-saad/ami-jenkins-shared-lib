@@ -15,6 +15,7 @@ class PlatformStage extends EngineStage {
 //    List<Template> templates
     Template template
 
+    @NonCPS
     @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)

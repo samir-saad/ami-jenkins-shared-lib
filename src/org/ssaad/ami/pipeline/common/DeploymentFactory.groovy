@@ -1,11 +1,12 @@
 package org.ssaad.ami.pipeline.common
 
-
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.types.EnvironmentType
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class DeploymentFactory {
 
+    @NonCPS
     Deployment create(StageInitialization init, String buildId) {
 
         Deployment deployment = new Deployment()

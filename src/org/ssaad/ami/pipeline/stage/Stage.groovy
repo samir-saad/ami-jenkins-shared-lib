@@ -40,6 +40,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
         return enable && appTypeAllowed && branchAllowed
     }
 
+    @NonCPS
     void init(StageInitialization init, String buildId) {
         //this.initialization = init
         this.buildId = buildId

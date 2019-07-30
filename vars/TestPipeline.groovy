@@ -59,6 +59,9 @@ def call(Closure body) {
 //                                DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
 
                         myPipeline.init(init)
+
+                        echo("Initial pipeline:")
+                        myPipeline.print()
                     }
                 }
             }

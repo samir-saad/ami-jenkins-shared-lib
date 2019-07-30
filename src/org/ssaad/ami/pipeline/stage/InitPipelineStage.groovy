@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
+import com.cloudbees.groovy.cps.NonCPS
 import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.common.Activation
 import org.ssaad.ami.pipeline.common.Pipeline
@@ -15,6 +16,7 @@ class InitPipelineStage extends Stage {
         this.name = "Init Pipeline"
     }
 
+    @NonCPS
     @Override
     void init(StageInitialization init, String buildId) {
         super.init(init, buildId)

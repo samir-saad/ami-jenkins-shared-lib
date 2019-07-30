@@ -1,13 +1,13 @@
 package org.ssaad.ami.pipeline.common
 
-
-import org.ssaad.ami.pipeline.common.types.EnvironmentType
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.types.TemplateType
 import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.utils.TemplateUtils
 
 class TemplateFactory {
 
+    @NonCPS
     Template create(StageInitialization init, String buildId) {
 
         Template template

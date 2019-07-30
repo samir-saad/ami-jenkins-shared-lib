@@ -1,12 +1,13 @@
 package org.ssaad.ami.pipeline.engine
 
-
+import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.types.PluginType
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class MavenFactory {
 
+    @NonCPS
     Engine create(StageInitialization init) {
 
         Maven maven = new Maven()
