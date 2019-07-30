@@ -42,9 +42,6 @@ class Pipeline implements Serializable, Customizable, Executable {
         PipelineRegistry.registerPipeline(this)
 
         initStages(init.stageInitMap, init.buildId)
-
-//        steps.println("Initial pipeline:")
-//        print()
     }
 
     @NonCPS

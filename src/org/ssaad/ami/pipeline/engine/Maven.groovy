@@ -42,7 +42,7 @@ class Maven extends Engine {
 
         // Adjust settings
         configRepo = PipelineUtils.findConfigRepo(pipeline, settingsFile)
-        String settingsFileAbsolutePath = PipelineUtils.getFileAbsolutePath(pipeline, configRepo, settingsFile)
+        //String settingsFileAbsolutePath = PipelineUtils.getFileAbsolutePath(pipeline, configRepo, settingsFile)
 
         String settingsFileRelativePath = PipelineUtils.getFileRelativePath(pipeline, configRepo, settingsFile)
 

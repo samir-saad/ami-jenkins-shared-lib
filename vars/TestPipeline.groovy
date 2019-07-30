@@ -28,12 +28,9 @@ def call(Closure body) {
             stage("Create Pipeline") {
                 steps {
                     script {
-                        //println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
-                        echo("Creating pipeline ...")
-
-                        myPipeline = new Pipeline()
-                        myPipeline.id = "maven-spring-ocp-pipeline"
-                        myPipeline.name = "maven-spring-ocp-pipeline"
+//                        myPipeline = new Pipeline()
+//                        myPipeline.id = "maven-spring-ocp-pipeline"
+//                        myPipeline.name = "maven-spring-ocp-pipeline"
 
                         PipelineInitialization init = new PipelineInitialization()
                         init.pipelineType = PipelineType.SPRING_MAVEN_OPENSHIFT
@@ -42,7 +39,7 @@ def call(Closure body) {
                         init.steps = this
                         init.env = env
 
-                        init.stageInitMap.put(TaskType.CODE_BUILD, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
+//                        init.stageInitMap.put(TaskType.CODE_BUILD, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
 //                        init.stageInitMap.put(TaskType.UNIT_TESTS, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
 //                        init.stageInitMap.put(TaskType.BINARIES_ARCHIVE, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
 //
@@ -58,17 +55,17 @@ def call(Closure body) {
 //                                AppRuntimeType.JDK, EnvironmentType.DEV,
 //                                DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
 
-                        myPipeline.init(init)
+                        myPpipeline = new PipelineFactory().create(init)
+//                        myPipeline.init(init)
 
-                        echo("Initial pipeline:")
-                        myPipeline.print()
+//                        echo("Initial pipeline:")
+//                        myPipeline.print()
                     }
                 }
             }
             stage("Execute Pipeline") {
                 steps {
                     script {
-                        echo("Executing pipeline ...")
                         myPipeline.execute()
                     }
                 }
