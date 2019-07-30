@@ -55,7 +55,7 @@ def call(Closure body) {
 //                                AppRuntimeType.JDK, EnvironmentType.DEV,
 //                                DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
 
-                        myPpipeline = new PipelineFactory().create(init)
+                        myPipeline = new PipelineFactory().create(init)
 //                        myPipeline.init(init)
 
 //                        echo("Initial pipeline:")
