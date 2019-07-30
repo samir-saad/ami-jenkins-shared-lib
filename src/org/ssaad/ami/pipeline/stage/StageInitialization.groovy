@@ -3,7 +3,7 @@ package org.ssaad.ami.pipeline.stage
 
 import org.ssaad.ami.pipeline.common.types.*
 
-class StageInitialization implements Serializable{
+class StageInitialization implements Serializable {
 
     TaskType taskType
     EngineType engineType
@@ -13,6 +13,11 @@ class StageInitialization implements Serializable{
     DeploymentType deploymentType
     TemplateType templateType
     PlatformType platformType
+
+    StageInitialization(TaskType taskType, EngineType engineType) {
+        this.taskType = taskType
+        this.engineType = engineType
+    }
 
     StageInitialization(TaskType taskType, EngineType engineType, PluginType pluginType,
                         AppRuntimeType appRuntimeType, EnvironmentType environmentType,
@@ -69,10 +74,5 @@ class StageInitialization implements Serializable{
                 }
         }
         return initialization
-    }*/
-
-    /*StageInitialization(TaskType taskType, EngineType engineType) {
-        this.taskType = taskType
-        this.engineType = engineType
     }*/
 }

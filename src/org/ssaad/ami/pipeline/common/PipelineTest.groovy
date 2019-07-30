@@ -1,17 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
-
 import groovy.json.JsonSlurper
-import org.ssaad.ami.pipeline.common.types.AppRuntimeType
-import org.ssaad.ami.pipeline.common.types.DeploymentType
-import org.ssaad.ami.pipeline.common.types.EngineType
-import org.ssaad.ami.pipeline.common.types.EnvironmentType
-import org.ssaad.ami.pipeline.common.types.PipelineType
-import org.ssaad.ami.pipeline.common.types.PlatformType
-import org.ssaad.ami.pipeline.common.types.PluginType
-import org.ssaad.ami.pipeline.common.types.ScmType
-import org.ssaad.ami.pipeline.common.types.TaskType
-import org.ssaad.ami.pipeline.common.types.TemplateType
+import org.ssaad.ami.pipeline.common.types.*
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class PipelineTest {
@@ -33,13 +23,21 @@ class PipelineTest {
             init.buildId = "13"
             init.scm = ScmType.GIT
 
-            init.addStageInit(new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN, null, null, null, null, null, null))
-            init.addStageInit(new StageInitialization(TaskType.UNIT_TESTS, EngineType.MAVEN, null, null, null, null, null, null))
-            init.addStageInit(new StageInitialization(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN, null, null, null, null, null, null))
+            init.stageInitMap.put(TaskType.CODE_BUILD, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
+            init.stageInitMap.put(TaskType.UNIT_TESTS, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
+            init.stageInitMap.put(TaskType.BINARIES_ARCHIVE, new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN))
 
-            init.addStageInit(new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
-                    AppRuntimeType.JDK, EnvironmentType.DEV,
+            init.stageInitMap.put(TaskType.CONTAINER_BUILD, new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT,
+                    PluginType.OPENSHIFT_S2I, AppRuntimeType.JDK, EnvironmentType.DEV,
                     DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
+
+//            init.addStageInit(new StageInitialization(TaskType.CODE_BUILD, EngineType.MAVEN, null, null, null, null, null, null))
+//            init.addStageInit(new StageInitialization(TaskType.UNIT_TESTS, EngineType.MAVEN, null, null, null, null, null, null))
+//            init.addStageInit(new StageInitialization(TaskType.BINARIES_ARCHIVE, EngineType.MAVEN, null, null, null, null, null, null))
+
+//            init.addStageInit(new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
+//                    AppRuntimeType.JDK, EnvironmentType.DEV,
+//                    DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
 
             //Pipeline pipeline = new PipelineFactory().create(init)
             pipeline.init(init)
