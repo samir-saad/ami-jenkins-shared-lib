@@ -24,6 +24,9 @@ class PipelineTest {
     void printPipeline(steps) {
 
         try {
+            Pipeline pipeline = new Pipeline()
+            pipeline.id = "maven-spring-ocp-pipeline"
+            pipeline.name = "maven-spring-ocp-pipeline"
 
             PipelineInitialization init = new PipelineInitialization()
             init.pipelineType = PipelineType.SPRING_MAVEN_OPENSHIFT
@@ -37,8 +40,9 @@ class PipelineTest {
             init.addStageInit(new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT, PluginType.OPENSHIFT_S2I,
                     AppRuntimeType.JDK, EnvironmentType.DEV,
                     DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
-            
-            Pipeline pipeline = new PipelineFactory().create(init)
+
+            //Pipeline pipeline = new PipelineFactory().create(init)
+            pipeline.init(init)
 
             steps.println("Initial pipeline:")
             pipeline.print()

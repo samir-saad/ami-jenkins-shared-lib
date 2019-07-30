@@ -31,6 +31,10 @@ def call(Closure body) {
                         //println("Pipeline Configs: \n" + new JsonBuilder(superPipeline).toPrettyString())
                         echo("Creating pipeline ...")
 
+                        myPipeline = new Pipeline()
+                        myPipeline.id = "maven-spring-ocp-pipeline"
+                        myPipeline.name = "maven-spring-ocp-pipeline"
+
                         PipelineInitialization init = new PipelineInitialization()
                         init.pipelineType = PipelineType.SPRING_MAVEN_OPENSHIFT
                         init.buildId = "${BUILD_TAG}"
@@ -46,7 +50,7 @@ def call(Closure body) {
                                 AppRuntimeType.JDK, EnvironmentType.DEV,
                                 DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
 
-                        myPipeline = new PipelineFactory().create(init)
+                        myPipeline.init(init)
                     }
                 }
             }
