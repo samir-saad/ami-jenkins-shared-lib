@@ -18,7 +18,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
     StageConfirmation confirmation = new StageConfirmation()
     String credentialsId
     Credentials credentials
-    StageInitialization initialization
+    //StageInitialization initialization
 
     boolean isActive() {
         Application app = PipelineRegistry.getPipeline(buildId).app
@@ -41,7 +41,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
     }
 
     void init(StageInitialization init, String buildId) {
-        this.initialization = init
+        //this.initialization = init
         this.buildId = buildId
         this.taskType = init.taskType
     }
