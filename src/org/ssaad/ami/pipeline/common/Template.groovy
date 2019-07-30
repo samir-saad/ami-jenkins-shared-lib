@@ -3,7 +3,7 @@ package org.ssaad.ami.pipeline.common
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
-class Template implements Serializable {
+class Template implements Serializable, Customizable {
 
     String id
     String name
