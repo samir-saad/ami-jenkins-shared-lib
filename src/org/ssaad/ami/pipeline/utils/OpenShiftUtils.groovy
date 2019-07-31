@@ -58,7 +58,7 @@ class OpenShiftUtils implements Serializable {
         resolveTemplateParams(template, bindings)
         steps.println("Template params: ${template.parsedParams}")
 
-        String templateContent = steps.readYaml file: template.filePath
+        def templateContent = steps.readYaml file: template.filePath
         List processed = steps.openshift.process(templateContent, template.parsedParams)
         steps.println("processed: ${processed}")
 
