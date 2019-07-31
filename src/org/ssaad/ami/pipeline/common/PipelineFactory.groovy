@@ -6,7 +6,6 @@ import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class PipelineFactory {
 
-    //@NonCPS
     Pipeline create(PipelineInitialization init) {
 
         Pipeline pipeline = new Pipeline()
