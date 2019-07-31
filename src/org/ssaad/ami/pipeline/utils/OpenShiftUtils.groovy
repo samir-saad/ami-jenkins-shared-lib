@@ -32,12 +32,14 @@ class OpenShiftUtils implements Serializable {
         steps.sh "cp ${appPakage} oc-build/deployments/"
 
         steps.openshift.withProject(platform.project) {
-            def processed = applyTemplate(pipeline, template, ["platform": platform, "deployment": deployment, "engine": engine, "app": app, "stage": stage], steps)
-            steps.println("Processed: ${processed}")
-            def bc = processed.narrow('bc')
+            List processed = applyTemplate(pipeline, template, ["platform": platform, "deployment": deployment, "engine": engine, "app": app, "stage": stage], steps)
+            //steps.println("Processed: ${processed}")
+            def bc = getResourceByKind(processed, "BuildConfig")
             steps.println("BC: ${bc}")
-            steps.println('Starting a container build from the created BuildConfig...')
-            def buildSelector = bc.startBuild("--from-dir=oc-build/deployments", "--wait=true")
+            def bcSelector = steps.openshift.selector(bc.kind, bc.metadata.name)
+            steps.println("bcSelector: ${bcSelector}")
+            steps.println("Starting a container build from ${bc.metadata.name}")
+            def buildSelector = bcSelector.startBuild("--from-dir=oc-build/deployments", "--wait=true")
         }
     }
 
@@ -47,7 +49,7 @@ class OpenShiftUtils implements Serializable {
         }
     }
 
-    static applyTemplate(Pipeline pipeline, Template template, Map bindings, steps) {
+    static List applyTemplate(Pipeline pipeline, Template template, Map bindings, steps) {
 
         steps.println("Creating template: ${template.name} with policy: ${template.creationPolicy}")
         //Get config repo
@@ -87,6 +89,13 @@ class OpenShiftUtils implements Serializable {
         }
         steps.println("Creating ${resource.kind} ${resource.metadata.name}")
         steps.openshift.create(resource)
+    }
+
+    static getResourceByKind(List resources, String kind){
+        resources.each {
+            if (kind.equals(it.kind))
+                return it
+        }
     }
 
     static void resolveTemplatesParams(List<Template> templates, Map bindings) {
