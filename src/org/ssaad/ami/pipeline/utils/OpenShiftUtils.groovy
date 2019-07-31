@@ -1,5 +1,6 @@
 package org.ssaad.ami.pipeline.utils
 
+
 import org.ssaad.ami.pipeline.common.*
 import org.ssaad.ami.pipeline.common.types.CreationPolicyType
 import org.ssaad.ami.pipeline.engine.OpenshiftS2I
@@ -91,11 +92,13 @@ class OpenShiftUtils implements Serializable {
         steps.openshift.create(resource)
     }
 
-    static getResourceByKind(List resources, String kind){
+    static getResourceByKind(List resources, String kind) {
+        def resource
         resources.each {
             if (kind.equals(it.kind))
-                return it
+                resource = it
         }
+        return resource
     }
 
     static void resolveTemplatesParams(List<Template> templates, Map bindings) {
