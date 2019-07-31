@@ -15,19 +15,19 @@ class OpenShiftFactory {
                 openShift.id = "openshift-dev"
                 openShift.name = "OpenShift Dev"
                 openShift.clusterId = "" // Set cluster id
-                openShift.project = "ssaad-dev"
+                openShift.project = "dev-ssaad"
                 break
             case EnvironmentType.TEST:
                 openShift.id = "openshift-test"
                 openShift.name = "OpenShift Test"
                 openShift.clusterId = "" // Set cluster id
-                openShift.project = "ssaad-test"
+                openShift.project = "test-ssaad"
                 break
             case EnvironmentType.PROD:
                 openShift.id = "openshift-prod"
                 openShift.name = "OpenShift Prod"
                 openShift.clusterId = "" // Set cluster id
-                openShift.project = "ssaad-prod"
+                openShift.project = "prod-ssaad"
                 break
         }
 
