@@ -2,8 +2,7 @@ package org.ssaad.ami.pipeline.common.types
 
 enum DeploymentType {
 
-    ROLLOUT,
-    RECREATE,
+    BASIC,
     BLUE_GREEN,
     CANARY
 }

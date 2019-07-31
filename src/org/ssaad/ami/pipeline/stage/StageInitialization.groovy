@@ -19,7 +19,28 @@ class StageInitialization implements Serializable {
         this.engineType = engineType
     }
 
-    StageInitialization(TaskType taskType, EngineType engineType, PluginType pluginType,
+    StageInitialization(TaskType taskType, EngineType engineType, Object... initialTypes) {
+        this(taskType, engineType)
+
+        initialTypes.each {
+            initialType ->
+                if (initialType instanceof PluginType) {
+                    this.pluginType = initialType
+                } else if (initialType instanceof AppRuntimeType) {
+                    this.appRuntimeType = initialType
+                } else if (initialType instanceof EnvironmentType) {
+                    this.environmentType = initialType
+                } else if (initialType instanceof DeploymentType) {
+                    this.deploymentType = initialType
+                } else if (initialType instanceof TemplateType) {
+                    this.templateType = initialType
+                } else if (initialType instanceof PlatformType) {
+                    this.platformType = initialType
+                }
+        }
+    }
+
+    /*StageInitialization(TaskType taskType, EngineType engineType, PluginType pluginType,
                         AppRuntimeType appRuntimeType, EnvironmentType environmentType,
                         DeploymentType deploymentType, TemplateType templateType, PlatformType platformType) {
         this.taskType = taskType
@@ -30,7 +51,7 @@ class StageInitialization implements Serializable {
         this.deploymentType = deploymentType
         this.templateType = templateType
         this.platformType = platformType
-    }
+    }*/
 //    @NonCPS
     /*static StageInitialization create(TaskType taskType, EngineType engineType, List<Object> initialTypes) {
         StageInitialization init = new StageInitialization(taskType, engineType)
@@ -51,28 +72,5 @@ class StageInitialization implements Serializable {
             }
         }
         return init
-    }*/
-
-    /*@NonCPS
-    static StageInitialization create(TaskType taskType, EngineType engineType, Object... initialTypes) {
-        StageInitialization initialization = new StageInitialization(taskType, engineType)
-
-        initialTypes.each {
-            initialType ->
-                if (initialType instanceof PluginType) {
-                    initialization.pluginType = initialType
-                } else if (initialType instanceof AppRuntimeType) {
-                    initialization.appRuntimeType = initialType
-                } else if (initialType instanceof EnvironmentType) {
-                    initialization.environmentType = initialType
-                } else if (initialType instanceof DeploymentType) {
-                    initialization.deploymentType = initialType
-                } else if (initialType instanceof TemplateType) {
-                    initialization.templateType = initialType
-                } else if (initialType instanceof PlatformType) {
-                    initialization.platformType = initialType
-                }
-        }
-        return initialization
     }*/
 }

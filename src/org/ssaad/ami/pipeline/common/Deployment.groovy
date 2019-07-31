@@ -7,7 +7,7 @@ import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class Deployment implements Serializable, Customizable {
 
-    DeploymentType deploymentType = DeploymentType.RECREATE
+    DeploymentType deploymentType = DeploymentType.BASIC
     EnvironmentType environmentType
     int replicas = 1
     AutoScaling autoScaling

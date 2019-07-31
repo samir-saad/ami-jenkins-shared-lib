@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
-import com.cloudbees.groovy.cps.NonCPS
+
 import org.ssaad.ami.pipeline.common.types.*
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
@@ -21,7 +21,7 @@ class PipelineFactory {
 
                 init.stageInitMap.put(TaskType.CONTAINER_BUILD, new StageInitialization(TaskType.CONTAINER_BUILD, EngineType.OPENSHIFT,
                         PluginType.OPENSHIFT_S2I, AppRuntimeType.JDK, EnvironmentType.DEV,
-                        DeploymentType.RECREATE, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
+                        DeploymentType.BASIC, TemplateType.S2I_BUILD, PlatformType.OPENSHIFT))
 
                 break
         }
