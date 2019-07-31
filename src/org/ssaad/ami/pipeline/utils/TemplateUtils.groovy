@@ -2,6 +2,7 @@ package org.ssaad.ami.pipeline.utils
 
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Template
+import org.ssaad.ami.pipeline.common.types.CreationPolicyType
 
 class TemplateUtils implements Serializable {
 
@@ -32,6 +33,7 @@ class TemplateUtils implements Serializable {
         template.id = "s2i-build-template"
         template.name = "s2i-build-template"
         template.type = "bc"
+        template.creationPolicy = CreationPolicyType.CREATE_IF_NOT_EXIST
         template.filePath = "/build/s2i/build-template.yaml"
         template.params = getCommonParams()
         template.params.put("BUILD_NAME", '${app.id}-${app.version.lowerCase}')

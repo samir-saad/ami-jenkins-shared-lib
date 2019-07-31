@@ -1,6 +1,7 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.ssaad.ami.pipeline.common.types.CreationPolicyType
 import org.ssaad.ami.pipeline.stage.StageInitialization
 
 class Template implements Serializable, Customizable {
@@ -9,6 +10,7 @@ class Template implements Serializable, Customizable {
     String name
     String filePath
     String type
+    CreationPolicyType creationPolicy
     Map<String, String> params = new HashMap<>()
     Map<String, String> extraParams = new HashMap<>()
     String parsedParams = ""
