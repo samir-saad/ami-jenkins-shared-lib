@@ -58,12 +58,12 @@ class OpenShiftUtils implements Serializable {
         resolveTemplateParams(template, bindings)
         steps.println("Template params: ${template.parsedParams}")
 
-        def templateFile = steps.readYaml file: template.filePath
-        def processed = steps.openshift.process(templateFile, template.parsedParams)
+        String templateContent = steps.readYaml file: template.filePath
+        List processed = steps.openshift.process(templateContent, template.parsedParams)
         steps.println("processed: ${processed}")
 
-        processed.withEach {
-            createResource(it.object(), template.creationPolicy, steps)
+        processed.each {
+            createResource(it, template.creationPolicy, steps)
         }
 
         return processed
