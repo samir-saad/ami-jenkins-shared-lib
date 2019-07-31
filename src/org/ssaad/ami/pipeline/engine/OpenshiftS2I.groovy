@@ -1,17 +1,12 @@
 package org.ssaad.ami.pipeline.engine
 
 import com.cloudbees.groovy.cps.NonCPS
-import org.ssaad.ami.pipeline.common.Application
-import org.ssaad.ami.pipeline.common.Pipeline
-import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.common.openshift.ImageStream
 import org.ssaad.ami.pipeline.common.openshift.ImageStreamFactory
-import org.ssaad.ami.pipeline.platform.OpenShift
-import org.ssaad.ami.pipeline.stage.PlatformStage
 import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.utils.OpenShiftUtils
 
-class OpenshiftS2I extends Engine {
+class OpenshiftS2I extends Openshift {
 
     ImageStream imageStream
     String appPackage = "/target/\${app.id}-\${app.version}-bin.jar"
@@ -39,22 +34,8 @@ class OpenshiftS2I extends Engine {
     }
 
     @Override
-    void execute() {
-        Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
-        Application app = pipeline.app
-        PlatformStage stage = (PlatformStage) pipeline.findStage(taskType)
-        OpenShift platform = (OpenShift) stage.platform
-        def steps = pipeline.steps
-
-        if (platform.clusterId != null && !platform.clusterId.trim().equals("")) {
-            steps.openshift.withCluster(platform.clusterId) {
-                OpenShiftUtils.s2iBuild(this)
-            }
-        } else {
-            steps.openshift.withCluster() {
-                OpenShiftUtils.s2iBuild(this)
-            }
-        }
+    void executeEngine() {
+        OpenShiftUtils.s2iBuild(this)
     }
 
 }
