@@ -117,5 +117,6 @@ class Pipeline implements Serializable, Customizable, Executable {
 
     void cleanup(){
         PipelineRegistry.unregisterPipeline(buildId)
+        // TODO workspace cleanup
     }
 }

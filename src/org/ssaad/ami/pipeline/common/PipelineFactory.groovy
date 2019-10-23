@@ -40,16 +40,12 @@ class PipelineFactory {
                         PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.DEV,
                         DeploymentType.BASIC, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
 
-                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_QA, EngineType.OPENSHIFT,
-                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.QA,
+                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_TEST, EngineType.OPENSHIFT,
+                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.TEST,
                         DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
 
-                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_PROD_LF, EngineType.OPENSHIFT,
-                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.PROD_LF,
-                        DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
-
-                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_PROD_T5, EngineType.OPENSHIFT,
-                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.PROD_T5,
+                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_PROD, EngineType.OPENSHIFT,
+                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.PROD,
                         DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
 
                 break

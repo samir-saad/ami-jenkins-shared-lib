@@ -77,13 +77,13 @@ class StageFactory {
                 stage.name = "System Testing"
                 stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
                 break
-            case TaskType.DEPLOY_QA:
+            case TaskType.DEPLOY_TEST:
                 stage = new PlatformStage()
-                stage.id = "deploy-qa"
-                stage.name = "Deploy QA"
+                stage.id = "deploy-test"
+                stage.name = "Deploy Test"
                 stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
                 stage.confirmation.enable = true
-                stage.testing = (EngineStage)new StageFactory().create(new StageInitialization(TaskType.LOAD_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.QA), buildId)
+                stage.testing = (EngineStage)new StageFactory().create(new StageInitialization(TaskType.LOAD_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.TEST), buildId)
                 break
             case TaskType.LOAD_TESTING:
                 stage = new EngineStage()
@@ -91,17 +91,10 @@ class StageFactory {
                 stage.name = "Load Testing"
                 stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
                 break
-            case TaskType.DEPLOY_PROD_LF:
+            case TaskType.DEPLOY_PROD:
                 stage = new PlatformStage()
-                stage.id = "deploy-prod-lf"
-                stage.name = "Deploy Prod LF"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE], false)
-                stage.confirmation.enable = true
-                break
-            case TaskType.DEPLOY_PROD_T5:
-                stage = new PlatformStage()
-                stage.id = "deploy-prod-t5"
-                stage.name = "Deploy Prod T5"
+                stage.id = "deploy-prod"
+                stage.name = "Deploy Prod"
                 stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE], false)
                 stage.confirmation.enable = true
                 break
