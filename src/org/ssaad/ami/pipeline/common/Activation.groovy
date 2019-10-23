@@ -8,12 +8,20 @@ class Activation implements Serializable, Customizable {
 
     List<AppType> allowedAppType
     List<BranchType> allowedBranches
+    boolean allowSnapshot = true
 
     @NonCPS
     static Activation getInstance(List<AppType> appTypes, List<BranchType> branchTypes){
         Activation activation = new Activation()
         activation.allowedAppType = appTypes.toList()
         activation.allowedBranches = branchTypes.toList()
+        return activation
+    }
+
+    @NonCPS
+    static Activation getInstance(List<AppType> appTypes, List<BranchType> branchTypes, boolean allowSnapshot){
+        Activation activation = getInstance(appTypes, branchTypes)
+        activation.allowSnapshot = allowSnapshot
         return activation
     }
 
@@ -31,5 +39,8 @@ class Activation implements Serializable, Customizable {
             for (String element : config.allowedBranches)
                 this.allowedBranches.add(element as BranchType)
         }
+
+        if (config?.allowSnapshot != null)
+            this.allowSnapshot = config.allowSnapshot
     }
 }

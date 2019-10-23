@@ -1,26 +1,11 @@
 package org.ssaad.ami.pipeline.stage
 
-import com.cloudbees.groovy.cps.NonCPS
-import org.ssaad.ami.pipeline.common.Activation
+
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
-import org.ssaad.ami.pipeline.common.types.AppType
-import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.utils.JenkinsUtils
 
 class InitConfigStage extends Stage {
-
-    InitConfigStage() {
-        this.id = "init-config"
-        this.name = "Init Config"
-    }
-
-    @NonCPS
-    @Override
-    void init(StageInitialization init, String buildId) {
-        super.init(init, buildId)
-        this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
-    }
 
     @Override
     void executeStage() {

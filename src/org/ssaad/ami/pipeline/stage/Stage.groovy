@@ -18,6 +18,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
     StageConfirmation confirmation = new StageConfirmation()
     String credentialsId
     Credentials credentials
+    Timeout stageTimeout = new Timeout()
     //StageInitialization initialization
 
     boolean isActive() {
@@ -27,17 +28,21 @@ abstract class Stage implements Serializable, Customizable, Executable {
         boolean appTypeAllowed = activation.allowedAppType.contains(AppType.ANY) || activation.allowedAppType.contains(app.appType)
 
         BranchType branchType
-        if(app.branch != null){
+        if (app.branch != null) {
             String branch = app.branch.toUpperCase()
             if (branch.indexOf("/") != -1)
                 branch = branch.substring(0, branch.indexOf("/"))
-            steps.println(branch)
             branchType = branch as BranchType
         }
 
         boolean branchAllowed = activation.allowedBranches.contains(BranchType.ANY) || activation.allowedBranches.contains(branchType)
 
-        return enable && appTypeAllowed && branchAllowed
+        boolean allowSnapshot =
+                (activation.allowSnapshot
+                ||
+                (!activation.allowSnapshot && !app?.version?.toUpperCase()?.contains("SNAPSHOT")))
+
+        return enable && appTypeAllowed && branchAllowed && allowSnapshot
     }
 
     @NonCPS
@@ -79,7 +84,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
             steps.stage(name) {
                 //confirmation
                 if (confirmation.enable) {
-                    steps.timeout(time: confirmation.time, unit: confirmation.timeUnit) {
+                    steps.timeout(time: confirmation.timeout.time, unit: confirmation.timeout.unit) {
                         steps.input message: confirmation.message, ok: confirmation.okOption
                     }
                 }

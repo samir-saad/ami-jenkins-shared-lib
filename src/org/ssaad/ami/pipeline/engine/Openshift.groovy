@@ -1,23 +1,19 @@
 package org.ssaad.ami.pipeline.engine
 
-import com.cloudbees.groovy.cps.NonCPS
-import org.ssaad.ami.pipeline.common.Application
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
-import org.ssaad.ami.pipeline.common.openshift.ImageStream
-import org.ssaad.ami.pipeline.common.openshift.ImageStreamFactory
-import org.ssaad.ami.pipeline.platform.OpenShift
 import org.ssaad.ami.pipeline.stage.PlatformStage
-import org.ssaad.ami.pipeline.stage.StageInitialization
-import org.ssaad.ami.pipeline.utils.OpenShiftUtils
 
-abstract class Openshift extends Engine {
+abstract class OpenShift extends Engine {
+
+    String imagePushCredentialsId = "quay-push-token"
+    String imagePullCredentialsId = "quay-pull-token"
 
     @Override
     void execute() {
         Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
         PlatformStage stage = (PlatformStage) pipeline.findStage(taskType)
-        OpenShift platform = (OpenShift) stage.platform
+        org.ssaad.ami.pipeline.platform.OpenShift platform = (org.ssaad.ami.pipeline.platform.OpenShift) stage.platform
         def steps = pipeline.steps
 
         if (platform.clusterId != null && !platform.clusterId.trim().equals("")) {

@@ -18,6 +18,7 @@ abstract class Engine implements Serializable, Customizable, Executable {
     PluginType pluginType
     // maven, gradle, npm, etc.
     String configDir
+    String configItemId
     String credentialsId
     Credentials credentials
     ScmRepository configRepo
@@ -47,6 +48,9 @@ abstract class Engine implements Serializable, Customizable, Executable {
 
         if (config?.configDir != null)
             this.configDir = config.configDir
+
+        if (config?.configItemId != null)
+            this.configItemId = config.configItemId
 
         if (config?.credentialsId != null)
             this.credentialsId = config.credentialsId

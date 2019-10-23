@@ -13,14 +13,16 @@ class DeploymentFactory {
         switch (init.environmentType) {
             case EnvironmentType.DEV:
                 deployment.replicas = 1
+                deployment.autoScaling.enable = false
                 break
-            case EnvironmentType.TEST:
+            case EnvironmentType.QA:
                 deployment.replicas = 2
-                deployment.autoScaling = new AutoScaling()
                 break
-            case EnvironmentType.PROD:
+            case EnvironmentType.PROD_LF:
                 deployment.replicas = 2
-                deployment.autoScaling = new AutoScaling()
+                break
+            case EnvironmentType.PROD_T5:
+                deployment.replicas = 2
                 break
         }
 

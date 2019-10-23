@@ -1,12 +1,12 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
-import groovy.json.JsonBuilder
 import org.ssaad.ami.pipeline.common.types.TaskType
-import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
+import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.utils.PipelineUtils
+import groovy.json.JsonBuilder
 
 class Pipeline implements Serializable, Customizable, Executable {
 
@@ -41,23 +41,19 @@ class Pipeline implements Serializable, Customizable, Executable {
 
         PipelineRegistry.registerPipeline(this)
 
-        initStages(init.stageInitMap, init.buildId)
+        initStages(init.stageInitList, init.buildId)
     }
 
     @NonCPS
-    private void initStages(Map<TaskType, StageInitialization> stageInitMap, String buildId) {
+    private void initStages(List<StageInitialization> stageInitList, String buildId) {
         StageFactory stageFactory = new StageFactory()
-        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null, null, null, null, null, null, null), buildId))
-        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_CONFIG, null, null, null, null, null, null, null), buildId))
+        // Initialize
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null), buildId))
+        this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_CONFIG, null), buildId))
         // init configs
-        this.stages.add(stageFactory.create(stageInitMap.get(TaskType.CODE_BUILD), buildId))
-//        this.stages.add(stageFactory.create(TaskType.UNIT_TESTS, stageInitMap.get(TaskType.UNIT_TESTS), buildId))
-//        this.stages.add(stageFactory.create(TaskType.BINARIES_ARCHIVE, stageInitMap.get(TaskType.BINARIES_ARCHIVE), buildId))
-
-        if (stageInitMap.get(TaskType.CONTAINER_BUILD) != null)
-            this.stages.add(stageFactory.create(stageInitMap.get(TaskType.CONTAINER_BUILD), buildId))
-
-        this.stages.add(stageFactory.create(new StageInitialization(TaskType.FINALIZE, null, null, null, null, null, null, null), buildId))
+        for(StageInitialization stageInitialization : stageInitList){
+            this.stages.add(stageFactory.create(stageInitialization, buildId))
+        }
     }
 
     @NonCPS
@@ -94,6 +90,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         }
     }
 
+    @NonCPS
     Stage findStage(TaskType taskType) {
         return PipelineUtils.findStage(stages, taskType)
     }
@@ -113,7 +110,12 @@ class Pipeline implements Serializable, Customizable, Executable {
             steps.println(new JsonBuilder(this).toPrettyString())
 
         } catch (Exception e) {
+            steps.println("Pipeline print error")
             e.printStackTrace()
         }
+    }
+
+    void cleanup(){
+        PipelineRegistry.unregisterPipeline(buildId)
     }
 }

@@ -5,8 +5,7 @@ import com.cloudbees.groovy.cps.NonCPS
 class StageConfirmation implements Serializable, Customizable {
 
     boolean enable = false
-    int time = 5
-    String timeUnit = "MINUTES"
+    Timeout timeout = new Timeout()
     String message = "Proceed?"
     String okOption = "Ok"
 
@@ -16,11 +15,8 @@ class StageConfirmation implements Serializable, Customizable {
         if (config?.enable != null)
             this.enable = config.enable
 
-        if (config?.time != null)
-            this.time = config.time
-
-        if (config?.timeUnit != null)
-            this.timeUnit = config.timeUnit
+        if (config?.timeout != null)
+            this.timeout.customize(config.timeout)
 
         if (config?.message != null)
             this.message = config.message

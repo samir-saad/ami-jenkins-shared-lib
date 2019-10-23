@@ -33,5 +33,17 @@ abstract class Platform implements Serializable, Customizable {
 
         if (config?.name != null)
             this.name = config.name
+
+        if (config?.platformType != null)
+            this.platformType = config.platformType as PlatformType
+
+        if (config?.environmentType != null)
+            this.environmentType = config.environmentType as EnvironmentType
+
+        if (config?.appRuntimeType != null)
+            this.appRuntimeType = config.appRuntimeType as AppRuntimeType
+
+        if (config?.credentialsId != null)
+            this.credentialsId = config.credentialsId
     }
 }

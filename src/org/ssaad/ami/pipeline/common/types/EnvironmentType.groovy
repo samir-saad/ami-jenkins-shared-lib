@@ -3,6 +3,7 @@ package org.ssaad.ami.pipeline.common.types
 enum EnvironmentType {
 
     DEV,
-    TEST,
-    PROD
+    QA,
+    PROD_LF,
+    PROD_T5
 }

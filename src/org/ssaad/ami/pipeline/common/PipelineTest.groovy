@@ -1,8 +1,8 @@
 package org.ssaad.ami.pipeline.common
 
-import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.common.types.PipelineType
 import org.ssaad.ami.pipeline.common.types.ScmType
+import groovy.json.JsonSlurper
 
 class PipelineTest {
 
@@ -23,25 +23,24 @@ class PipelineTest {
 
             String config =
                     "{\n" +
-                            "    \"stages\": [        \n" +
-                            "        {\n" +
-                            "            \"confirmation\": {\n" +
-                            "                \"time\": 10,\n" +
-                            "                \"enable\": true\n" +
-                            "            },\n" +
-                            "            \"taskType\": \"CODE_BUILD\",\n" +
-                            "            \"activation\": {\n" +
-                            "                \"allowedBranches\": [\n" +
-                            "                    \"ANY\",\n" +
-                            "                    \"FEATURE\"\n" +
-                            "                ],\n" +
-                            "                \"allowedAppType\": [\n" +
-                            "                    \"ANY\",\n" +
-                            "                    \"LIBRARY\"\n" +
-                            "                ]\n" +
-                            "            }\n" +
+                            "  \"primaryConfigRepo\": {\n" +
+                            "    \"branch\": \"develop\"\n" +
+                            "  },\n" +
+                            "  \"stages\": [\n" +
+                            "    {\n" +
+                            "      \"taskType\": \"UNIT_TESTING\",\n" +
+                            "      \"enable\": false\n" +
+                            "    },\n" +
+                            "    {\n" +
+                            "      \"taskType\": \"DEPLOY_DEV\",\n" +
+                            "      \"deployment\": {\n" +
+                            "        \"replicas\": 2,\n" +
+                            "        \"autoScaling\": {\n" +
+                            "          \"enable\": true\n" +
                             "        }\n" +
-                            "    ]\n" +
+                            "      }\n" +
+                            "    }\n" +
+                            "  ]\n" +
                             "}"
             // using Map to convert to Person object appType
             pipeline.customize(new JsonSlurper().parseText(config))

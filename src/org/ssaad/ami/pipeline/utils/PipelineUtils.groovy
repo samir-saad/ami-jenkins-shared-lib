@@ -41,8 +41,10 @@ class PipelineUtils {
                 object = object.toString().toUpperCase()
             } else if ("trim".equals(segment)) {
                 object = object.toString().trim()
-            } else if ("normalize".equals(segment)) {
-                object = normalize(object.toString())
+            } else if ("normalizeName".equals(segment)) {
+                object = normalizeName(object.toString())
+            } else if ("normalizeLabel".equals(segment)) {
+                object = normalizeLabel(object.toString())
             } else {
                 object = object.getProperties().get(segment)
             }
@@ -50,10 +52,19 @@ class PipelineUtils {
         return object?.toString()
     }
 
-    private String normalize(String str) {
+    static String normalizeName(String str) {
         return str
                 .trim()
                 .replace(".", "-")
+                .replace(":", "-")
+                .replace("_", "-")
+                .replace("/", "-")
+    }
+
+    static String normalizeLabel(String str) {
+        return str
+                .trim()
+                .replace(":", "-")
                 .replace("/", "-")
     }
 

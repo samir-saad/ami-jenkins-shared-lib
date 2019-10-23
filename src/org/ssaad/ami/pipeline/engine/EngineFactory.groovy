@@ -16,8 +16,11 @@ class EngineFactory {
                 engine = new MavenFactory().create(init)
                 break
             case EngineType.OPENSHIFT:
-                if (PluginType.OPENSHIFT_S2I.equals(init.pluginType))
-                    engine = new OpenshiftS2I()
+                if (PluginType.OPENSHIFT_S2I.equals(init.pluginType)) {
+                    engine = new OpenShiftS2I()
+                } else if (PluginType.OPENSHIFT_DEPLOY.equals(init.pluginType)) {
+                    engine = new OpenShiftDeploy()
+                }
                 break
         }
 

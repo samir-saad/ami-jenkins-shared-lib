@@ -1,19 +1,23 @@
 package org.ssaad.ami.pipeline.engine
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.ssaad.ami.pipeline.common.Template
 import org.ssaad.ami.pipeline.common.openshift.ImageStream
 import org.ssaad.ami.pipeline.common.openshift.ImageStreamFactory
 import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.utils.OpenShiftUtils
+import org.ssaad.ami.pipeline.utils.TemplateUtils
 
-class OpenshiftS2I extends Openshift {
+class OpenShiftS2I extends OpenShift {
 
     ImageStream imageStream
     String appPackage = "/target/\${app.id}-\${app.version}-bin.jar"
+    String ocpSecretId = "quay-push-secret"
+    Template imagePushSecretTemplate = TemplateUtils.getQuayDockerconfigSecretTemplate()
 
-    OpenshiftS2I() {
-        this.id = "s2i"
-        this.name = "S2I"
+    OpenShiftS2I() {
+        this.id = "openshift-s2i"
+        this.name = "OpenShift S2I"
         this.configDir = ""
     }
 

@@ -1,27 +1,12 @@
 package org.ssaad.ami.pipeline.stage
 
-import com.cloudbees.groovy.cps.NonCPS
-import groovy.json.JsonSlurper
-import org.ssaad.ami.pipeline.common.Activation
+
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
-import org.ssaad.ami.pipeline.common.types.AppType
-import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.utils.PipelineUtils
+import groovy.json.JsonSlurper
 
 class InitPipelineStage extends Stage {
-
-    InitPipelineStage(){
-        this.id = "init-pipeline"
-        this.name = "Init Pipeline"
-    }
-
-    @NonCPS
-    @Override
-    void init(StageInitialization init, String buildId) {
-        super.init(init, buildId)
-        this.activation = Activation.getInstance([AppType.ANY], [BranchType.ANY])
-    }
 
     @Override
     void executeStage() {
@@ -33,7 +18,7 @@ class InitPipelineStage extends Stage {
         pipeline.app.branch = env.BRANCH_NAME
 
         // Abort pipeline on master branch
-        if ("master".equals(pipeline.app.branch)){
+        if ("master".equals(pipeline.app.branch)) {
             steps.currentBuild.result = 'ABORTED'
             steps.error("master branch isn't allowed")
         }
