@@ -524,8 +524,23 @@ class OpenShiftUtils implements Serializable {
         steps.println("Template labels: ${template.parsedLabels}")
 
         def templateContent = steps.readYaml file: templateFilePath
-        List templateObjects = steps.openshift.process(templateContent, template.parsedParams, template.parsedLabels)
+        List templateObjects = steps.openshift.process(templateContent, template.parsedParams/*, template.parsedLabels*/)
+        setTemplateLabels(template, bindings, templateObjects)
         return templateObjects
+    }
+
+    static void setTemplateLabels(Template template, Map bindings, List templateObjects) {
+        Map labels = new HashMap()
+        if (template.labels != null && !template.labels.isEmpty()) {
+            String labelValue
+            for (String label : template.labels.keySet()) {
+                labelValue = PipelineUtils.resolveVars(bindings, template.labels.get(label))
+                labels.put(label, labelValue)
+            }
+            for (def templateObject : templateObjects) {
+                templateObject.metadata.labels = labels
+            }
+        }
     }
 
     static void createResource(resource, CreationPolicyType creationPolicy, steps) {
