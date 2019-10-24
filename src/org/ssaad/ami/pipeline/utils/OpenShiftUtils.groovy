@@ -93,7 +93,7 @@ class OpenShiftUtils implements Serializable {
                 steps.println(data)
                 steps.currentBuild.result = 'FAILURE'
                 steps.error("Error happened")
-                
+
             } finally {
                 String imagePushSecretName = PipelineUtils.resolveVars(bindings, engine.imagePushSecretTemplate.params.get("OCP_OBJECT_NAME"))
                 steps.println("Delete image push secret ${imagePushSecretName}")
@@ -589,7 +589,7 @@ class OpenShiftUtils implements Serializable {
         if (template.params != null) {
             for (String param : template.params.keySet()) {
                 paramValue = PipelineUtils.resolveVars(bindings, template.params.get(param))
-                template.parsedParams += "-p ${param}=\"${paramValue}\" "
+                template.parsedParams += "-p ${param}=\'${paramValue}\' "
             }
             template.parsedParams.trim()
         }

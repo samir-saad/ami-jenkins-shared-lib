@@ -156,7 +156,7 @@ class TemplateUtils implements Serializable {
         template.creationPolicy = CreationPolicyType.ENFORCE_RECREATE
         template.filePath = "/deploy/openshift/templates/spring-cloud-config-server-template.yaml"
         template.params = getSpringCommonParams()
-        template.params.put("GIT_URI", 'https://bitbucket.ssaad.com/scm/cm/apps-config.git')
+        template.params.put("GIT_URI", 'https://github.com/samir-saad/ami-apps-configs.git')
         template.params.put("GIT_USERNAME", '')
         template.params.put("GIT_PASSWORD", '')
         template.params.put("APP_DOMAIN", 'AMI')
