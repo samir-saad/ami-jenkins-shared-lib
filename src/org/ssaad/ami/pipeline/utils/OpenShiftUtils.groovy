@@ -89,7 +89,9 @@ class OpenShiftUtils implements Serializable {
                 steps.println("Delete image push secret ${imagePushSecretName}")
                 def secretSelector = steps.openshift.selector("Secret", imagePushSecretName)
                 steps.println("secretSeclector: ${secretSelector}")
-                secretSelector.delete()
+                if (secretSelector.exists()) {
+                    secretSelector.delete()
+                }
             }
         }
     }

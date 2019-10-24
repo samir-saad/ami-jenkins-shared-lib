@@ -32,12 +32,44 @@ class PipelineTest {
                             "      \"enable\": false\n" +
                             "    },\n" +
                             "    {\n" +
+                            "      \"taskType\": \"QUALITY_SCANNING\",\n" +
+                            "      \"enable\": false\n" +
+                            "    },\n" +
+                            "    {\n" +
+                            "      \"taskType\": \"DEPENDENCY_CHECK\",\n" +
+                            "      \"enable\": false\n" +
+                            "    },\n" +
+                            "    {\n" +
+                            "      \"taskType\": \"BINARIES_ARCHIVE\",\n" +
+                            "      \"enable\": false\n" +
+                            "    },\n" +
+                            "    {\n" +
                             "      \"taskType\": \"DEPLOY_DEV\",\n" +
-                            "      \"deployment\": {\n" +
-                            "        \"replicas\": 2,\n" +
-                            "        \"autoScaling\": {\n" +
-                            "          \"enable\": true\n" +
+                            "      \"template\": {\n" +
+                            "        \"id\": \"spring-cloud-config-server-template\",\n" +
+                            "        \"extraParams\": {\n" +
+                            "          \"IMAGE_TAG\": \"latest\"\n" +
                             "        }\n" +
+                            "      },\n" +
+                            "      \"platform\": {\n" +
+                            "        \"clusterId\": \"ocp-dev\",\n" +
+                            "        \"project\": \"pipeline-demo-dev\"\n" +
+                            "      },\n" +
+                            "      \"deployment\": {\n" +
+                            "        \"deploymentType\": \"BASIC\"\n" +
+                            "      }\n" +
+                            "    },\n" +
+                            "    {\n" +
+                            "      \"taskType\": \"DEPLOY_TEST\",\n" +
+                            "      \"template\": {\n" +
+                            "        \"id\": \"spring-cloud-config-server-template\"\n" +
+                            "      },\n" +
+                            "      \"platform\": {\n" +
+                            "        \"clusterId\": \"ocp-dev\",\n" +
+                            "        \"project\": \"pipeline-demo-test\"\n" +
+                            "      },\n" +
+                            "      \"deployment\": {\n" +
+                            "        \"deploymentType\": \"BASIC\"\n" +
                             "      }\n" +
                             "    }\n" +
                             "  ]\n" +
