@@ -573,7 +573,7 @@ class OpenShiftUtils implements Serializable {
         if (template.params != null) {
             for (String param : template.params.keySet()) {
                 paramValue = PipelineUtils.resolveVars(bindings, template.params.get(param))
-                template.parsedParams += "-p ${param}=\'${paramValue}\' "
+                template.parsedParams += "-p ${param}=${paramValue} "
             }
         }
     }
