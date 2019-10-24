@@ -91,6 +91,9 @@ class OpenShiftUtils implements Serializable {
                 String data = new String(baos.toByteArray(), StandardCharsets.UTF_8)
 
                 steps.println(data)
+                steps.currentBuild.result = 'FAILURE'
+                steps.error("Error happened")
+                
             } finally {
                 String imagePushSecretName = PipelineUtils.resolveVars(bindings, engine.imagePushSecretTemplate.params.get("OCP_OBJECT_NAME"))
                 steps.println("Delete image push secret ${imagePushSecretName}")
@@ -99,9 +102,6 @@ class OpenShiftUtils implements Serializable {
                 if (secretSelector.exists()) {
                     secretSelector.delete()
                 }
-
-                steps.currentBuild.result = 'FAILURE'
-                steps.error("Error happened")
             }
         }
     }
