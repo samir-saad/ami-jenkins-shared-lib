@@ -585,7 +585,7 @@ class OpenShiftUtils implements Serializable {
             String labelValue
             for (String label : template.labels.keySet()) {
                 labelValue = PipelineUtils.resolveVars(bindings, template.labels.get(label))
-                parsedLabels += "${label}=\'${labelValue}\',"
+                parsedLabels += "${label}=${labelValue},"
             }
             template.parsedLabels = parsedLabels.substring(0, parsedLabels.length() - 1)
         }
