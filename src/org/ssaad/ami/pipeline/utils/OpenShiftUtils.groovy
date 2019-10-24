@@ -56,6 +56,7 @@ class OpenShiftUtils implements Serializable {
                 applyTemplate(pipeline, engine.imagePushSecretTemplate, bindings, steps)
 
                 // Start build
+                steps.println("Start build")
                 bcSelector.startBuild("--from-dir=oc-build/deployments")
 
                 // Get last build

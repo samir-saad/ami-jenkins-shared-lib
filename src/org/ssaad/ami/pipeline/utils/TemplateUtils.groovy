@@ -27,7 +27,7 @@ class TemplateUtils implements Serializable {
     static Map<String, String> getDeploymentCommonParams() {
         Map<String, String> params = getCommonParams()
         params.put("OCP_OBJECT_NAME", '${app.id}')
-        params.put("IMAGE_NAME", 'quay.io/ssaad/${app.id}')
+        params.put("IMAGE_NAME", 'quay.io/samir.saad/${app.id}')
         params.put("IMAGE_TAG", '${app.version}')
         params.put("REPLICAS", '${deployment.replicas}')
 
@@ -117,7 +117,7 @@ class TemplateUtils implements Serializable {
         template.filePath = "/build/s2i/build-template.yaml"
         template.params = getCommonParams()
         template.params.put("BUILD_NAME", '${app.id}')
-        template.params.put("IMAGE_NAME", 'quay.io/ssaad/${app.id}')
+        template.params.put("IMAGE_NAME", 'quay.io/samir.saad/${app.id}')
         template.params.put("IMAGE_TAG", 'latest')
         template.params.put("INPUT_STREAM_NAME", '${engine.imageStream.name}')
         template.params.put("INPUT_STREAM_TAG", '${engine.imageStream.tag}')
