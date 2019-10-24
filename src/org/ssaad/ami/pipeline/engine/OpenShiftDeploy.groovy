@@ -8,8 +8,8 @@ import org.ssaad.ami.pipeline.utils.TemplateUtils
 
 class OpenShiftDeploy extends OpenShift {
 
-    String ocpSecretId = "quay-pull-secret"
-    Template imagePullSecretTemplate = TemplateUtils.getQuayDockerconfigSecretTemplate()
+    String ocpSecretId = "image-pull-secret"
+    Template imagePullSecretTemplate = TemplateUtils.getDockerHubSecretTemplate()
 
     OpenShiftDeploy() {
         this.id = "openshift-deploy"

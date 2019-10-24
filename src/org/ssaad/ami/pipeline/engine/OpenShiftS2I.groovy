@@ -12,8 +12,8 @@ class OpenShiftS2I extends OpenShift {
 
     ImageStream imageStream
     String appPackage = "/target/\${app.id}-\${app.version}-bin.jar"
-    String ocpSecretId = "quay-push-secret"
-    Template imagePushSecretTemplate = TemplateUtils.getQuayDockerconfigSecretTemplate()
+    String ocpSecretId = "image-push-secret"
+    Template imagePushSecretTemplate = TemplateUtils.getDockerHubSecretTemplate()
 
     OpenShiftS2I() {
         this.id = "openshift-s2i"

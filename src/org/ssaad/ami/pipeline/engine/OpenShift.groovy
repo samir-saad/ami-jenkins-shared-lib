@@ -6,8 +6,8 @@ import org.ssaad.ami.pipeline.stage.PlatformStage
 
 abstract class OpenShift extends Engine {
 
-    String imagePushCredentialsId = "quay-push-token"
-    String imagePullCredentialsId = "quay-pull-token"
+    String imagePushCredentialsId = "image-push-token"
+    String imagePullCredentialsId = "image-pull-token"
 
     @Override
     void execute() {

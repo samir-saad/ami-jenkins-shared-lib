@@ -7,6 +7,7 @@ import org.ssaad.ami.pipeline.common.types.CreationPolicyType
 class TemplateUtils implements Serializable {
 
     static final String QUAY_DOCKERCONFIG_SECRET_TEMPLATE = "quay-dockerconfig-secret-template"
+    static final String DOCKERHUB_SECRET_TEMPLATE = "dockerhub-secret-template"
     static final String S2I_BUILD_TEMPLATE = "s2i-build-template"
     static final String SPRING_CLOUD_CONFIG_SERVER_TEMPLATE = "spring-cloud-config-server-template"
     static final String SPRING_BOOT_TEMPLATE = "spring-boot-template"
@@ -27,7 +28,7 @@ class TemplateUtils implements Serializable {
     static Map<String, String> getDeploymentCommonParams() {
         Map<String, String> params = getCommonParams()
         params.put("OCP_OBJECT_NAME", '${app.id}')
-        params.put("IMAGE_NAME", 'quay.io/samir.saad/${app.id}')
+        params.put("IMAGE_NAME", 'docker.io/samirsaad/${app.id}')
         params.put("IMAGE_TAG", '${app.version}')
         params.put("REPLICAS", '${deployment.replicas}')
 
@@ -108,6 +109,24 @@ class TemplateUtils implements Serializable {
     }
 
     @NonCPS
+    static Template getDockerHubSecretTemplate() {
+        Template template = new Template()
+        template.id = DOCKERHUB_SECRET_TEMPLATE
+        template.name = DOCKERHUB_SECRET_TEMPLATE
+        template.type = "secret"
+        template.creationPolicy = CreationPolicyType.ENFORCE_RECREATE
+        template.filePath = "/deploy/openshift/templates/dockerhub-secret-template.yaml"
+
+        template.params = new HashMap<>()
+        template.params.put("OCP_OBJECT_NAME", '${engine.ocpSecretId}')
+        template.params.put("TOKEN", '')
+
+        template.labels = getCommonLabels()
+
+        return template
+    }
+
+    @NonCPS
     static Template getS2iBuildTemplate() {
         Template template = new Template()
         template.id = S2I_BUILD_TEMPLATE
@@ -117,7 +136,7 @@ class TemplateUtils implements Serializable {
         template.filePath = "/build/s2i/build-template.yaml"
         template.params = getCommonParams()
         template.params.put("BUILD_NAME", '${app.id}')
-        template.params.put("IMAGE_NAME", 'quay.io/samir.saad/${app.id}')
+        template.params.put("IMAGE_NAME", 'docker.io/samirsaad/${app.id}')
         template.params.put("IMAGE_TAG", 'latest')
         template.params.put("INPUT_STREAM_NAME", '${engine.imageStream.name}')
         template.params.put("INPUT_STREAM_TAG", '${engine.imageStream.tag}')
@@ -205,6 +224,9 @@ class TemplateUtils implements Serializable {
     static Template getTemplateById(String id) {
         if (QUAY_DOCKERCONFIG_SECRET_TEMPLATE.equals(id))
             return getQuayDockerconfigSecretTemplate()
+
+        if (DOCKERHUB_SECRET_TEMPLATE.equals(id))
+            return getDockerHubSecretTemplate()
 
         if (S2I_BUILD_TEMPLATE.equals(id))
             return getS2iBuildTemplate()
