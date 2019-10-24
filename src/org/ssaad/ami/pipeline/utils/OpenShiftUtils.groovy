@@ -524,8 +524,8 @@ class OpenShiftUtils implements Serializable {
         steps.println("Template labels: ${template.parsedLabels}")
 
         def templateContent = steps.readYaml file: templateFilePath
-        List templateObjects = steps.openshift.process(templateContent, template.parsedParams/*, template.parsedLabels*/)
-        setTemplateLabels(template, bindings, templateObjects)
+        List templateObjects = steps.openshift.process(templateContent, template.parsedParams, template.parsedLabels)
+//        setTemplateLabels(template, bindings, templateObjects)
         return templateObjects
     }
 
@@ -588,7 +588,7 @@ class OpenShiftUtils implements Serializable {
         if (template.params != null) {
             for (String param : template.params.keySet()) {
                 paramValue = PipelineUtils.resolveVars(bindings, template.params.get(param))
-                template.parsedParams += "-p ${param}=${paramValue} "
+                template.parsedParams += "-p ${param}=\"${paramValue}\" "
             }
             template.parsedParams.trim()
         }
