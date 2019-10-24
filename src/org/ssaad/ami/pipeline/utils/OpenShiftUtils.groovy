@@ -11,6 +11,8 @@ import org.ssaad.ami.pipeline.platform.OpenShift
 import org.ssaad.ami.pipeline.stage.PlatformStage
 import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl
 
+import java.nio.charset.StandardCharsets
+
 class OpenShiftUtils implements Serializable {
 
     static void s2iBuild(OpenShiftS2I engine) {
@@ -82,8 +84,12 @@ class OpenShiftUtils implements Serializable {
                 copyImage(steps, srcImage, destImage, credentials, credentials)
 
             } catch (Exception e) {
-                e.printStackTrace()
-                steps.println(e.getStackTrace())
+                ByteArrayOutputStream baos = new ByteArrayOutputStream()
+                PrintStream ps = new PrintStream(baos, true, "UTF-8")
+                e.printStackTrace(ps)
+                String data = new String(baos.toByteArray(), StandardCharsets.UTF_8)
+
+                steps.println(data)
             } finally {
                 String imagePushSecretName = PipelineUtils.resolveVars(bindings, engine.imagePushSecretTemplate.params.get("OCP_OBJECT_NAME"))
                 steps.println("Delete image push secret ${imagePushSecretName}")
@@ -92,6 +98,9 @@ class OpenShiftUtils implements Serializable {
                 if (secretSelector.exists()) {
                     secretSelector.delete()
                 }
+
+                steps.currentBuild.result = 'FAILURE'
+                steps.error("Error happened")
             }
         }
     }
