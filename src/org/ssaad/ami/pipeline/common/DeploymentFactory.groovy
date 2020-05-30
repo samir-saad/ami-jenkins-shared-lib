@@ -15,10 +15,10 @@ class DeploymentFactory {
                 deployment.replicas = 1
                 deployment.autoScaling.enable = false
                 break
-            case EnvironmentType.TEST:
+            case EnvironmentType.QA:
                 deployment.replicas = 2
                 break
-            case EnvironmentType.PROD:
+            case EnvironmentType.PROD_LF:
                 deployment.replicas = 2
                 break
             case EnvironmentType.PROD_T5:
