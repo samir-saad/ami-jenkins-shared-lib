@@ -17,7 +17,6 @@ class OpenShiftFactory {
                 openShift.clusterId = "dev" // Set cluster id
                 openShift.project = "pipeline-demo-dev"
                 break
-<<<<<<< Updated upstream
             case EnvironmentType.TEST:
                 openShift.id = "openshift-test"
                 openShift.name = "OpenShift TEST"
@@ -29,25 +28,6 @@ class OpenShiftFactory {
                 openShift.name = "OpenShift Prod"
                 openShift.clusterId = "prod" // Set cluster id
                 openShift.project = "pipeline-demo-prod"
-=======
-            case EnvironmentType.QA:
-                openShift.id = "openshift-qa"
-                openShift.name = "OpenShift QA"
-                openShift.clusterId = "qa" // Set cluster id
-                openShift.project = "pipeline-demo-qa"
-                break
-            case EnvironmentType.PROD_LF:
-                openShift.id = "openshift-prod-lf"
-                openShift.name = "OpenShift Prod LF"
-                openShift.clusterId = "prod-lf" // Set cluster id
-                openShift.project = "pipeline-demo-prod-lf"
-                break
-            case EnvironmentType.PROD_T5:
-                openShift.id = "openshift-prod-t5"
-                openShift.name = "OpenShift Prod T5"
-                openShift.clusterId = "prod-t5" // Set cluster id
-                openShift.project = "pipeline-demo-prod-t5"
->>>>>>> Stashed changes
                 break
         }
 
