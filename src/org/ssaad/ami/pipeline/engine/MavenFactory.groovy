@@ -44,9 +44,9 @@ class MavenFactory {
                 maven.goals = "deploy"
                 maven.params = "-DskipTests=true " +
                         "-Drepository.deploy.username=\${engine.credentials.username} " +
-                        "-Drepository.deploy.password=\${engine.credentials.password.plainText} " +
+                        "-Drepository.deploy.password=\${engine.credentials.password.plainText} "/* +
                         "-Dreleases-repository.url=http://nexus-cicd.cloudapps.ocp.local.net/repository/maven-releases/ " +
-                        "-Dsnapshots-repository.url=http://nexus-cicd.cloudapps.ocp.local.net/repository/maven-snapshots/"
+                        "-Dsnapshots-repository.url=http://nexus-cicd.cloudapps.ocp.local.net/repository/maven-snapshots/"*/
                 break
             case TaskType.SYSTEM_TESTING:
                 if (PluginType.MAVEN_SOAPUI.equals(init.pluginType)) {
