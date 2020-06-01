@@ -56,32 +56,32 @@ class StageFactory {
                 stage = new EngineStage()
                 stage.id = "binaries-archive"
                 stage.name = "Binaries Archive"
-                stage.activation = Activation.getInstance([AppType.ANY], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.ANY], [BranchType.DEVELOP, BranchType.RELEASE])
                 break
             case TaskType.CONTAINER_BUILD:
                 stage = new PlatformStage()
                 stage.id = "build-container"
                 stage.name = "Build Container"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
                 break
             case TaskType.DEPLOY_DEV:
                 stage = new PlatformStage()
                 stage.id = "deploy-dev"
                 stage.name = "Deploy Dev"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
                 stage.testing = (EngineStage)new StageFactory().create(new StageInitialization(TaskType.SYSTEM_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.DEV), buildId)
                 break
             case TaskType.SYSTEM_TESTING:
                 stage = new EngineStage()
                 stage.id = "system-testing"
                 stage.name = "System Testing"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
                 break
             case TaskType.DEPLOY_TEST:
                 stage = new PlatformStage()
                 stage.id = "deploy-test"
                 stage.name = "Deploy Test"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
                 stage.confirmation.enable = true
                 stage.testing = (EngineStage)new StageFactory().create(new StageInitialization(TaskType.LOAD_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.TEST), buildId)
                 break
@@ -89,7 +89,7 @@ class StageFactory {
                 stage = new EngineStage()
                 stage.id = "load-testing"
                 stage.name = "Load Testing"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.DEVELOPMENT, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
                 break
             case TaskType.DEPLOY_PROD:
                 stage = new PlatformStage()
