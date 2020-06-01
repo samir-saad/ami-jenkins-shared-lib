@@ -27,8 +27,8 @@ class MavenFactory {
                 if (PluginType.MAVEN_SONAR_SCAN.equals(init.pluginType)) {
                     maven.configItemId = "sonarqube"
                     maven.goals = "sonar:sonar"
-                    maven.params = "-Dsonar.projectKey=${app.group}:${app.id}:${app.branch} " +
-                            "-Dsonar.projectName=${app.name} (${app.branch})" +
+                    maven.params = "-Dsonar.projectKey=\${app.group}:\${app.id}:\${app.branch} " +
+                            "-Dsonar.projectName=\${app.name} (\${app.branch}) " +
                             "-DskipTests=true"
 //                    maven.params = "-DskipTests=true -Dsonar.branch=\${app.branch}"
                 }
