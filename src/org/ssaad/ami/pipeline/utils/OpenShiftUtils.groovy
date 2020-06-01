@@ -82,7 +82,8 @@ class OpenShiftUtils implements Serializable {
                 String srcImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + template.params.get("IMAGE_TAG"))
                 String destImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + app.latestCommit)
                 String credentials = new String(secret.secret.value.decodeBase64())
-                copyImage(steps, srcImage, destImage, credentials, credentials)
+                // TO DO
+//                copyImage(steps, srcImage, destImage, credentials, credentials)
 
             } catch (Exception e) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream()
@@ -149,7 +150,7 @@ class OpenShiftUtils implements Serializable {
             String srcImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + template.params.get("IMAGE_TAG"))
             String destImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + app.version)
             String credentials = new String(secret.secret.value.decodeBase64())
-            copyImage(steps, srcImage, destImage, credentials, credentials)
+//            copyImage(steps, srcImage, destImage, credentials, credentials)
         }
     }
 
