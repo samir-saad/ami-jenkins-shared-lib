@@ -137,7 +137,7 @@ class TemplateUtils implements Serializable {
         template.params = getCommonParams()
         template.params.put("BUILD_NAME", '${app.id}')
         template.params.put("IMAGE_NAME", 'docker.io/samirsaad/${app.id}')
-        template.params.put("IMAGE_TAG", 'latest')
+        template.params.put("IMAGE_TAG", '${app.version}')
         template.params.put("INPUT_STREAM_NAME", '${engine.imageStream.name}')
         template.params.put("INPUT_STREAM_TAG", '${engine.imageStream.tag}')
         template.params.put("INPUT_STREAM_IMAGE", '${engine.imageStream.image}')

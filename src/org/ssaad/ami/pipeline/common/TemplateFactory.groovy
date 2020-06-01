@@ -27,9 +27,9 @@ class TemplateFactory {
                 break
         }
 
-        if(EnvironmentType.DEV.equals(init.environmentType) && template.params.containsKey("IMAGE_TAG")){
-            template.params.put("IMAGE_TAG", "latest")
-        }
+//        if(EnvironmentType.DEV.equals(init.environmentType) && template.params.containsKey("IMAGE_TAG")){
+//            template.params.put("IMAGE_TAG", "latest")
+//        }
 
         template.init(init, buildId)
 

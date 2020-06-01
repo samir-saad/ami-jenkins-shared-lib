@@ -105,6 +105,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         }
     }
 
+    @NonCPS
     void print() {
         try {
             steps.println(new JsonBuilder(this).toPrettyString())
