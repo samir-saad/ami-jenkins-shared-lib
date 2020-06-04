@@ -3,6 +3,7 @@ package org.ssaad.ami.pipeline.stage
 
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
+import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.utils.PipelineUtils
 import groovy.json.JsonSlurper
 
@@ -17,6 +18,28 @@ class InitPipelineStage extends Stage {
 
         pipeline.app.branch = env.BRANCH_NAME
 
+        if (pipeline.app.branch != null) {
+            String branch = pipeline.app.branch.toUpperCase()
+            if (branch.startsWith("MASTER"))
+                pipeline.app.branchType = BranchType.MASTER
+            else if (branch.startsWith("DEVELOP"))
+                pipeline.app.branchType = BranchType.DEVELOP
+            else if (branch.startsWith("FEATURE"))
+                pipeline.app.branchType = BranchType.FEATURE
+            else if (branch.startsWith("PR"))
+                pipeline.app.branchType = BranchType.PR
+            else if (branch.startsWith("RELEASE"))
+                pipeline.app.branchType = BranchType.RELEASE
+            else if (branch.startsWith("BUGFIX"))
+                pipeline.app.branchType = BranchType.BUGFIX
+            else if (branch.startsWith("HOTFIX"))
+                pipeline.app.branchType = BranchType.HOTFIX
+            else {
+                steps.currentBuild.result = 'ABORTED'
+                steps.error("Unrecognized branch type for branch: " + pipeline.app.branch)
+            }
+
+        }
         // Abort pipeline on master branch
         if ("master".equals(pipeline.app.branch)) {
             steps.currentBuild.result = 'ABORTED'

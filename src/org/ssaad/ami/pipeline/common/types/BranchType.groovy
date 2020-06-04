@@ -6,6 +6,7 @@ enum BranchType {
     MASTER,
     DEVELOP,
     FEATURE,
+    PR,
     RELEASE,
     BUGFIX,
     HOTFIX
