@@ -25,12 +25,12 @@ class MavenFactory {
                 break
             case TaskType.QUALITY_SCANNING:
                 if (PluginType.MAVEN_SONAR_SCAN.equals(init.pluginType)) {
-                    maven.configItemId = "sonarqube"
+                    maven.configItemId = "sonarcloud"
                     maven.goals = "sonar:sonar"
-                    maven.params = "-Dsonar.projectKey=\${app.group}:\${app.id}:\${app.branch} " +
+                    /*paramsmaven.params = "-Dsonar.projectKey=\${app.group}:\${app.id}:\${app.branch} " +
                             "-Dsonar.projectName=\"\${app.name} (\${app.branch})\" " +
-                            "-DskipTests=true"
-//                    maven.params = "-DskipTests=true -Dsonar.branch=\${app.branch}" //sonar.branch.name
+                            "-DskipTests=true"*/
+                    maven.params = "-DskipTests=true -Dsonar.branch.name=\${app.branch}"
                 }
                 break
             case TaskType.DEPENDENCY_CHECK:
