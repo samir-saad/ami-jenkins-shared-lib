@@ -53,8 +53,8 @@ class PipelineFactory {
 
         pipeline.init(init)
 
-//        init.steps.println("Initial pipeline:")
-//        pipeline.print()
+        init.steps.println("Initial pipeline:")
+        pipeline.print()
 
         return pipeline
     }

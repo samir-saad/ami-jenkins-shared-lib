@@ -123,11 +123,11 @@ class MavenUtils {
         } finally {
             // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
             String owaspReport = "target/dependency-check-report.xml"
-            steps.println("Looking for dependency check reports: ${owaspReport}")
+            steps.println("Looking for dependency check report: ${owaspReport}")
 
             def files = steps.findFiles(glob: owaspReport)
             if (files.length > 0) {
-                steps.println("Publishing dependency check reports")
+                steps.println("Publishing dependency check report")
                 steps.dependencyCheckPublisher pattern: owaspReport
             }
         }
