@@ -147,4 +147,17 @@ class PipelineUtils {
     static String normalizePath(String path) {
         return path.replace("//", "/").trim()
     }
+
+    static Map toMap(Customizable object) {
+        def map = [:]
+        def fields = object.metaClass.getProperties().findAll { it.name != "class" }
+        fields.each {
+            def field = object.metaClass.getProperty(object, it.name)
+            if (field instanceof Customizable)
+                map[(it.name)] = toMap(field)
+            else
+                map[(it.name)] = field
+        }
+        return map
+    }
 }
