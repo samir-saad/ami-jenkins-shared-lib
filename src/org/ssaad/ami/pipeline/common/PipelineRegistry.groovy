@@ -10,14 +10,17 @@ class PipelineRegistry {
         pipelines.put(pipeline.buildId, pipeline)
     }
 
+    @NonCPS
     static void unregisterPipeline(String buildId) {
         pipelines.remove(buildId)
     }
 
+    @NonCPS
     static Pipeline getPipeline(String buildId) {
         return pipelines.get(buildId)
     }
 
+    @NonCPS
     static Object getPipelineSteps(String buildId) {
         return pipelines.get(buildId).steps
     }
