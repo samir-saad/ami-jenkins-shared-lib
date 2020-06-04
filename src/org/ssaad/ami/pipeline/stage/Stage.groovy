@@ -21,6 +21,7 @@ abstract class Stage implements Serializable, Customizable, Executable {
     Timeout stageTimeout = new Timeout()
     //StageInitialization initialization
 
+    @NonCPS
     boolean isActive() {
         Application app = PipelineRegistry.getPipeline(buildId).app
         def steps = PipelineRegistry.getPipelineSteps(buildId)
@@ -31,8 +32,8 @@ abstract class Stage implements Serializable, Customizable, Executable {
 
         boolean allowSnapshot =
                 (activation.allowSnapshot
-                ||
-                (!activation.allowSnapshot && !app?.version?.toUpperCase()?.contains("SNAPSHOT")))
+                        ||
+                        (!activation.allowSnapshot && !app?.version?.toUpperCase()?.contains("SNAPSHOT")))
 
         return enable && appTypeAllowed && branchAllowed && allowSnapshot
     }
