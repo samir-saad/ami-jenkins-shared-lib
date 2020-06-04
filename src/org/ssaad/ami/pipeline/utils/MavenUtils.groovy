@@ -83,15 +83,14 @@ class MavenUtils {
         Pipeline pipeline = PipelineRegistry.getPipeline(maven.buildId)
         Application app = pipeline.app
         steps.dir(pipeline.workspaceDir) {
-            // TO DO parameterize
+            // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
             String surefireReports = "${app.id}/target/surefire-reports/TEST-*.xml"
             steps.println("Looking for surefire reports: ${surefireReports}")
 
             def files = steps.findFiles(glob: surefireReports)
             if (files.length > 0) {
-                steps.println("Archive surefire reports")
+                steps.println("Publishing surefire reports")
                 steps.junit surefireReports
-//                steps.step([$class: 'JUnitResultArchiver', testResults: "${app.id}/target/surefire-reports/TEST-*.xml"])
             }
         }
     }
@@ -112,7 +111,30 @@ class MavenUtils {
     }
 
     static void dependencyCheck(Maven maven, steps) {
-        steps.sh(maven.command)
+        try {
+            // TO DO possibly switch to Jenkins plugin
+            steps.sh(maven.command)
+
+        } catch (Exception e) {
+            /*ByteArrayOutputStream baos = new ByteArrayOutputStream()
+            PrintStream ps = new PrintStream(baos, true, "UTF-8")
+            e.printStackTrace(ps)
+            String data = new String(baos.toByteArray(), StandardCharsets.UTF_8)
+            steps.println(data)*/
+            steps.currentBuild.result = 'FAILURE'
+            steps.error("Task ${maven.taskType} failed")
+
+        } finally {
+            // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
+            String owaspReport = "${app.id}/target/dependency-check-report.xml"
+            steps.println("Looking for dependency check reports: ${owaspReport}")
+
+            def files = steps.findFiles(glob: owaspReport)
+            if (files.length > 0) {
+                steps.println("Publishing dependency check reports")
+                steps.dependencyCheckPublisher pattern: owaspReport
+            }
+        }
     }
 
     static void binariesArchive(Maven maven, steps) {
