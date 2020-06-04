@@ -10,7 +10,7 @@
 	<name>AMI Jenkins Shared Library</name>
 
 	<properties>
-		<workflow-job.verion>2.10</workflow-job.verion>
+		<workflow-job.verion>2.15</workflow-job.verion>
 	</properties>
 
 	<dependencyManagement>
@@ -27,6 +27,7 @@
 		<dependency>
 			<groupId>org.jenkins-ci.plugins.workflow</groupId>
 			<artifactId>workflow-job</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -39,12 +40,6 @@
 			<artifactId>groovy-json</artifactId>
 			<version>2.4.3</version>
 		</dependency>
-
-		<!--<dependency>
-			<groupId>com.cloudbees.jenkins.plugins</groupId>
-			<artifactId>cloudbees-credentials</artifactId>
-			<version>3.3</version>
-		</dependency>-->
 
 		<dependency>
 			<groupId>org.jenkins-ci.plugins</groupId>
@@ -63,8 +58,6 @@
 			<artifactId>ssh-credentials</artifactId>
 			<version>1.13</version>
 		</dependency>
-
-
 
 		<dependency>
 			<groupId>com.lesfurets</groupId>
@@ -114,11 +107,17 @@
 
 	</dependencies>
 
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<id>spring-plugins-repository</id>
 			<name>Spring Plugins Repository</name>
 			<url>https://repo.spring.io/plugins-release/</url>
 		</repository>
-	</repositories>
+
+		<repository>
+			<id>spring-libs-repository</id>
+			<name>Spring Libs Repository</name>
+			<url>https://repo.spring.io/libs-release/</url>
+		</repository>
+	</repositories>-->
 </project>

@@ -148,6 +148,7 @@ class PipelineUtils {
         return path.replace("//", "/").trim()
     }
 
+    @NonCPS
     static Map toMap(Customizable object) {
         def map = [:]
         def fields = object.metaClass.getProperties().findAll { it.name != "class" }
