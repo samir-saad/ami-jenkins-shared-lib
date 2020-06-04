@@ -80,18 +80,14 @@ class MavenUtils {
         steps.sh(maven.command)
 
         //Archive test results
-        Pipeline pipeline = PipelineRegistry.getPipeline(maven.buildId)
-        Application app = pipeline.app
-        steps.dir(pipeline.workspaceDir) {
-            // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
-            String surefireReports = "${app.id}/target/surefire-reports/TEST-*.xml"
-            steps.println("Looking for surefire reports: ${surefireReports}")
+        // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
+        String surefireReports = "target/surefire-reports/TEST-*.xml"
+        steps.println("Looking for surefire reports: ${surefireReports}")
 
-            def files = steps.findFiles(glob: surefireReports)
-            if (files.length > 0) {
-                steps.println("Publishing surefire reports")
-                steps.junit surefireReports
-            }
+        def files = steps.findFiles(glob: surefireReports)
+        if (files.length > 0) {
+            steps.println("Publishing surefire reports")
+            steps.junit surefireReports
         }
     }
 
@@ -126,7 +122,7 @@ class MavenUtils {
 
         } finally {
             // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
-            String owaspReport = "${app.id}/target/dependency-check-report.xml"
+            String owaspReport = "target/dependency-check-report.xml"
             steps.println("Looking for dependency check reports: ${owaspReport}")
 
             def files = steps.findFiles(glob: owaspReport)
