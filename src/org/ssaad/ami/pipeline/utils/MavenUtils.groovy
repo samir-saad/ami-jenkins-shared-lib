@@ -83,10 +83,15 @@ class MavenUtils {
         Pipeline pipeline = PipelineRegistry.getPipeline(maven.buildId)
         Application app = pipeline.app
         steps.dir(pipeline.workspaceDir) {
-            steps.println("Looking for: ${app.id}/target/surefire-reports/TEST-*.xml")
-            if (steps.fileExists("${app.id}/target/surefire-reports/TEST-*.xml")) {
+            // TO DO parameterize
+            String surefireReports = "${app.id}/target/surefire-reports/TEST-*.xml"
+            steps.println("Looking for surefire reports: ${surefireReports}")
+
+            def files = steps.findFiles(glob: surefireReports)
+            if (files.length > 0) {
                 steps.println("Archive surefire reports")
-                steps.step([$class: 'JUnitResultArchiver', testResults: "${app.id}/target/surefire-reports/TEST-*.xml"])
+                steps.junit surefireReports
+//                steps.step([$class: 'JUnitResultArchiver', testResults: "${app.id}/target/surefire-reports/TEST-*.xml"])
             }
         }
     }
