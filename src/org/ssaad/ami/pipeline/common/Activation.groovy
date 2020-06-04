@@ -11,7 +11,7 @@ class Activation implements Serializable, Customizable {
     boolean allowSnapshot = true
 
     @NonCPS
-    static Activation getInstance(List<AppType> appTypes, List<BranchType> branchTypes){
+    static Activation getInstance(List<AppType> appTypes, List<BranchType> branchTypes) {
         Activation activation = new Activation()
         activation.allowedAppType = appTypes.toList()
         activation.allowedBranches = branchTypes.toList()
@@ -19,7 +19,7 @@ class Activation implements Serializable, Customizable {
     }
 
     @NonCPS
-    static Activation getInstance(List<AppType> appTypes, List<BranchType> branchTypes, boolean allowSnapshot){
+    static Activation getInstance(List<AppType> appTypes, List<BranchType> branchTypes, boolean allowSnapshot) {
         Activation activation = getInstance(appTypes, branchTypes)
         activation.allowSnapshot = allowSnapshot
         return activation
@@ -28,13 +28,13 @@ class Activation implements Serializable, Customizable {
     @NonCPS
     @Override
     void customize(Map config) {
-        if (config?.allowedAppType != null){
+        if (config?.allowedAppType != null) {
             this.allowedAppType.clear()
             for (String element : config.allowedAppType)
                 this.allowedAppType.add(element as AppType)
         }
 
-        if (config?.allowedBranches != null){
+        if (config?.allowedBranches != null) {
             this.allowedBranches.clear()
             for (String element : config.allowedBranches)
                 this.allowedBranches.add(element as BranchType)

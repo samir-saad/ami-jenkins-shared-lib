@@ -1,7 +1,11 @@
 package org.ssaad.ami.pipeline.utils
 
 import com.cloudbees.groovy.cps.NonCPS
-import org.ssaad.ami.pipeline.common.*
+import org.apache.commons.lang.ClassUtils
+import org.ssaad.ami.pipeline.common.Application
+import org.ssaad.ami.pipeline.common.Pipeline
+import org.ssaad.ami.pipeline.common.PipelineRegistry
+import org.ssaad.ami.pipeline.common.ScmRepository
 import org.ssaad.ami.pipeline.common.types.ScmType
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.Stage
@@ -149,16 +153,44 @@ class PipelineUtils {
     }
 
     @NonCPS
-    static Map toMap(Customizable object) {
+    static Map toMap(Object object) {
         def map = [:]
         def fields = object.metaClass.getProperties().findAll { it.name != "class" }
         fields.each {
+            // Get field
             def field = object.metaClass.getProperty(object, it.name)
-            if (field instanceof Customizable)
-                map[(it.name)] = toMap(field)
-            else
+
+            // Check if primitive
+
+            if (isPremitive(field))
                 map[(it.name)] = field
+            else if (field instanceof List) {
+                List l = new ArrayList()
+                field.each { element ->
+                    if (isPremitive(element))
+                        l.add(element)
+                    else
+                        l.add(toMap(element))
+                }
+                map[(it.name)] = l
+            } else if (field instanceof Map) {
+                Map m = new HashMap()
+                field.each { k, v ->
+                    if (isPremitive(v))
+                        m.put(k, v)
+                    else
+                        m.put(k, toMap(v))
+                }
+                map[(it.name)] = m
+            } else
+                map[(it.name)] = toMap(field)
+
         }
         return map
+    }
+
+    @NonCPS
+    static boolean isPremitive(Object field) {
+        return field == null || field instanceof String || field.class == null || ClassUtils.wrapperToPrimitive(field.class) || field instanceof Enum
     }
 }
