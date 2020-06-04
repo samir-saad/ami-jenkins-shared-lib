@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.stage
 
-import groovy.json.JsonOutput
+
 import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
@@ -66,8 +66,9 @@ class InitPipelineStage extends Stage {
         }
 
         steps.println("Customized pipeline:")
-//        pipeline.print()
-        steps.println(JsonOutput.toJson(pipeline.env))
+        pipeline.print()
+//        steps.println(JsonOutput.toJson(pipeline.env))
+        pipeline.printEnvVars()
 
         // Fix App dir
         // Make app directory at parent

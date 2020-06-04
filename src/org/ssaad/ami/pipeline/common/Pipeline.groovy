@@ -1,7 +1,6 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
-import groovy.json.JsonOutput
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
@@ -111,13 +110,18 @@ class Pipeline implements Serializable, Customizable, Executable {
             //def generator = new DefaultJsonGenerator()
             Map map = PipelineUtils.toMap(this)
             steps.println(map)
-            steps.println(JsonOutput.prettyPrint(JsonOutput.toJson(map)))
+//            steps.println(JsonOutput.prettyPrint(JsonOutput.toJson(map)))
             //steps.println(new JsonBuilder(this).toPrettyString())
 
         } catch (Exception e) {
             steps.println("Pipeline print error")
             e.printStackTrace()
         }
+    }
+
+    @NonCPS
+    void printEnvVars() {
+        env.getEnvironment().each { name, value -> steps.println "Name: $name -> Value $value" }
     }
 
     void cleanup() {
