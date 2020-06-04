@@ -3,6 +3,7 @@ package org.ssaad.ami.pipeline.utils
 import org.ssaad.ami.pipeline.common.Application
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
+import org.ssaad.ami.pipeline.common.types.BranchType
 import org.ssaad.ami.pipeline.common.types.PluginType
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.engine.Maven
@@ -97,6 +98,14 @@ class MavenUtils {
 
         if (PluginType.MAVEN_SONAR_SCAN.equals(maven.pluginType)) {
             steps.withSonarQubeEnv(maven.configItemId) {
+                if ([BranchType.FEATURE, BranchType.BUGFIX].contains(pipeline.app.branchType)) {
+                    maven.command = maven.command + " -Dsonar.branch.target=\"develop\""
+                } else if ([BranchType.RELEASE, BranchType.HOTFIX].contains(pipeline.app.branchType)) {
+                    maven.command = maven.command + " -Dsonar.branch.target=\"master\""
+                } else if ([BranchType.PR].contains(pipeline.app.branchType)) {
+
+                }
+
                 steps.sh(maven.command)
 
             }
