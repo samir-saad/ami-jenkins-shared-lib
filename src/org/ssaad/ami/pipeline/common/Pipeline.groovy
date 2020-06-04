@@ -1,12 +1,12 @@
 package org.ssaad.ami.pipeline.common
 
 import com.cloudbees.groovy.cps.NonCPS
+import groovy.json.JsonOutput
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.Stage
 import org.ssaad.ami.pipeline.stage.StageFactory
 import org.ssaad.ami.pipeline.stage.StageInitialization
 import org.ssaad.ami.pipeline.utils.PipelineUtils
-import groovy.json.JsonBuilder
 
 class Pipeline implements Serializable, Customizable, Executable {
 
@@ -51,7 +51,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_PIPELINE, null), buildId))
         this.stages.add(stageFactory.create(new StageInitialization(TaskType.INIT_CONFIG, null), buildId))
         // init configs
-        for(StageInitialization stageInitialization : stageInitList){
+        for (StageInitialization stageInitialization : stageInitList) {
             this.stages.add(stageFactory.create(stageInitialization, buildId))
         }
     }
@@ -108,7 +108,9 @@ class Pipeline implements Serializable, Customizable, Executable {
     @NonCPS
     void print() {
         try {
-            steps.println(new JsonBuilder(this).toPrettyString())
+            //def generator = new DefaultJsonGenerator()
+            steps.println(JsonOutput.toJson(this))
+            //steps.println(new JsonBuilder(this).toPrettyString())
 
         } catch (Exception e) {
             steps.println("Pipeline print error")
@@ -116,7 +118,7 @@ class Pipeline implements Serializable, Customizable, Executable {
         }
     }
 
-    void cleanup(){
+    void cleanup() {
         PipelineRegistry.unregisterPipeline(buildId)
         // TODO workspace cleanup
     }

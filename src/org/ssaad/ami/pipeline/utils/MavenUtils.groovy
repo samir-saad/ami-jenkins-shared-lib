@@ -80,7 +80,7 @@ class MavenUtils {
         steps.sh(maven.command)
 
         //Archive test results
-        // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
+        // TODO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
         String surefireReports = "target/surefire-reports/TEST-*.xml"
         steps.println("Looking for surefire reports: ${surefireReports}")
 
@@ -108,7 +108,7 @@ class MavenUtils {
 
     static void dependencyCheck(Maven maven, steps) {
         try {
-            // TO DO possibly switch to Jenkins plugin
+            // TODO possibly switch to Jenkins plugin
             steps.sh(maven.command)
 
         } catch (Exception e) {
@@ -121,7 +121,7 @@ class MavenUtils {
             steps.error("Task ${maven.taskType} failed")
 
         } finally {
-            // TO DO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
+            // TODO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
             String owaspReport = "target/dependency-check-report.xml"
             steps.println("Looking for dependency check report: ${owaspReport}")
 

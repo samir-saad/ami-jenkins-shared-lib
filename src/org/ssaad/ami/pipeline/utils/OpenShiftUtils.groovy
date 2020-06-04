@@ -1,6 +1,6 @@
 package org.ssaad.ami.pipeline.utils
 
-
+import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl
 import org.ssaad.ami.pipeline.common.*
 import org.ssaad.ami.pipeline.common.types.CreationPolicyType
 import org.ssaad.ami.pipeline.common.types.DeploymentType
@@ -9,7 +9,6 @@ import org.ssaad.ami.pipeline.engine.OpenShiftDeploy
 import org.ssaad.ami.pipeline.engine.OpenShiftS2I
 import org.ssaad.ami.pipeline.platform.OpenShift
 import org.ssaad.ami.pipeline.stage.PlatformStage
-import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl
 
 import java.nio.charset.StandardCharsets
 
@@ -82,7 +81,7 @@ class OpenShiftUtils implements Serializable {
                 String srcImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + template.params.get("IMAGE_TAG"))
                 String destImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + app.latestCommit)
                 String credentials = new String(secret.secret.value.decodeBase64())
-                // TO DO
+                // TODO
 //                copyImage(steps, srcImage, destImage, credentials, credentials)
 
             } catch (Exception e) {
@@ -142,7 +141,7 @@ class OpenShiftUtils implements Serializable {
         approveRelease(steps, app, pipeline, stage, engine, platform, deployment, template)
 
         // Push image with app version tag
-        if(EnvironmentType.DEV.equals(deployment.environmentType)){
+        if (EnvironmentType.DEV.equals(deployment.environmentType)) {
             steps.println("Pushing image with app version tag")
             Map bindings = ["platform": platform, "deployment": deployment, "engine": engine, "app": app, "stage": stage]
             StringCredentialsImpl secret = (StringCredentialsImpl) JenkinsUtils.getCredentials(engine.imagePushCredentialsId)
