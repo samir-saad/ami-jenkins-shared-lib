@@ -99,11 +99,18 @@ class MavenUtils {
         if (PluginType.MAVEN_SONAR_SCAN.equals(maven.pluginType)) {
             steps.withSonarQubeEnv(maven.configItemId) {
                 if ([BranchType.FEATURE, BranchType.BUGFIX].contains(pipeline.app.branchType)) {
-                    maven.command = maven.command + " -Dsonar.branch.target=\"develop\""
+                    maven.command = maven.command + " -Dsonar.branch.name=\${app.branch} -Dsonar.branch.target=\"develop\""
                 } else if ([BranchType.RELEASE, BranchType.HOTFIX].contains(pipeline.app.branchType)) {
-                    maven.command = maven.command + " -Dsonar.branch.target=\"master\""
+                    maven.command = maven.command + " -Dsonar.branch.name=\${app.branch} -Dsonar.branch.target=\"master\""
                 } else if ([BranchType.PR].contains(pipeline.app.branchType)) {
-
+                    def urlComponents = pipeline.env.CHANGE_URL.split("/")
+                    def org = urlComponents[3]
+                    def repo = urlComponents[4]
+                    maven.command = maven.command + " -Dsonar.pullrequest.provider=GitHub" +
+                            " -Dsonar.pullrequest.github.repository=${org}/${repo}" +
+                            " -Dsonar.pullrequest.key=${pipeline.env.CHANGE_ID}" +
+                            " -Dsonar.pullrequest.branch=${pipeline.env.CHANGE_BRANCH}" +
+                            " -Dsonar.pullrequest.base=${pipeline.env.CHANGE_TARGET}"
                 }
 
                 steps.sh(maven.command)

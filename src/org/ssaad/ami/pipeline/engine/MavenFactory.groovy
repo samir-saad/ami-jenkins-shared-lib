@@ -30,7 +30,7 @@ class MavenFactory {
                     /*paramsmaven.params = "-Dsonar.projectKey=\${app.group}:\${app.id}:\${app.branch} " +
                             "-Dsonar.projectName=\"\${app.name} (\${app.branch})\" " +
                             "-DskipTests=true"*/
-                    maven.params = "-DskipTests=true -Dsonar.branch.name=\${app.branch}"
+                    maven.params = "-DskipTests=true"
                 }
                 break
             case TaskType.DEPENDENCY_CHECK:
