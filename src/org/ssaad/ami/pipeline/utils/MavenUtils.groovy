@@ -123,6 +123,8 @@ class MavenUtils {
                             " -Dsonar.pullrequest.key=${pipeline.env.CHANGE_ID}" +
                             " -Dsonar.pullrequest.branch=${pipeline.env.CHANGE_BRANCH}" +
                             " -Dsonar.pullrequest.base=${pipeline.env.CHANGE_TARGET}"
+                } else {
+                    maven.command = maven.command + " -Dsonar.branch.name=\${app.branch}"
                 }
 
                 steps.sh(maven.command)
