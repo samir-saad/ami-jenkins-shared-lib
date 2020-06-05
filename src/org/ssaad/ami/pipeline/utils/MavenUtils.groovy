@@ -80,6 +80,7 @@ class MavenUtils {
     static void unitTests(Maven maven, steps) {
         steps.sh(maven.command)
 
+        steps.sh("sleep 300")
         //Archive test results
         // TODO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
         String surefireReports = "target/surefire-reports/TEST-*.xml"
@@ -106,12 +107,13 @@ class MavenUtils {
 
                 }
 
+                steps.sh("sleep 300")
                 steps.sh(maven.command)
-
             }
             steps.timeout(time: stage.stageTimeout.time, unit: stage.stageTimeout.unit) {
                 steps.waitForQualityGate(abortPipeline: true)
             }
+            steps.sh("sleep 300")
         }
     }
 
