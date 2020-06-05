@@ -118,7 +118,7 @@ class MavenUtils {
                     def urlComponents = pipeline.env.CHANGE_URL.split("/")
                     def org = urlComponents[3]
                     def repo = urlComponents[4]
-                    maven.command = maven.command + " -Dsonar.pullrequest.provider=GitHub" +
+                    maven.command = maven.command + " -Dsonar.pullrequest.provider=github" +
                             " -Dsonar.pullrequest.github.repository=${org}/${repo}" +
                             " -Dsonar.pullrequest.key=${pipeline.env.CHANGE_ID}" +
                             " -Dsonar.pullrequest.branch=${pipeline.env.CHANGE_BRANCH}" +
