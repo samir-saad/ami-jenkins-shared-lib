@@ -21,7 +21,7 @@ class MavenFactory {
                 maven.params = "-DskipTests=true"
                 break
             case TaskType.UNIT_TESTING:
-                maven.goals = "test"
+                maven.goals = "verify"
                 break
             case TaskType.QUALITY_SCANNING:
                 if (PluginType.MAVEN_SONAR_SCAN.equals(init.pluginType)) {
