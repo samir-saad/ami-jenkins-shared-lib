@@ -1,5 +1,3 @@
-import hudson.model.*
-
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineFactory
 import org.ssaad.ami.pipeline.common.PipelineInitialization
@@ -41,6 +39,7 @@ def call(Closure body) {
         post('Finalize') {
             always {
                 script {
+                    myPipeline.sendResults()
                     myPipeline.cleanup()
                 }
             }

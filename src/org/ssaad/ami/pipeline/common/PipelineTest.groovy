@@ -1,8 +1,8 @@
 package org.ssaad.ami.pipeline.common
 
+import groovy.json.JsonSlurper
 import org.ssaad.ami.pipeline.common.types.PipelineType
 import org.ssaad.ami.pipeline.common.types.ScmType
-import groovy.json.JsonSlurper
 
 class PipelineTest {
 
@@ -15,7 +15,7 @@ class PipelineTest {
 
         try {
             PipelineInitialization init = new PipelineInitialization()
-            init.pipelineType = PipelineType.SPRING_MAVEN_OPENSHIFT
+            init.pipelineType = PipelineType.JAVA_LIB_MAVEN
             init.buildId = "13"
             init.scm = ScmType.GIT
 
@@ -76,8 +76,10 @@ class PipelineTest {
                             "}"
             // using Map to convert to Person object appType
             pipeline.customize(new JsonSlurper().parseText(config))
+//            pipeline.env = new org.jenkinsci.plugins.workflow.cps.EnvActionImpl()
 
             steps.println("Customized pipeline:")
+//            PipelineUtils.toMap(pipeline.env)
             pipeline.print()
 
         } catch (Exception e) {

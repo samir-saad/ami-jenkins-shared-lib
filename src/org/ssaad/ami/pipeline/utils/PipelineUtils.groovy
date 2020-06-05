@@ -6,6 +6,7 @@ import org.ssaad.ami.pipeline.common.Application
 import org.ssaad.ami.pipeline.common.Pipeline
 import org.ssaad.ami.pipeline.common.PipelineRegistry
 import org.ssaad.ami.pipeline.common.ScmRepository
+import org.ssaad.ami.pipeline.common.types.MessageType
 import org.ssaad.ami.pipeline.common.types.ScmType
 import org.ssaad.ami.pipeline.common.types.TaskType
 import org.ssaad.ami.pipeline.stage.Stage
@@ -192,5 +193,35 @@ class PipelineUtils {
     @NonCPS
     static boolean isPremitive(Object field) {
         return field == null || field instanceof String || field.class == null || ClassUtils.wrapperToPrimitive(field.class) || field instanceof Enum
+    }
+
+    @NonCPS
+    static boolean notifyStarted(String buildId) {
+        SlackUtils.send(MessageType.INFO, "STARTED", buildId, true)
+    }
+
+    @NonCPS
+    static boolean sendBuildResults(String buildId) {
+        Pipeline pipeline = PipelineRegistry.getPipeline(buildId)
+        def steps = pipeline.steps
+
+        String message = steps.currentBuild.currentResult
+        MessageType messageType
+        switch (message) {
+            case "SUCCESS":
+                messageType = MessageType.SUCCESS
+                break
+            case ["UNSTABLE", "ABORTED"]:
+                messageType = MessageType.WARNING
+                break
+            case ["FAILURE", "NOT_BUILT"]:
+                messageType = MessageType.FAILURE
+                break
+            default:
+                messageType = MessageType.FAILURE
+                break
+        }
+
+        SlackUtils.send(messageType, message, buildId, true)
     }
 }

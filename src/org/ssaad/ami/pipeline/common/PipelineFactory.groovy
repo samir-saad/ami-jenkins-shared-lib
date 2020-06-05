@@ -3,6 +3,7 @@ package org.ssaad.ami.pipeline.common
 
 import org.ssaad.ami.pipeline.common.types.*
 import org.ssaad.ami.pipeline.stage.StageInitialization
+import org.ssaad.ami.pipeline.utils.PipelineUtils
 
 class PipelineFactory {
 
@@ -53,6 +54,7 @@ class PipelineFactory {
 
         pipeline.init(init)
 
+        PipelineUtils.notifyStarted(pipeline.buildId)
 //        init.steps.println("Initial pipeline:")
 //        pipeline.print()
 
