@@ -78,17 +78,29 @@ class MavenUtils {
     }
 
     static void unitTests(Maven maven, steps) {
-        steps.sh(maven.command)
+        try {
+            steps.sh(maven.command)
 
-        //Archive test results
-        // TODO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
-        String surefireReports = "target/surefire-reports/TEST-*.xml"
-        steps.println("Looking for surefire reports: ${surefireReports}")
+        } catch (Exception e) {
+            /*ByteArrayOutputStream baos = new ByteArrayOutputStream()
+            PrintStream ps = new PrintStream(baos, true, "UTF-8")
+            e.printStackTrace(ps)
+            String data = new String(baos.toByteArray(), StandardCharsets.UTF_8)
+            steps.println(data)*/
+            steps.currentBuild.result = 'FAILURE'
+            steps.error("Task ${maven.taskType} failed")
 
-        def files = steps.findFiles(glob: surefireReports)
-        if (files.length > 0) {
-            steps.println("Publishing surefire reports")
-            steps.junit surefireReports
+        } finally {
+            //Archive test results
+            // TODO parameterize. possible use of **/target for multi-module and target/**/sur... for nested dirs
+            String surefireReports = "target/surefire-reports/TEST-*.xml"
+            steps.println("Looking for surefire reports: ${surefireReports}")
+
+            def files = steps.findFiles(glob: surefireReports)
+            if (files.length > 0) {
+                steps.println("Publishing surefire reports")
+                steps.junit surefireReports
+            }
         }
     }
 
