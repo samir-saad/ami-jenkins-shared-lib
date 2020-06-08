@@ -28,7 +28,8 @@ class TemplateUtils implements Serializable {
     static Map<String, String> getDeploymentCommonParams() {
         Map<String, String> params = getCommonParams()
         params.put("OCP_OBJECT_NAME", '${app.id}')
-        params.put("IMAGE_NAME", 'docker.io/samirsaad/${app.id}')
+//        params.put("IMAGE_NAME", 'docker.io/samirsaad/${app.id}')
+        params.put("IMAGE_NAME", 'quay.io/samir.k.saad/${app.id}')
         params.put("IMAGE_TAG", '${app.version}')
         params.put("REPLICAS", '${deployment.replicas}')
 
