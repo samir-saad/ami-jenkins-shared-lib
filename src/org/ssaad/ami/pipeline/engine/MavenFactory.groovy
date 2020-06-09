@@ -53,7 +53,7 @@ class MavenFactory {
             case TaskType.SYSTEM_TESTING:
                 if (PluginType.MAVEN_SOAPUI.equals(init.pluginType)) {
                     maven.configDir = "src/test/soapui"
-                    maven.goals = "com.smartbear.soapui:soapui-maven-plugin:5.4.0:test"
+                    maven.goals = "com.smartbear.soapui:soapui-maven-plugin:test"
                     maven.params = "-Dsoapui.project=\${engine.configDir}/\${app.id}-soapui-project.xml " +
                             "-Dsoapui.properties=\${engine.configDir}/${init.environmentType.toString().toLowerCase()}.properties"
                 }
@@ -61,7 +61,7 @@ class MavenFactory {
             case TaskType.LOAD_TESTING:
                 if (PluginType.MAVEN_SOAPUI.equals(init.pluginType)) {
                     maven.configDir = "src/test/soapui"
-                    maven.goals = "com.smartbear.soapui:soapui-maven-plugin:5.4.0:loadtest"
+                    maven.goals = "com.smartbear.soapui:soapui-maven-plugin:loadtest"
                     maven.params = "-Dsoapui.project=\${engine.configDir}/\${app.id}-soapui-project.xml " +
                             "-Dsoapui.properties=\${engine.configDir}/${init.environmentType.toString().toLowerCase()}.properties"
                 }
