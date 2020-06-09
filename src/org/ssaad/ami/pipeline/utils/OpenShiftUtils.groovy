@@ -4,7 +4,6 @@ import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl
 import org.ssaad.ami.pipeline.common.*
 import org.ssaad.ami.pipeline.common.types.CreationPolicyType
 import org.ssaad.ami.pipeline.common.types.DeploymentType
-import org.ssaad.ami.pipeline.common.types.EnvironmentType
 import org.ssaad.ami.pipeline.engine.OpenShiftDeploy
 import org.ssaad.ami.pipeline.engine.OpenShiftS2I
 import org.ssaad.ami.pipeline.platform.OpenShift
@@ -82,7 +81,7 @@ class OpenShiftUtils implements Serializable {
                 String destImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + app.latestCommit)
                 String credentials = new String(secret.secret.value.decodeBase64())
                 // TODO
-//                copyImage(steps, srcImage, destImage, credentials, credentials)
+                copyImage(steps, srcImage, destImage, credentials, credentials)
 
             } catch (Exception e) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream()
@@ -141,7 +140,7 @@ class OpenShiftUtils implements Serializable {
         approveRelease(steps, app, pipeline, stage, engine, platform, deployment, template)
 
         // Push image with app version tag
-        if (EnvironmentType.DEV.equals(deployment.environmentType)) {
+        /*if (EnvironmentType.DEV.equals(deployment.environmentType)) {
             steps.println("Pushing image with app version tag")
             Map bindings = ["platform": platform, "deployment": deployment, "engine": engine, "app": app, "stage": stage]
             StringCredentialsImpl secret = (StringCredentialsImpl) JenkinsUtils.getCredentials(engine.imagePushCredentialsId)
@@ -149,8 +148,8 @@ class OpenShiftUtils implements Serializable {
             String srcImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + template.params.get("IMAGE_TAG"))
             String destImage = PipelineUtils.resolveVars(bindings, template.params.get("IMAGE_NAME") + ":" + app.version)
             String credentials = new String(secret.secret.value.decodeBase64())
-//            copyImage(steps, srcImage, destImage, credentials, credentials)
-        }
+            copyImage(steps, srcImage, destImage, credentials, credentials)
+        }*/
     }
 
     static void checkConfig(steps, Application app, Pipeline pipeline, PlatformStage stage, OpenShiftDeploy engine,
@@ -226,7 +225,7 @@ class OpenShiftUtils implements Serializable {
                 deleteTemplate(pipeline, deployment.autoScaling.autoScalingTemplate, bindings, steps)
             }
 
-            // Create image pull secret
+            /*// Create image pull secret
             steps.println("Create image pull secret ${engine.ocpSecretId} from ${engine.imagePullCredentialsId}")
             StringCredentialsImpl secret = (StringCredentialsImpl) JenkinsUtils.getCredentials(engine.imagePullCredentialsId)
             engine.imagePullSecretTemplate.params.put("TOKEN", secret.secret.value)
@@ -237,7 +236,7 @@ class OpenShiftUtils implements Serializable {
             String patch = '\'{"imagePullSecrets": [{"name":"' + imagePullSecretName + '"}]}\''
             def defaultSaSelector = steps.openshift.selector("ServiceAccount", "default")
             steps.println("Patch SA ${defaultSaSelector} :-> ${patch}")
-            defaultSaSelector.patch(patch)
+            defaultSaSelector.patch(patch)*/
 
             // Wait for old pods to terminate
             steps.println("Waiting 10 seconds for old pods to terminate")

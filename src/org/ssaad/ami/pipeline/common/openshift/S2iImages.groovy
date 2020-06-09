@@ -2,6 +2,9 @@ package org.ssaad.ami.pipeline.common.openshift
 
 class S2iImages implements Serializable {
 
-    static final JDK_1_6 = "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.6"
-    static final FUSE_JAVA_2_0 = "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:2.0"
+    static final JDK8_RHEL = "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest"
+    static final JDK8_UBI = "registry.access.redhat.com/ubi8/openjdk-8:latest"
+    static final JDK11_UBI = "registry.access.redhat.com/ubi8/openjdk-11:latest"
+    static final FUSE6_JAVA = "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:latest"
+    static final FUSE7_JAVA = "registry.access.redhat.com/fuse7/fuse-java-openshift:latest"
 }
