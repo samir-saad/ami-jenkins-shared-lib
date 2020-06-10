@@ -14,19 +14,31 @@ class OpenShiftFactory {
             case EnvironmentType.DEV:
                 openShift.id = "openshift-dev"
                 openShift.name = "OpenShift Dev"
-                openShift.clusterId = "dev" // Set cluster id
+                openShift.clusterId = "ocp-dev" // Set cluster id
                 openShift.project = "pipeline-demo-dev"
                 break
             case EnvironmentType.TEST:
                 openShift.id = "openshift-test"
                 openShift.name = "OpenShift TEST"
-                openShift.clusterId = "test" // Set cluster id
+                openShift.clusterId = "ocp-test" // Set cluster id
                 openShift.project = "pipeline-demo-test"
+                break
+            case EnvironmentType.QA:
+                openShift.id = "openshift-qa"
+                openShift.name = "OpenShift QA"
+                openShift.clusterId = "ocp-qa" // Set cluster id
+                openShift.project = "pipeline-demo-qa"
+                break
+            case EnvironmentType.STG:
+                openShift.id = "openshift-stg"
+                openShift.name = "OpenShift STG"
+                openShift.clusterId = "ocp-stg" // Set cluster id
+                openShift.project = "pipeline-demo-stg"
                 break
             case EnvironmentType.PROD:
                 openShift.id = "openshift-prod"
                 openShift.name = "OpenShift Prod"
-                openShift.clusterId = "prod" // Set cluster id
+                openShift.clusterId = "ocp-prod" // Set cluster id
                 openShift.project = "pipeline-demo-prod"
                 break
         }

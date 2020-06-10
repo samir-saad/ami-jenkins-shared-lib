@@ -14,5 +14,7 @@ enum TaskType {
     SYSTEM_TESTING,
     DEPLOY_TEST,
     LOAD_TESTING,
+    DEPLOY_QA,
+    DEPLOY_STG,
     DEPLOY_PROD
 }

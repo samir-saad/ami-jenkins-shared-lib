@@ -18,6 +18,12 @@ class DeploymentFactory {
             case EnvironmentType.TEST:
                 deployment.replicas = 2
                 break
+            case EnvironmentType.QA:
+                deployment.replicas = 2
+                break
+            case EnvironmentType.STG:
+                deployment.replicas = 2
+                break
             case EnvironmentType.PROD:
                 deployment.replicas = 2
                 break

@@ -2,12 +2,7 @@ package org.ssaad.ami.pipeline.stage
 
 import com.cloudbees.groovy.cps.NonCPS
 import org.ssaad.ami.pipeline.common.Activation
-import org.ssaad.ami.pipeline.common.types.AppType
-import org.ssaad.ami.pipeline.common.types.BranchType
-import org.ssaad.ami.pipeline.common.types.EngineType
-import org.ssaad.ami.pipeline.common.types.EnvironmentType
-import org.ssaad.ami.pipeline.common.types.PluginType
-import org.ssaad.ami.pipeline.common.types.TaskType
+import org.ssaad.ami.pipeline.common.types.*
 
 class StageFactory {
 
@@ -68,14 +63,14 @@ class StageFactory {
                 stage = new PlatformStage()
                 stage.id = "deploy-dev"
                 stage.name = "Deploy Dev"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
-                stage.testing = (EngineStage)new StageFactory().create(new StageInitialization(TaskType.SYSTEM_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.DEV), buildId)
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP])
+                stage.testing = (EngineStage) new StageFactory().create(new StageInitialization(TaskType.SYSTEM_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.DEV), buildId)
                 break
             case TaskType.SYSTEM_TESTING:
                 stage = new EngineStage()
                 stage.id = "system-testing"
                 stage.name = "System Testing"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP])
                 break
             case TaskType.DEPLOY_TEST:
                 stage = new PlatformStage()
@@ -83,13 +78,27 @@ class StageFactory {
                 stage.name = "Deploy Test"
                 stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
                 stage.confirmation.enable = true
-                stage.testing = (EngineStage)new StageFactory().create(new StageInitialization(TaskType.LOAD_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.TEST), buildId)
+                stage.testing = (EngineStage) new StageFactory().create(new StageInitialization(TaskType.LOAD_TESTING, EngineType.MAVEN, PluginType.MAVEN_SOAPUI, EnvironmentType.TEST), buildId)
                 break
             case TaskType.LOAD_TESTING:
                 stage = new EngineStage()
                 stage.id = "load-testing"
                 stage.name = "Load Testing"
                 stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.DEVELOP, BranchType.RELEASE])
+                break
+            case TaskType.DEPLOY_QA:
+                stage = new PlatformStage()
+                stage.id = "deploy-qa"
+                stage.name = "Deploy QA"
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE])
+                stage.confirmation.enable = true
+                break
+            case TaskType.DEPLOY_STG:
+                stage = new PlatformStage()
+                stage.id = "deploy-stg"
+                stage.name = "Deploy STG"
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE])
+                stage.confirmation.enable = true
                 break
             case TaskType.DEPLOY_PROD:
                 stage = new PlatformStage()

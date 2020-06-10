@@ -45,6 +45,14 @@ class PipelineFactory {
                         PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.TEST,
                         DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
 
+                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_QA, EngineType.OPENSHIFT,
+                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.QA,
+                        DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
+
+                init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_STG, EngineType.OPENSHIFT,
+                        PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.STG,
+                        DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))
+
                 init.stageInitList.add(new StageInitialization(TaskType.DEPLOY_PROD, EngineType.OPENSHIFT,
                         PluginType.OPENSHIFT_DEPLOY, AppRuntimeType.JDK, EnvironmentType.PROD,
                         DeploymentType.BLUE_GREEN, TemplateType.SPRING_BOOT_WITH_CLOUD_CONFIG, PlatformType.OPENSHIFT))

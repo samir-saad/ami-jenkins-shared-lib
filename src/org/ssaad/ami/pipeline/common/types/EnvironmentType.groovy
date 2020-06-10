@@ -4,5 +4,7 @@ enum EnvironmentType {
 
     DEV,
     TEST,
+    QA,
+    STG,
     PROD
 }
