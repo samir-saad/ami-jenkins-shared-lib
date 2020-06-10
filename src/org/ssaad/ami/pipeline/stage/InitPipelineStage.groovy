@@ -41,10 +41,10 @@ class InitPipelineStage extends Stage {
 
         }
         // Abort pipeline on master branch
-        if ("master".equals(pipeline.app.branch)) {
+        /*if ("master".equals(pipeline.app.branch)) {
             steps.currentBuild.result = 'ABORTED'
             steps.error("master branch isn't allowed")
-        }
+        }*/
 
         // Workspace base directory
         pipeline.workspaceDir = env.WORKSPACE
