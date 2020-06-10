@@ -34,6 +34,8 @@ class InitPipelineStage extends Stage {
                 pipeline.app.branchType = BranchType.BUGFIX
             else if (branch.startsWith("HOTFIX"))
                 pipeline.app.branchType = BranchType.HOTFIX
+            else if (branch.startsWith("V"))
+                pipeline.app.branchType = BranchType.TAG
             else {
                 steps.currentBuild.result = 'ABORTED'
                 steps.error("Unrecognized branch type for branch: " + pipeline.app.branch)

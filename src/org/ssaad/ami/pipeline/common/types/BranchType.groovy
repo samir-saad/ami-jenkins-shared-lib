@@ -9,6 +9,6 @@ enum BranchType {
     PR,
     RELEASE,
     BUGFIX,
-    HOTFIX
-
+    HOTFIX,
+    TAG
 }
