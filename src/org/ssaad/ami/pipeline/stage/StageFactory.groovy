@@ -97,14 +97,14 @@ class StageFactory {
                 stage = new PlatformStage()
                 stage.id = "deploy-stg"
                 stage.name = "Deploy STG"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE])
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE, BranchType.TAG])
                 stage.confirmation.enable = true
                 break
             case TaskType.DEPLOY_PROD:
                 stage = new PlatformStage()
                 stage.id = "deploy-prod"
                 stage.name = "Deploy Prod"
-                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.RELEASE], false)
+                stage.activation = Activation.getInstance([AppType.APPLICATION], [BranchType.TAG], false)
                 stage.confirmation.enable = true
                 break
         }
