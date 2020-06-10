@@ -3,10 +3,10 @@ package org.ssaad.ami.pipeline.common
 import com.cloudbees.groovy.cps.NonCPS
 
 class Timeout implements Serializable, Customizable {
-    int time = 5
+    int time = 30
     String unit = "MINUTES"
 
-    Timeout(){
+    Timeout() {
 
     }
 
