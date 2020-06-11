@@ -12,7 +12,7 @@ class ImageStreamFactory {
         ImageStream imageStream = new ImageStream()
         switch (init.appRuntimeType) {
             case AppRuntimeType.JDK:
-                imageStream.image = S2iImages.JDK11_UBI
+                imageStream.image = S2iImages.FABRIC8_JAVA11//JDK11_UBI
                 break
         }
 
